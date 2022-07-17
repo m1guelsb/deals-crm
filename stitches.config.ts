@@ -12,7 +12,7 @@ export const {
 } = createStitches({
   theme: {
     colors: {
-      primary: "#CABDFF",
+      primary: "#7221de",
       secondary: "#FF6A55",
 
       background1: "#111315",
@@ -24,16 +24,9 @@ export const {
       text3: "#5B6268",
 
       success: "#2B9941",
-      successLight: "#A4F1BF",
-
       warning: "#FB8E40",
-      warningLight: "#ffdfa1",
-
       error: "#F04545",
-      errorLight: "#ffc3c3",
-
       info: "#1156bd",
-      infoLight: "#d5e5ff",
     },
 
     fonts: {
@@ -45,27 +38,20 @@ export const {
       bold: "700",
     },
     fontSizes: {
-      "heading-1": "2rem",
-      "heading-2": "1.5rem",
-
-      "text-xl": "1.5rem",
-      "text-lg": "1.25rem",
-      "text-md": "1rem",
-      "text-sm": "0.875rem",
-      "text-xs": "0.75rem",
-    },
-
-    borderWidths: {
-      sm: "0.063rem",
-      md: "0.094rem",
-      lg: "0.125rem",
+      "4xl": "4rem",
+      "3xl": "3rem",
+      "2xl": "2rem",
+      "xl": "1.5rem",
+      "lg": "1.25rem",
+      "md": "1rem",
+      "sm": "0.875rem",
+      "xs": "0.75rem",
     },
 
     radii: {
-      sm: "0.25rem",
-      md: "0.5rem",
-      lg: "0.625rem",
-      rounded: "9999px",
+      sm: "1rem",
+      md: "1.5rem",
+      lg: "2rem",
     },
   },
 
@@ -93,7 +79,7 @@ export const stitchesGlobalStyles = globalCss({
 
     "@breakpoint1": {
       //1024px
-      fontSize: "12px",
+      fontSize: "14px",
     },
   },
   "*": {
