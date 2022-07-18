@@ -14,8 +14,6 @@ export const Icon = ({ src, ...props }: IconProps) => {
 };
 
 const IconContainer = styled("span", {
-  "color": "red",
-
   "& svg": {
     display: "flex",
     alignItems: "center",
@@ -23,6 +21,11 @@ const IconContainer = styled("span", {
   },
 
   "variants": {
+    sType: {
+      primary: {
+        iconColor: "$text1",
+      },
+    },
     sSize: {
       small: {
         "& svg": { height: "1rem", width: "1rem" },
@@ -32,29 +35,6 @@ const IconContainer = styled("span", {
       },
       large: {
         "& svg": { height: "2rem", width: "2rem" },
-      },
-    },
-    sType: {
-      primary: {
-        "& svg": {
-          "& path": {
-            stroke: "$text1",
-          },
-          "& circle": {
-            stroke: "$text1",
-          },
-        },
-      },
-
-      error: {
-        "& svg": {
-          "& path": {
-            stroke: "$error",
-          },
-          "& circle": {
-            stroke: "$error",
-          },
-        },
       },
     },
   },

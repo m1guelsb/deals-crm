@@ -1,6 +1,6 @@
 import { styled } from "@/stitches.config";
 import { Icon } from "@/components/media/Icon";
-import { warning } from "@/assets/icons";
+import { error } from "@/assets/icons";
 
 interface ErrorMessageProps {
   message: string;
@@ -9,7 +9,7 @@ interface ErrorMessageProps {
 export const ErrorMessage = ({ message }: ErrorMessageProps) => {
   return (
     <ErrorContainer>
-      <Icon sSize={"small"} sType={"error"} src={warning.src} />
+      <Icon sSize={"small"} css={{ iconColor: "$error" }} src={error.src} />
       <p>{message}</p>
     </ErrorContainer>
   );

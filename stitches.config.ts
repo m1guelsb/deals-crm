@@ -70,6 +70,14 @@ export const {
       paddingTop: value,
       paddingBottom: value,
     }),
+
+    iconColor: (value: string) => ({
+      "& svg": {
+        "& path": {
+          fill: value,
+        },
+      },
+    }),
   },
 });
 
