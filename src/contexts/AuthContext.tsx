@@ -85,7 +85,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       getUser();
 
-      //Router.push("/dashboard");
+      Router.push("/dashboard");
     } catch (error) {
       const err = error as AxiosError;
       setError(err);
