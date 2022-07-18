@@ -1,13 +1,12 @@
 import { styled, keyframes } from "@/stitches.config";
 import * as ToastPrimitive from "@radix-ui/react-toast";
-
 import {
   closeCircle,
   toastSuccess,
   toastInfo,
   toastError,
 } from "@/assets/icons";
-import { Icon } from "@/components/media/Icon";
+import { Icon } from "@/components/media";
 
 const VIEWPORT_PADDING = 10;
 

@@ -1,9 +1,9 @@
 /* eslint-disable react/display-name */
 import { ComponentProps, forwardRef } from "react";
 import { styled } from "@/stitches.config";
-import { ErrorMessage } from "@/components/feedback/ErrorMessage";
-import { inputBaseStyle } from "./input-base.styled";
-import { labelBaseStyled } from "./label-base.styled";
+import { ErrorMessage } from "@/components/feedback/ErrorMessage/ErrorMessage";
+import { inputBaseStyle } from "@/components/form/inputs/input-base.style";
+import { labelBaseStyled } from "@/components/form/inputs/label-base.style";
 
 interface InputProps extends ComponentProps<typeof InputElement> {
   label: string;

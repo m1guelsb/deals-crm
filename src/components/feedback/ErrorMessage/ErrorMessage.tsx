@@ -1,5 +1,5 @@
 import { styled } from "@/stitches.config";
-import { Icon } from "@/components/media/Icon";
+import { Icon } from "@/components/media";
 import { error } from "@/assets/icons";
 
 interface ErrorMessageProps {

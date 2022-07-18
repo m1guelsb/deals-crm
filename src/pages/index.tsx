@@ -1,14 +1,14 @@
 import { useContext, useEffect } from "react";
 import Image from "next/image";
 import Head from "next/head";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import type { NextPage } from "next";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Logo as LogoIMG } from "@/assets/images";
 import { Button, Input } from "@/components/form";
-import { Heading } from "@/components/typography/Heading";
+import { Heading } from "@/components/typography";
 import { loading } from "@/assets/icons";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { signInFormSchema } from "@/utils/validations/yup";
 import { styled } from "@/stitches.config";
 import { useToast } from "@/hooks/helpers/useToast";

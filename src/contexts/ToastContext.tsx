@@ -5,7 +5,8 @@ import {
   ToastViewport,
 } from "@radix-ui/react-toast";
 import { styled } from "@/stitches.config";
-import { Toast, ToastProps } from "../components/overlay/Toast";
+import { Toast } from "../components/overlay";
+import { ToastProps } from "@/components/overlay/Toast/Toast";
 
 const StyledToastViewport = styled(ToastViewport, {
   position: "fixed",
@@ -36,7 +37,7 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
   const [toaster, setToaster] = useState<ToastProps[]>([]);
 
   const newToast = useCallback(
-    ({ title, description, styleType, duration }: ToastProps) => {
+    ({ title, styleType, duration }: ToastProps) => {
       const randomId = Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
@@ -44,7 +45,6 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
       const newToast = {
         id: randomId,
         title,
-        description,
         styleType,
         duration,
       };
@@ -63,7 +63,6 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
         <Toast
           key={toast.id}
           title={toast.title}
-          description={toast.description}
           styleType={toast.styleType}
           duration={toast.duration}
         />
@@ -72,4 +71,3 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
     </BaseToastProvider>
   );
 };
-

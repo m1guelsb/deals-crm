@@ -1,7 +1,7 @@
 import { ComponentProps } from "react";
-import { Icon } from "@/components/media/Icon";
+import { Icon } from "@/components/media/Icon/Icon";
 import { styled } from "@/stitches.config";
-import { buttonBaseStyle } from "./button-base.styled";
+import { buttonBaseStyle } from "@/components/form/buttons/button-base.style";
 
 interface ButtonProps extends ComponentProps<typeof ButtonElement> {
   leftIcon?: string;
