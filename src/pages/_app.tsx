@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import { stitchesGlobalStyles } from "@/stitches.config";
 import { QueryProvider } from "@/contexts/QueryContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ToastProvider } from "@/contexts/ToastContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   stitchesGlobalStyles();
@@ -9,7 +10,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <QueryProvider pageProps={pageProps}>
-        <Component {...pageProps} />
+        <ToastProvider>
+          <Component {...pageProps} />
+        </ToastProvider>
       </QueryProvider>
     </AuthProvider>
   );

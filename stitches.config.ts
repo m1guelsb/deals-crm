@@ -23,10 +23,9 @@ export const {
       text2: "#9A9FA5",
       text3: "#5B6268",
 
-      success: "#2B9941",
-      warning: "#FB8E40",
-      error: "#F04545",
-      info: "#1156bd",
+      success: "#66b576",
+      error: "#f34a5e",
+      info: "#2866c3",
     },
 
     fonts: {
