@@ -1,16 +1,16 @@
-import { styled } from "@/styles/stitches.config";
+import { styled, theme } from "@/styles/stitches.config";
 
 export const Heading = styled("h1", {
   variants: {
     sType: {
       1: {
-        fontSize: "$4xl",
+        fontSize: theme.fontSizes["4xl"],
       },
       2: {
-        fontSize: "$3xl",
+        fontSize: theme.fontSizes["3xl"],
       },
       3: {
-        fontSize: "$2xl",
+        fontSize: theme.fontSizes["2xl"],
       },
     },
   },

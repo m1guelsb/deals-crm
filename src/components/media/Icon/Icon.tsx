@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 import { ReactSVG } from "react-svg";
-import { styled } from "@/styles/stitches.config";
+import { styled, theme } from "@/styles/stitches.config";
 
 interface IconProps extends ComponentProps<typeof IconContainer> {
   src: string;
@@ -15,15 +15,18 @@ export const Icon = ({ src, ...props }: IconProps) => {
 
 const IconContainer = styled("span", {
   "& svg": {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    _alignCenter: true,
   },
 
+  "color": theme.colors.background1,
+
   "variants": {
-    sType: {
-      primary: {
-        iconColor: "$text1",
+    svg: {
+      fill: {
+        _iconColor: { fill: theme.colors.text1 },
+      },
+      stroke: {
+        _iconColor: { stroke: theme.colors.text1 },
       },
     },
     sSize: {
@@ -41,6 +44,6 @@ const IconContainer = styled("span", {
 
   "defaultVariants": {
     sSize: "medium",
-    sType: "primary",
+    svg: "fill",
   },
 });

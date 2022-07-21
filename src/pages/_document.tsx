@@ -3,7 +3,7 @@ import { getCssText } from "@/styles/stitches.config";
 
 export default function Document() {
   return (
-    <Html lang="en-us">
+    <Html lang="en">
       <Head>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

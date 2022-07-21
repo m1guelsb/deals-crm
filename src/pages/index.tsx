@@ -8,9 +8,9 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { Logo as LogoIMG } from "@/assets/images";
 import { Button, Input } from "@/components/form";
 import { Heading } from "@/components/typography";
-import { loading } from "@/assets/icons";
+import { user as userIcon, lock, loading } from "@/assets/icons";
 import { signInFormSchema } from "@/utils/validations/yup";
-import { styled } from "@/styles/stitches.config";
+import { styled, theme } from "@/styles/stitches.config";
 import { useToast } from "@/hooks/helpers/useToast";
 import { Icon } from "@/components/media";
 
@@ -79,19 +79,19 @@ const SignIn: NextPage = () => {
             </Heading>
 
             <Input
-              label={"Username"}
               sSize={"large"}
               placeholder="Enter username"
               errorMessage={inputError.username?.message}
+              leftIcon={<Icon src={userIcon.src} />}
               css={{ width: "100%" }}
               {...register("username")}
             />
             <Input
-              label={"Password"}
               sSize={"large"}
               placeholder="Enter password"
               type={"password"}
               errorMessage={inputError.password?.message}
+              leftIcon={<Icon src={lock.src} />}
               css={{ width: "100%" }}
               {...register("password")}
             />
@@ -99,7 +99,9 @@ const SignIn: NextPage = () => {
             <Button
               sSize={"large"}
               type={"submit"}
-              rightIcon={loginLoading && <Icon src={loading.src} />}
+              rightIcon={
+                loginLoading && <Icon svg={"stroke"} src={loading.src} />
+              }
               disabled={loginLoading}
               css={{ width: "100%" }}
             >
@@ -122,7 +124,7 @@ const Container = styled("div", {
   alignItems: "center",
   justifyContent: "center",
 
-  backgroundColor: "$background1",
+  backgroundColor: theme.colors.background1,
 });
 
 const SignInBox = styled("div", {
@@ -155,7 +157,7 @@ const SignInForm = styled("form", {
   gap: "2rem",
 
   padding: "3rem",
-  borderRadius: "$md",
+  borderRadius: theme.radii.md,
 
-  backgroundColor: "$background2",
+  backgroundColor: theme.colors.background2,
 });
