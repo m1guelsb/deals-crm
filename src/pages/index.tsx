@@ -10,8 +10,9 @@ import { Button, Input } from "@/components/form";
 import { Heading } from "@/components/typography";
 import { loading } from "@/assets/icons";
 import { signInFormSchema } from "@/utils/validations/yup";
-import { styled } from "@/stitches.config";
+import { styled } from "@/styles/stitches.config";
 import { useToast } from "@/hooks/helpers/useToast";
+import { Icon } from "@/components/media";
 
 interface SignInFormInputs {
   username: string;
@@ -98,7 +99,7 @@ const SignIn: NextPage = () => {
             <Button
               sSize={"large"}
               type={"submit"}
-              rightIcon={loginLoading && loading.src}
+              rightIcon={loginLoading && <Icon src={loading.src} />}
               disabled={loginLoading}
               css={{ width: "100%" }}
             >

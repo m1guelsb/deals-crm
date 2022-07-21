@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { stitchesGlobalStyles } from "@/stitches.config";
+import { stitchesGlobalStyles } from "@/styles/stitches.config";
 import { QueryProvider } from "@/contexts/QueryContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ToastProvider } from "@/contexts/ToastContext";

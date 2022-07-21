@@ -4,7 +4,7 @@ import {
   Provider as BaseToastProvider,
   ToastViewport,
 } from "@radix-ui/react-toast";
-import { styled } from "@/stitches.config";
+import { styled } from "@/styles/stitches.config";
 import { Toast } from "../components/overlay";
 import { ToastProps } from "@/components/overlay/Toast/Toast";
 

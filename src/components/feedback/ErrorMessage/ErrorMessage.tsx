@@ -1,4 +1,4 @@
-import { styled } from "@/stitches.config";
+import { styled } from "@/styles/stitches.config";
 import { Icon } from "@/components/media";
 import { error } from "@/assets/icons";
 

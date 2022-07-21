@@ -1,15 +1,9 @@
-import { createStitches } from "@stitches/react";
+import * as Stitches from "@stitches/react";
 
-export const {
-  styled,
-  css,
-  globalCss,
-  keyframes,
-  getCssText,
-  theme,
-  createTheme,
-  config,
-} = createStitches({
+export type CSS = Stitches.CSS<typeof config>;
+export type VariantProps<T> = Stitches.VariantProps<T>;
+
+const stitches = Stitches.createStitches({
   theme: {
     colors: {
       primary: "#7221de",
@@ -77,8 +71,44 @@ export const {
         },
       },
     }),
+
+    _flexColumn: () => ({
+      display: "flex",
+      flexDirection: "column",
+    }),
+
+    _alignCenter: () => ({
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }),
+
+    _lineClamp: (value: number) => ({
+      display: "-webkit-box",
+      WebkitLineClamp: value,
+      WebkitBoxOrient: "vertical",
+      overflow: "hidden",
+    }),
+
+    //truncate a line of text with a ellipsis
+    _truncate: () => ({
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+    }),
   },
 });
+
+export const {
+  styled,
+  css,
+  globalCss,
+  keyframes,
+  getCssText,
+  theme,
+  createTheme,
+  config,
+} = stitches;
 
 export const stitchesGlobalStyles = globalCss({
   ":root": {

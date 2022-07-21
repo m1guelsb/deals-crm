@@ -1,4 +1,4 @@
-import { styled, keyframes } from "@/stitches.config";
+import { styled, keyframes } from "@/styles/stitches.config";
 import * as ToastPrimitive from "@radix-ui/react-toast";
 import {
   closeCircle,

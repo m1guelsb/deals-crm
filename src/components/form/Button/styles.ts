@@ -1,6 +1,8 @@
-import { css } from "@/stitches.config";
+import { styled, VariantProps } from "@/styles/stitches.config";
 
-export const buttonBaseStyle = css({
+export type ButtonVariants = VariantProps<typeof Button>;
+
+export const Button = styled("button", {
   "width": "fit-content",
 
   "color": "$text1",
@@ -52,9 +54,43 @@ export const buttonBaseStyle = css({
         },
       },
     },
+    sSize: {
+      small: {
+        height: "2.5rem",
+        gap: "0.25rem",
+        padding: "1.25rem",
+        fontSize: "$sm",
+      },
+      medium: {
+        height: "3rem",
+        gap: "0.5rem",
+        padding: "1.5rem",
+        fontSize: "$md",
+      },
+      large: {
+        height: "4rem",
+        gap: "0.75rem",
+        padding: "1.75rem",
+        fontSize: "$lg",
+      },
+    },
+
+    sRadius: {
+      small: {
+        borderRadius: "$sm",
+      },
+      medium: {
+        borderRadius: "$md",
+      },
+      large: {
+        borderRadius: "$lg",
+      },
+    },
   },
 
   "defaultVariants": {
     sType: "primary",
+    sSize: "medium",
+    sRadius: "medium",
   },
 });

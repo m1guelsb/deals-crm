@@ -1,9 +1,14 @@
-import { css } from "@/stitches.config";
+import { styled, VariantProps } from "@/styles/stitches.config";
 
-export const inputBaseStyle = css({
+export type InputVariants = VariantProps<typeof InputWrapper>;
+
+export const Wrapper = styled("div", {
+  _flexColumn: true,
+  width: "100%",
+  gap: "0.25rem",
+});
+export const InputWrapper = styled("span", {
   "color": "$text1",
-
-  "width": "21rem",
 
   "display": "flex",
   "alignItems": "center",
@@ -19,7 +24,7 @@ export const inputBaseStyle = css({
     filter: "brightness(0.7)",
     pointerEvents: "none",
   },
-  "&:focus": {
+  "&:focus-within": {
     outlineColor: "$primary",
     outlineStyle: "solid",
     outlineWidth: "0.2rem",
@@ -73,5 +78,33 @@ export const inputBaseStyle = css({
     sType: "primary",
     sSize: "medium",
     sRadius: "medium",
+  },
+});
+export const Input = styled("input", {
+  height: "100%",
+  width: "100%",
+
+  background: "transparent",
+  opacity: "0.8",
+  color: "$text1",
+
+  border: 0,
+  outline: 0,
+});
+export const Label = styled("label", {
+  color: "$text1",
+
+  variants: {
+    sSize: {
+      small: {
+        fontSize: "$sm",
+      },
+      medium: {
+        fontSize: "$md",
+      },
+      large: {
+        fontSize: "$lg",
+      },
+    },
   },
 });

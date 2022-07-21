@@ -23,6 +23,7 @@
       "@/utils/*": ["src/utils/*"],
       "@/contexts/*": ["src/contexts/*"],
       "@/types/*": ["src/types/*"],
+      "@/styles/*": ["src/styles/*"],
       "@/*": ["*"]
     }
   },

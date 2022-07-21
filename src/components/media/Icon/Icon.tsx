@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 import { ReactSVG } from "react-svg";
-import { styled } from "@/stitches.config";
+import { styled } from "@/styles/stitches.config";
 
 interface IconProps extends ComponentProps<typeof IconContainer> {
   src: string;
