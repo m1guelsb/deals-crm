@@ -1,6 +1,5 @@
-import { ToastProvider } from "@/contexts/ToastContext";
-import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
+import { ToastProvider } from "@/contexts/ToastContext";
 import { Toast } from "./Toast";
 
 describe("Toast component", () => {

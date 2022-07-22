@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import { Icon } from "@/components/media";
 import { error } from "@/assets/icons";
