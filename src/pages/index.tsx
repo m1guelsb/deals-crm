@@ -80,18 +80,18 @@ const SignIn: NextPage = () => {
 
             <Input
               sSize={"large"}
-              placeholder="Enter username"
+              placeholder="Insert username => [m1guelsb]"
               errorMessage={inputError.username?.message}
-              leftIcon={<Icon src={userIcon.src} />}
+              rightIcon={<Icon src={userIcon.src} />}
               css={{ width: "100%" }}
               {...register("username")}
             />
             <Input
               sSize={"large"}
-              placeholder="Enter password"
+              placeholder="Insert password => [123]"
               type={"password"}
               errorMessage={inputError.password?.message}
-              leftIcon={<Icon src={lock.src} />}
+              rightIcon={<Icon src={lock.src} />}
               css={{ width: "100%" }}
               {...register("password")}
             />
@@ -128,8 +128,8 @@ const Container = styled("div", {
 });
 
 const SignInBox = styled("div", {
-  width: "70rem",
-  minHeight: "35rem",
+  width: "65rem",
+  height: "fit-content",
 
   display: "flex",
 });
