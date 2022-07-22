@@ -59,9 +59,9 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
       <ToastContext.Provider value={{ newToast }}>
         {children}
       </ToastContext.Provider>
-      {toaster?.map((toast, index) => (
+      {toaster?.map((toast) => (
         <Toast
-          key={index}
+          key={toast.id}
           title={toast.title}
           styleType={toast.styleType}
           duration={toast.duration}

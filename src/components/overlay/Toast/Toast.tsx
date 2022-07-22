@@ -17,6 +17,7 @@ export interface ToastProps {
   title: string;
   duration?: number;
   styleType: "success" | "error" | "info";
+  id?: string;
   role?: "alertdialog";
 }
 
