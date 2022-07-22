@@ -36,23 +36,19 @@ interface ToastProviderProps {
 export const ToastProvider = ({ children }: ToastProviderProps) => {
   const [toaster, setToaster] = useState<ToastProps[]>([]);
 
-  const newToast = useCallback(
-    ({ title, styleType, duration }: ToastProps) => {
-      const randomId = Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
+  const newToast = useCallback(({ title, styleType, duration }: ToastProps) => {
+    const randomId = Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
 
-      const newToast = {
-        id: randomId,
-        title,
-        styleType,
-        duration,
-      };
-      setToaster([...toaster, newToast]);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [setToaster]
-  );
+    const newToast = {
+      id: randomId,
+      title,
+      styleType,
+      duration,
+    };
+    setToaster((toaster) => [...toaster, newToast]);
+  }, []);
 
   return (
     <BaseToastProvider>
