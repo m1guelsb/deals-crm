@@ -8,13 +8,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   stitchesGlobalStyles();
 
   return (
-    <AuthProvider>
-      <QueryProvider pageProps={pageProps}>
-        <ToastProvider>
+    <ToastProvider>
+      <AuthProvider>
+        <QueryProvider pageProps={pageProps}>
           <Component {...pageProps} />
-        </ToastProvider>
-      </QueryProvider>
-    </AuthProvider>
+        </QueryProvider>
+      </AuthProvider>
+    </ToastProvider>
   );
 }
 
