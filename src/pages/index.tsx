@@ -44,19 +44,9 @@ const SignIn: NextPage = () => {
     username,
     password,
   }) => {
-    await signIn({ username, password });
+    signIn({ username, password });
     reset();
   };
-
-  useEffect(() => {
-    if (loginError?.response?.status === 401) {
-      newToast({
-        styleType: "error",
-        title: "Wrong credentials!",
-        duration: 3000,
-      });
-    }
-  }, [loginError?.response?.status, newToast]);
 
   return (
     <>
