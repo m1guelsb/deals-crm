@@ -2,37 +2,38 @@ import { api } from "@/services/axios";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 
-interface useGETProps {
-  onSuccess?: () => void;
-  onError?: () => void;
+interface useGETProps<ResponseDataType> {
+  onSuccess?(response: AxiosResponse<ResponseDataType>): void;
+  onError?(err: AxiosError): void;
 }
 export const useGET = <ResponseDataType>({
-  onError,
   onSuccess,
-}: useGETProps) => {
-  const [response, setResponse] = useState<
-    AxiosResponse<ResponseDataType> | undefined
-  >();
+  onError,
+}: useGETProps<ResponseDataType>) => {
+  const [response, setResponse] = useState<AxiosResponse<ResponseDataType>>();
   const [error, setError] = useState<AxiosError>();
   const [loading, setLoading] = useState(false);
 
   const GET = useCallback(
-    (url: string, configs?: AxiosRequestConfig<any> | undefined) => {
-      setLoading(true);
-      api
-        .get<ResponseDataType>(url, configs)
-        .then((response) => {
-          setResponse(response);
-          if (onSuccess) onSuccess();
-        })
-        .catch((error) => {
-          setError(error);
-          if (onError) onError();
-        })
-        .finally(() => setLoading(false));
+    async (url: string, configs?: AxiosRequestConfig) => {
+      try {
+        setLoading(true);
+        setError(undefined);
+
+        const response = await api.get<ResponseDataType>(url, configs);
+
+        setResponse(response);
+        onSuccess?.(response);
+        return response.data;
+      } catch (error) {
+        const err = error as AxiosError;
+        setError(err);
+        onError?.(err);
+      } finally {
+        setLoading(false);
+      }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [onError, onSuccess]
   );
 
   return { response, error, loading, GET };

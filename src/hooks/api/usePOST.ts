@@ -2,38 +2,43 @@ import { api } from "@/services/axios";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 
-interface usePOSTProps {
-  onSuccess?: () => void;
-  onError?: () => void;
+interface usePOSTProps<ResponseDataType> {
+  onSuccess?(response: AxiosResponse<ResponseDataType>): void;
+  onError?(err: AxiosError): void;
 }
 
-export const usePOST = <ResponseDataType>({
+export const usePOST = <ResponseDataType, PayloadDataType = any>({
   onSuccess,
   onError,
-}: usePOSTProps = {}) => {
-  const [response, setResponse] = useState<
-    AxiosResponse<ResponseDataType> | undefined
-  >();
+}: usePOSTProps<ResponseDataType>) => {
+  const [response, setResponse] = useState<AxiosResponse<ResponseDataType>>();
   const [error, setError] = useState<AxiosError>();
   const [loading, setLoading] = useState(false);
 
   const POST = useCallback(
-    (url: string, data: any, configs?: AxiosRequestConfig<any> | undefined) => {
-      setLoading(true);
-      api
-        .post(url, data, configs)
-        .then((response) => {
-          setResponse(response);
-          if (onSuccess) onSuccess();
-        })
-        .catch((error) => {
-          setError(error);
-          if (onError) onError();
-        })
-        .finally(() => setLoading(false));
+    async (
+      url: string,
+      data: PayloadDataType,
+      configs?: AxiosRequestConfig
+    ) => {
+      try {
+        setLoading(true);
+        setError(undefined);
+
+        const response = await api.post<ResponseDataType>(url, data, configs);
+
+        setResponse(response);
+        onSuccess?.(response);
+        return response.data;
+      } catch (error) {
+        const err = error as AxiosError;
+        setError(err);
+        onError?.(err);
+      } finally {
+        setLoading(false);
+      }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [onError, onSuccess]
   );
 
   return { response, error, loading, POST };
