@@ -3,9 +3,9 @@ export const defaultTheme = {
     primary: "#7221de",
     secondary: "#FF6A55",
 
-    background1: "#111315",
-    background2: "#1A1D1F",
-    background3: "#2B3034",
+    background1: "#141320",
+    background2: "#1c1a2d",
+    background3: "#26243e",
 
     text1: "#EFEFEF",
     text2: "#9A9FA5",
@@ -36,8 +36,6 @@ export const defaultTheme = {
   },
 
   radii: {
-    sm: "1rem",
-    md: "1.5rem",
-    lg: "2rem",
+    md: "0.75rem",
   },
 };

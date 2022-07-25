@@ -14,7 +14,9 @@ export const InputWrapper = styled("span", {
   "alignItems": "center",
   "justifyContent": "center",
 
-  "border": "none",
+  "borderWidth": "0.1rem",
+  "borderColor": "$background1",
+  "borderStyle": "solid",
 
   "userSelect": "none",
 
@@ -38,15 +40,6 @@ export const InputWrapper = styled("span", {
     },
 
     sSize: {
-      small: {
-        "height": "2.5rem",
-        "_paddingX": "0.75rem",
-        "gap": "0.5rem",
-        "& input": {
-          fontSize: theme.fontSizes.sm,
-        },
-      },
-
       medium: {
         "height": "3rem",
         "_paddingX": "1rem",
@@ -55,26 +48,11 @@ export const InputWrapper = styled("span", {
           fontSize: theme.fontSizes.md,
         },
       },
-
-      large: {
-        "height": "4rem",
-        "_paddingX": "1.15rem",
-        "gap": "0.5rem",
-        "& input": {
-          fontSize: theme.fontSizes.lg,
-        },
-      },
     },
 
     sRadius: {
-      small: {
-        borderRadius: theme.radii.sm,
-      },
       medium: {
         borderRadius: theme.radii.md,
-      },
-      large: {
-        borderRadius: theme.radii.lg,
       },
     },
   },
@@ -102,14 +80,8 @@ export const Label = styled("label", {
 
   variants: {
     sSize: {
-      small: {
-        fontSize: theme.fontSizes.sm,
-      },
       medium: {
         fontSize: theme.fontSizes.md,
-      },
-      large: {
-        fontSize: theme.fontSizes.lg,
       },
     },
   },

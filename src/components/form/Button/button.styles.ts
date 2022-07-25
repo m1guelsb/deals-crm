@@ -44,35 +44,17 @@ export const Button = styled("button", {
       },
     },
     sSize: {
-      small: {
-        height: "2.5rem",
-        gap: "0.25rem",
-        _paddingX: "1.25rem",
-        fontSize: theme.fontSizes.sm,
-      },
       medium: {
         height: "3rem",
         gap: "0.5rem",
         _paddingX: "1.5rem",
         fontSize: theme.fontSizes.md,
       },
-      large: {
-        height: "4rem",
-        gap: "0.75rem",
-        _paddingX: "1.75rem",
-        fontSize: theme.fontSizes.lg,
-      },
     },
 
     sRadius: {
-      small: {
-        borderRadius: theme.radii.sm,
-      },
       medium: {
         borderRadius: theme.radii.md,
-      },
-      large: {
-        borderRadius: theme.radii.lg,
       },
     },
   },
