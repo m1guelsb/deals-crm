@@ -18,6 +18,7 @@
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/assets/*": ["src/assets/*"],
+      "@/icons": ["src/assets/icons"],
       "@/services/*": ["src/services/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/utils/*": ["src/utils/*"],

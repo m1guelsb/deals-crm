@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -8,11 +8,11 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { Logo as LogoIMG } from "@/assets/images";
 import { Button, Input } from "@/components/form";
 import { Heading } from "@/components/typography";
-import { user as userIcon, lock, loading } from "@/assets/icons";
 import { signInFormSchema } from "@/utils/validations/yup";
 import { styled, theme } from "@/styles/stitches.config";
 import { useToast } from "@/hooks/helpers/useToast";
 import { Icon } from "@/components/media";
+import { user as userIcon, lock, loading } from "@/icons";
 
 interface SignInFormInputs {
   username: string;
