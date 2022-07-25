@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "node ./mock/server.js",
     "test": "jest"
   },
   "dependencies": {
@@ -35,8 +34,6 @@
     "eslint-config-next": "12.2.1",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
-    "json-server": "^0.17.0",
-    "jsonwebtoken": "^8.5.1",
     "typescript": "4.7.4"
   }
 }
