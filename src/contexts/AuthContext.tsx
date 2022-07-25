@@ -48,7 +48,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     { access_token: string },
     SignInCredentials
   >({
-    onSuccess: ({ data: { access_token } }) => {
+    onSuccess: async ({ data: { access_token } }) => {
       setCookie(undefined, "next.access_token", access_token, {
         maxAge: 60 * 60 * 24 * 30, //30 days
         path: "/",
@@ -56,6 +56,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
 
       Router.push("/dashboard");
+
+      const userData = await GET("/user");
+      setUser(userData);
     },
     onError: (error) => {
       if (error?.response?.status === 401) {
@@ -77,16 +80,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       signOut();
     },
   });
-
-  //get user fn
-  useEffect(() => {
-    const { "next.access_token": access_token } = parseCookies();
-    if (access_token) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-
-      GET("/user");
-    }
-  }, [GET]);
 
   return (
     <AuthContext.Provider
