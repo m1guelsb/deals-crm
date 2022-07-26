@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import Router from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { api } from "@/services/axios";
@@ -49,16 +43,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     SignInCredentials
   >({
     onSuccess: async ({ data: { access_token } }) => {
-      setCookie(undefined, "next.access_token", access_token, {
+      setCookie(undefined, "deals.access_token", access_token, {
         maxAge: 60 * 60 * 24 * 30, //30 days
         path: "/",
       });
+
       api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
 
       Router.push("/dashboard");
-
-      const userData = await GET("/user");
-      setUser(userData);
     },
     onError: (error) => {
       if (error?.response?.status === 401) {
@@ -72,14 +64,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   });
 
   //handle get user
-  const { GET } = useGET<User>({
-    onSuccess: ({ data: User }) => {
-      setUser(User);
-    },
-    onError: (error) => {
-      signOut();
-    },
-  });
+  useEffect(() => {
+    const { "deals.access_token": access_token } = parseCookies();
+
+    if (access_token) {
+      api
+        .get<User>("/user")
+        .then(({ data: User }) => setUser(User))
+        .catch(() => signOut());
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
