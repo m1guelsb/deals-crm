@@ -49,7 +49,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
 
-      Router.push("/dashboard");
+      Router.push("/app");
       api.get<User>("/user").then(({ data: User }) => setUser(User));
     },
     onError: (error) => {
