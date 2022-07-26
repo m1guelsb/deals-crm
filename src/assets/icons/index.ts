@@ -5,6 +5,13 @@ import email from "./email.svg";
 import lock from "./lock.svg";
 import user from "./user.svg";
 
+import dashboard from "./dashboard.svg";
+import deals from "./deals.svg";
+import costumers from "./costumers.svg";
+import tasks from "./tasks.svg";
+
+import plus from "./plus.svg";
+
 import toastSuccess from "@/assets/icons/toast-success.svg";
 import toastInfo from "@/assets/icons/toast-info.svg";
 import toastError from "@/assets/icons/toast-error.svg";
@@ -19,4 +26,9 @@ export {
   email,
   user,
   lock,
+  dashboard,
+  deals,
+  costumers,
+  tasks,
+  plus,
 };
