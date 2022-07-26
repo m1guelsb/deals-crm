@@ -2,11 +2,10 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import Router from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { api } from "@/services/axios";
-import { User } from "@/types/User";
 import { AxiosError } from "axios";
 import { usePOST } from "@/hooks/api/usePOST";
 import { useToast } from "@/hooks/helpers/useToast";
-import { useGET } from "@/hooks/api/useGET";
+import type { User } from "@/types/User";
 
 type SignInCredentials = {
   username: string;
@@ -51,6 +50,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
 
       Router.push("/dashboard");
+      api.get<User>("/user").then(({ data: User }) => setUser(User));
     },
     onError: (error) => {
       if (error?.response?.status === 401) {

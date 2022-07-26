@@ -8,10 +8,10 @@ interface SidebarProps {
 export const Sidebar = ({ ...props }: SidebarProps) => {
   return (
     <S_Sidebar {...props}>
-      <NavButton href="/dashboard" iconSrc={dashboard.src} />
-      <NavButton href="/deals" iconSrc={deals.src} />
-      <NavButton href="/customers" iconSrc={costumers.src} />
-      <NavButton href="/tasks" iconSrc={tasks.src} />
+      <NavButton href="/app" iconSrc={dashboard.src} />
+      <NavButton href="/app/deals" iconSrc={deals.src} />
+      <NavButton href="/app/costumers" iconSrc={costumers.src} />
+      <NavButton href="/app/tasks" iconSrc={tasks.src} />
     </S_Sidebar>
   );
 };

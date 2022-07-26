@@ -8,6 +8,7 @@ interface useReactQueryProps {
   configs?: AxiosRequestConfig<any> | undefined;
   queryConfigs?: {
     enabled?: boolean;
+    refetchOnWindowFocus?: boolean;
   };
 }
 
@@ -23,7 +24,7 @@ export function useReactQuery<ResponseDataType>({
       const { data } = await api.get<ResponseDataType>(url, configs);
       return data;
     },
-    queryConfigs
+    { retry: false, ...queryConfigs }
   );
 
   return queryResponse;
