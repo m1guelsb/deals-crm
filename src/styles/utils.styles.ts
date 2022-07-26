@@ -1,3 +1,5 @@
+import { theme } from "./stitches.config";
+
 export const styleUtils = {
   _paddingX: (value: string) => ({
     paddingLeft: value,
@@ -41,4 +43,40 @@ export const styleUtils = {
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   }),
+
+  _border: (value: "Left" | "Right" | "Bottom" | "Top" | "All") => {
+    if (value === "Left")
+      return {
+        borderLeftWidth: "0.1rem",
+        borderLeftStyle: "solid",
+      };
+    if (value === "Right")
+      return {
+        borderRightWidth: "0.1rem",
+        borderRightStyle: "solid",
+      };
+
+    if (value === "Bottom")
+      return {
+        borderBottomWidth: "0.1rem",
+        borderBottomStyle: "solid",
+      };
+
+    if (value === "Top")
+      return {
+        borderTopWidth: "0.1rem",
+        borderTopStyle: "solid",
+      };
+
+    if (value === "All")
+      return {
+        borderWidth: "0.1rem",
+        borderStyle: "solid",
+      };
+
+    return {
+      borderWidth: "0.1rem",
+      borderStyle: "solid",
+    };
+  },
 };

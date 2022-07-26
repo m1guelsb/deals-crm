@@ -36,6 +36,7 @@ export const defaultTheme = {
   },
 
   radii: {
+    sm: "0.5rem",
     md: "0.75rem",
   },
 };

@@ -65,3 +65,8 @@ export const Button = styled("button", {
     sRadius: "medium",
   },
 });
+
+export const IconWrapper = styled("span", {
+  minWidth: "1.5rem",
+  maxWidth: "fit-content",
+});

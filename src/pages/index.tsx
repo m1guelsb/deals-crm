@@ -72,6 +72,7 @@ const SignIn: NextPage = () => {
               placeholder="Insert username => [m1guelsb]"
               errorMessage={inputError.username?.message}
               rightIcon={<Icon src={userIcon.src} />}
+              disabled={loginLoading}
               css={{ width: "100%" }}
               {...register("username")}
             />
@@ -80,15 +81,14 @@ const SignIn: NextPage = () => {
               type={"password"}
               errorMessage={inputError.password?.message}
               rightIcon={<Icon src={lock.src} />}
+              disabled={loginLoading}
               css={{ width: "100%" }}
               {...register("password")}
             />
 
             <Button
               type={"submit"}
-              rightIcon={
-                loginLoading && <Icon svg={"stroke"} src={loading.src} />
-              }
+              rightIcon={loginLoading && <Icon src={loading.src} />}
               disabled={loginLoading}
               css={{ width: "100%" }}
             >

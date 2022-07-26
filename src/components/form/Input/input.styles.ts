@@ -12,14 +12,11 @@ export const InputWrapper = styled("span", {
 
   "display": "flex",
   "alignItems": "center",
-  "justifyContent": "center",
 
-  "borderWidth": "0.1rem",
-  "borderColor": "$background1",
-  "borderStyle": "solid",
+  "_border": "All",
+  "borderColor": theme.colors.background3,
 
   "userSelect": "none",
-
   "transition": "ease .1s",
 
   "&[disabled]": {

@@ -20,11 +20,11 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <S.Button sSize={sSize} {...props}>
-      {leftIcon}
+      {leftIcon && <S.IconWrapper>{leftIcon}</S.IconWrapper>}
 
       {children && <span>{children}</span>}
 
-      {rightIcon}
+      {rightIcon && <S.IconWrapper>{rightIcon}</S.IconWrapper>}
     </S.Button>
   );
 };

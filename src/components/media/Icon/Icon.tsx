@@ -21,14 +21,16 @@ const IconContainer = styled("span", {
   "color": theme.colors.background1,
 
   "variants": {
-    svg: {
-      fill: {
+    sType: {
+      primary: {
         _iconColor: { fill: theme.colors.text1 },
       },
-      stroke: {
-        _iconColor: { stroke: theme.colors.text1 },
+      secondary: {
+        _iconColor: { fill: theme.colors.background3 },
       },
+      baseColor: {},
     },
+
     sSize: {
       small: {
         "& svg": { height: "1rem", width: "1rem" },
@@ -44,6 +46,6 @@ const IconContainer = styled("span", {
 
   "defaultVariants": {
     sSize: "medium",
-    svg: "fill",
+    sType: "primary",
   },
 });
