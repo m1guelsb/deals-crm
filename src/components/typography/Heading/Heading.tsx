@@ -12,6 +12,9 @@ export const Heading = styled("h1", {
       3: {
         fontSize: theme.fontSizes["2xl"],
       },
+      4: {
+        fontSize: theme.fontSizes["xl"],
+      },
     },
   },
   defaultVariants: {
