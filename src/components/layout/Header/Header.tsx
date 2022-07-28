@@ -31,7 +31,7 @@ export const Header = ({ children, ...props }: HeaderProps) => {
         <RightSide>
           <Button rightIcon={<Icon src={plus.src} />}>Add New</Button>
 
-          <Avatar imageSrc={`user.picture`} username={user?.username} />
+          <Avatar imageSrc={``} username={user?.username} />
         </RightSide>
       </HeaderBox>
     </HeaderContainer>
