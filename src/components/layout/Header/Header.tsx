@@ -6,6 +6,7 @@ import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Logo as LogoIMG } from "@/assets/images";
 import { Button } from "@/components/form";
 import { plus } from "@/assets/icons";
+import { Avatar } from "@/components/data-display";
 
 interface HeaderProps {
   children: string;
@@ -15,28 +16,29 @@ export const Header = ({ children, ...props }: HeaderProps) => {
   const { user } = useContext(AuthContext);
 
   return (
-    <S_Header {...props}>
-      <LogoContainer>
+    <HeaderContainer {...props}>
+      <LogoBox>
         <Logo>
           <Icon src={LogoIMG.src} sSize={"large"} sType={"baseColor"} />
         </Logo>
-      </LogoContainer>
+      </LogoBox>
 
-      <HeaderContainer>
+      <HeaderBox>
         <Heading as={"h3"} sType={"3"}>
           {children}
         </Heading>
 
         <RightSide>
           <Button rightIcon={<Icon src={plus.src} />}>Add New</Button>
-          {user && <span>{user?.username}</span>}
+
+          <Avatar imageSrc={`user.picture`} username={user?.username} />
         </RightSide>
-      </HeaderContainer>
-    </S_Header>
+      </HeaderBox>
+    </HeaderContainer>
   );
 };
 
-const S_Header = styled("header", {
+const HeaderContainer = styled("header", {
   height: "5.5rem",
 
   display: "flex",
@@ -48,7 +50,7 @@ const S_Header = styled("header", {
   borderColor: theme.colors.background3,
 });
 
-const LogoContainer = styled("div", {
+const LogoBox = styled("div", {
   width: "5.5rem",
 
   _alignCenter: true,
@@ -63,14 +65,14 @@ const Logo = styled("div", {
   padding: "0.5rem",
 });
 
-const HeaderContainer = styled("div", {
+const HeaderBox = styled("div", {
   width: "100%",
 
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
 
-  padding: "1.25rem",
+  _paddingX: "2rem",
 });
 
 const RightSide = styled("div", {
