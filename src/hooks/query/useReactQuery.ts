@@ -5,7 +5,7 @@ import { useQuery, UseQueryOptions } from "react-query";
 interface useReactQueryProps {
   queryKey: string;
   url: string;
-  configs?: AxiosRequestConfig<any> | undefined;
+  requestConfigs?: AxiosRequestConfig<any> | undefined;
   queryConfigs?: {
     enabled?: boolean;
     refetchOnWindowFocus?: boolean;
@@ -15,13 +15,15 @@ interface useReactQueryProps {
 export function useReactQuery<ResponseDataType>({
   queryKey,
   url,
-  configs,
+  requestConfigs,
   queryConfigs,
 }: useReactQueryProps) {
   const queryResponse = useQuery(
     queryKey,
     async () => {
-      const { data } = await api.get<ResponseDataType>(url, configs);
+      const { data } = await api.get<ResponseDataType>(url, {
+        ...requestConfigs,
+      });
       return data;
     },
     { retry: false, ...queryConfigs }
