@@ -21,25 +21,28 @@ export const stitchesGlobalStyles = globalCss({
     height: "100%",
   },
 
-  // "*::-webkit-scrollbar": {
-  //   width: "0.5rem",
-  // },
-  // "*::-webkit-scrollbar-track": {
-  //   backgroundColor: "transparent",
-  // },
-  // "*::-webkit-scrollbar-thumb": {
-  //   "backgroundColor": "",
+  "*::-webkit-scrollbar": {
+    width: "0.75rem",
+    height: "0.75rem",
+  },
+  "*::-webkit-scrollbar-track": {
+    backgroundColor: theme.colors.background3,
+    borderRadius: theme.radii.md,
+  },
+  "*::-webkit-scrollbar-thumb": {
+    "backgroundColor": theme.colors.primary,
+    "borderRadius": theme.radii.md,
 
-  //   "border": "none",
-  //   "outline": "none",
+    "border": "none",
+    "outline": "none",
 
-  //   "&:hover": {
-  //     backgroundColor: "",
-  //   },
-  //   "&:active": {
-  //     backgroundColor: "",
-  //   },
-  // },
+    "&:hover": {
+      filter: "brightness(1.5)",
+    },
+    "&:active": {
+      backgroundColor: theme.colors.primary,
+    },
+  },
 
   "body": {
     fontFamily: theme.fonts.Poppins,

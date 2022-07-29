@@ -22,6 +22,7 @@ export const AppLayout = ({ sessionTitle, children }: AppLayoutProps) => {
 
 const AppContent = styled("main", {
   height: "100%",
+  overflow: "auto",
 });
 
 const Container = styled("div", {
