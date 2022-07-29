@@ -4,7 +4,7 @@ import { Heading } from "@/components/typography";
 
 interface CardProps {
   title: string;
-  value: string;
+  value: string | undefined;
   iconSrc: string;
 }
 export const Card = ({ title, value, iconSrc }: CardProps) => {
@@ -13,7 +13,7 @@ export const Card = ({ title, value, iconSrc }: CardProps) => {
       <TextBox>
         <Title title={title}>{title}</Title>
 
-        <Heading as={"h2"} sType={"2"} title={value}>
+        <Heading as={"h2"} sType={"3"} title={value}>
           {value}
         </Heading>
       </TextBox>
@@ -46,7 +46,7 @@ const CardContainer = styled("div", {
   "display": "flex",
   "alignItems": "center",
   "justifyContent": "space-between",
-  "gap": "1rem",
+  "gap": "0.25rem",
 
   "padding": "1.5rem",
 

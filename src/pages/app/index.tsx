@@ -14,12 +14,6 @@ const Dashboard: NextPage = () => {
   const { data: costumersData } = useReactQuery<Costumer[]>({
     queryKey: "costumers",
     url: `/costumers`,
-    requestConfigs: {
-      params: {
-        _page: 1,
-        _limit: 6,
-      },
-    },
   });
 
   const { data: tasksData } = useReactQuery<Task[]>({
@@ -39,12 +33,15 @@ const Dashboard: NextPage = () => {
     url: `/deals`,
     requestConfigs: {
       params: {
-        _page: 1,
-        _limit: 7,
         _sort: "title",
       },
     },
   });
+
+  const monthEarningsTotal = dealsData
+    ?.slice(0, 4)
+    ?.map((deal) => Number(deal.price.replace("$", "")))
+    .reduce((a, b) => a + b, 0);
 
   return (
     <>
@@ -57,13 +54,25 @@ const Dashboard: NextPage = () => {
           <CardsWrapper
             css={{ gridColumn: "1", gridRowStart: "1", gridRowEnd: "2" }}
           >
-            <Card title="Month Earnings" value="$2313" iconSrc={dollar.src} />
-            <Card title="Active Deals" value="21" iconSrc={deals.src} />
-            <Card title="Costumers" value="42" iconSrc={costumers.src} />
+            <Card
+              title="Month Earnings"
+              value={`$${monthEarningsTotal}`}
+              iconSrc={dollar.src}
+            />
+            <Card
+              title="Deals"
+              value={dealsData?.length.toString()}
+              iconSrc={deals.src}
+            />
+            <Card
+              title="Costumers"
+              value={costumersData?.length.toString()}
+              iconSrc={costumers.src}
+            />
           </CardsWrapper>
 
           <RecentDeals
-            dealsData={dealsData}
+            dealsData={dealsData?.slice(0, 7)}
             css={{ gridColumn: "1", gridRowStart: "2", gridRowEnd: "4" }}
           />
 
@@ -72,7 +81,7 @@ const Dashboard: NextPage = () => {
             css={{ gridColumn: "2", gridRowStart: "1", gridRowEnd: "3" }}
           />
           <RecentCostumers
-            costumersData={costumersData}
+            costumersData={costumersData?.slice(0, 6)}
             css={{ gridColumn: "2", gridRowStart: "3", gridRowEnd: "4" }}
           />
         </DashboardContainer>
