@@ -5,13 +5,13 @@ import type { Task } from "@/types/Task";
 import Link from "next/link";
 import { Task as TaskItem } from "@/components/data-display";
 
-interface CloseTasksProps {
+interface DueTasksProps {
   tasksData: Task[] | undefined;
   css?: CSS;
 }
-export const DueTasks = ({ tasksData, css }: CloseTasksProps) => {
+export const DueTasks = ({ tasksData, css }: DueTasksProps) => {
   return (
-    <CloseTasksContainer css={css}>
+    <DueTasksContainer css={css}>
       <Header>
         <Heading sType={"4"}>Due Tasks</Heading>
         <LinkButton label="View All" href="/app/tasks" />
@@ -20,7 +20,7 @@ export const DueTasks = ({ tasksData, css }: CloseTasksProps) => {
       <Content>
         <TaskItem
           css={{ cursor: "pointer" }}
-          title={"Very close date"}
+          title={"Very Due date"}
           due_date={new Date().toLocaleDateString("en-US")}
           completed={false}
         />
@@ -39,11 +39,11 @@ export const DueTasks = ({ tasksData, css }: CloseTasksProps) => {
           );
         })}
       </Content>
-    </CloseTasksContainer>
+    </DueTasksContainer>
   );
 };
 
-const CloseTasksContainer = styled("div", {
+const DueTasksContainer = styled("div", {
   height: "100%",
   display: "flex",
   flexDirection: "column",
@@ -59,9 +59,13 @@ const Header = styled("div", {
 });
 
 const Content = styled("div", {
+  height: "100%",
+
   display: "flex",
   flexDirection: "column",
   gap: "0.25rem",
 
   borderRadius: theme.radii.md,
+  _border: "All",
+  borderColor: theme.colors.background3,
 });

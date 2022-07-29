@@ -1,25 +1,23 @@
 import Head from "next/head";
-import { useContext } from "react";
 import { NextPage } from "next";
 import { AppLayout } from "@/components/layout";
 import { styled } from "@/styles/stitches.config";
 import { costumers, deals, dollar } from "@/assets/icons";
-import { AuthContext } from "@/contexts/AuthContext";
 import { useReactQuery } from "@/hooks/query/useReactQuery";
-import { Card, DueTasks, LastCostumers } from "@/components/data-display";
+import { Card, DueTasks, RecentCostumers } from "@/components/data-display";
 import type { Costumer } from "@/types/Costumer";
 import type { Task } from "@/types/Task";
+import type { Deal } from "@/types/Deal";
+import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 
 const Dashboard: NextPage = () => {
-  const { user } = useContext(AuthContext);
-
   const { data: costumersData } = useReactQuery<Costumer[]>({
     queryKey: "costumers",
     url: `/costumers`,
     requestConfigs: {
       params: {
         _page: 1,
-        _limit: 5,
+        _limit: 6,
       },
     },
   });
@@ -30,8 +28,20 @@ const Dashboard: NextPage = () => {
     requestConfigs: {
       params: {
         _page: 1,
-        _limit: 4,
+        _limit: 5,
         _sort: "due_date",
+      },
+    },
+  });
+
+  const { data: dealsData } = useReactQuery<Deal[]>({
+    queryKey: "deals",
+    url: `/deals`,
+    requestConfigs: {
+      params: {
+        _page: 1,
+        _limit: 7,
+        _sort: "title",
       },
     },
   });
@@ -44,20 +54,26 @@ const Dashboard: NextPage = () => {
 
       <AppLayout sessionTitle={"Dashboard"}>
         <DashboardContainer>
-          <CardsWrapper css={{ gridColumn: "1", gridRow: "1" }}>
+          <CardsWrapper
+            css={{ gridColumn: "1", gridRowStart: "1", gridRowEnd: "2" }}
+          >
             <Card title="Month Earnings" value="$2313" iconSrc={dollar.src} />
             <Card title="Active Deals" value="21" iconSrc={deals.src} />
             <Card title="Costumers" value="42" iconSrc={costumers.src} />
           </CardsWrapper>
 
-          <LastCostumers
-            costumersData={costumersData}
-            css={{ gridColumn: "2", gridRow: "1" }}
+          <RecentDeals
+            dealsData={dealsData}
+            css={{ gridColumn: "1", gridRowStart: "2", gridRowEnd: "4" }}
           />
 
           <DueTasks
             tasksData={tasksData}
-            css={{ gridColumn: "2", gridRow: "2" }}
+            css={{ gridColumn: "2", gridRowStart: "1", gridRowEnd: "3" }}
+          />
+          <RecentCostumers
+            costumersData={costumersData}
+            css={{ gridColumn: "2", gridRowStart: "3", gridRowEnd: "4" }}
           />
         </DashboardContainer>
       </AppLayout>
@@ -72,8 +88,8 @@ const DashboardContainer = styled("section", {
   padding: "2rem",
 
   display: "grid",
-  gridTemplateColumns: "2.5fr 28rem",
-  gridTemplateRows: "1fr 1fr",
+  gridTemplateColumns: "7fr 3fr",
+  gridTemplateRows: "auto auto 1fr",
 
   alignItems: "start",
 
