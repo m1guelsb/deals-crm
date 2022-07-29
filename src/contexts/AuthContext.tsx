@@ -1,8 +1,14 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import Router from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { api } from "@/services/axios";
-import { AxiosError } from "axios";
+import { AxiosError, HeadersDefaults } from "axios";
 import { usePOST } from "@/hooks/api/usePOST";
 import { useToast } from "@/hooks/helpers/useToast";
 import type { User } from "@/types/User";
@@ -24,17 +30,13 @@ interface AuthProviderProps {
 
 export const AuthContext = createContext({} as AuthContextType);
 
-export function signOut() {
-  destroyCookie(undefined, "next.access_token", { path: "/" });
+export const signOut = () => {
+  destroyCookie(undefined, "deals.access_token", { path: "/" });
   Router.push("/");
-}
+};
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
   const { newToast } = useToast();
-
-  //signin fn
-  const signIn = ({ username, password }: SignInCredentials) =>
-    POST("/auth/login", { username, password });
 
   //handle signin post
   const { loading, error, POST } = usePOST<
@@ -47,10 +49,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
         path: "/",
       });
 
-      api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-
       Router.push("/app");
-      api.get<User>("/user").then(({ data: User }) => setUser(User));
+
+      api
+        .get<User>("/user")
+        .then(({ data: User }) => setUser(User))
+        .catch(() =>
+          newToast({
+            styleType: "error",
+            title: "An unknown error has occurred",
+            duration: 3000,
+          })
+        );
     },
     onError: (error) => {
       if (error?.response?.status === 401) {
@@ -59,9 +69,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
           title: "Wrong credentials!",
           duration: 3000,
         });
-      }
+      } else
+        newToast({
+          styleType: "error",
+          title: "An unknown error has occurred",
+          duration: 3000,
+        });
     },
   });
+
+  //signin fn
+  const signIn = useCallback(
+    ({ username, password }: SignInCredentials) =>
+      POST("/auth/login", { username, password }),
+    [POST]
+  );
 
   //handle get user
   useEffect(() => {

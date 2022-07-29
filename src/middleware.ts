@@ -1,19 +1,26 @@
 import { NextResponse } from "next/server";
+import { jwtVerify } from "jose";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("deals.access_token");
+  const jwt = request.cookies.get("deals.access_token");
+  const secret = "123456789";
+  const url = request.nextUrl.clone();
 
-  if (request.nextUrl.pathname.match("/")) {
-    // if (token) {
-    //   return NextResponse.redirect(new URL("/dashboard/", request.url));
-    // }
-    NextResponse.next();
-  }
+  if (request.url.includes("/app")) {
+    if (jwt === undefined) {
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
 
-  if (request.nextUrl.pathname.startsWith("/dashboard")) {
-    if (!token) {
-      return NextResponse.redirect(new URL("/", request.url));
+    try {
+      jwtVerify(jwt, new TextEncoder().encode(secret));
+      return NextResponse.next();
+    } catch (err) {
+      url.pathname = "/";
+      return NextResponse.redirect(url);
     }
   }
+
+  return NextResponse.next();
 }
