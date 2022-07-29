@@ -2,16 +2,19 @@ import Link from "next/link";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Costumer } from "@/types/Costumer";
-import { Chip } from "@/components/data-display";
+import { CostumerChip } from "@/components/data-display";
 import { LinkButton } from "@/components/form";
 
-interface LastCostumersProps {
+interface RecentCostumersProps {
   costumersData: Costumer[] | undefined;
   css?: CSS;
 }
-export const LastCostumers = ({ costumersData, css }: LastCostumersProps) => {
+export const RecentCostumers = ({
+  costumersData,
+  css,
+}: RecentCostumersProps) => {
   return (
-    <LastCostumersContainer css={css}>
+    <RecentCostumersContainer css={css}>
       <Header>
         <Heading sType={"4"}>Recent Customers</Heading>
 
@@ -22,16 +25,16 @@ export const LastCostumers = ({ costumersData, css }: LastCostumersProps) => {
         {costumersData?.map(({ id, name, email, image }) => (
           <Link href={`/app/costumers/${id}`} key={id}>
             <a style={{ color: "unset", textDecoration: "none" }}>
-              <Chip title={name} description={email} imageSrc={image} />
+              <CostumerChip name={name} email={email} image={image} />
             </a>
           </Link>
         ))}
       </Content>
-    </LastCostumersContainer>
+    </RecentCostumersContainer>
   );
 };
 
-const LastCostumersContainer = styled("div", {
+const RecentCostumersContainer = styled("div", {
   height: "100%",
 
   display: "flex",
@@ -50,5 +53,9 @@ const Header = styled("div", {
 const Content = styled("div", {
   display: "flex",
   flexDirection: "column",
-  gap: "0.5rem",
+  gap: "0.35rem",
+
+  borderRadius: theme.radii.md,
+  _border: "All",
+  borderColor: theme.colors.background3,
 });
