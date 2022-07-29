@@ -1,21 +1,19 @@
 import { styled, theme } from "@/styles/stitches.config";
-import { Avatar } from "../Avatar/Avatar";
+import { Avatar } from "@/components/data-display";
+import { Costumer } from "@/types/Costumer";
 
-interface ChipProps {
-  title: string;
-  description: string;
-  imageSrc: string;
-}
-export const Chip = ({ title, description, imageSrc }: ChipProps) => {
+interface CostumerChipProps extends Omit<Costumer, "id" | "phone"> {}
+
+export const CostumerChip = ({ name, email, image }: CostumerChipProps) => {
   return (
     <ChipContainer>
       <ImageBox>
-        <Avatar imageSrc={imageSrc} username={title} />
+        <Avatar imageSrc={image} username={name} />
       </ImageBox>
 
       <TextBox>
-        <Title>{title}</Title>
-        <Description>{description}</Description>
+        <Title>{name}</Title>
+        <Description>{email}</Description>
       </TextBox>
     </ChipContainer>
   );
@@ -28,7 +26,6 @@ const ChipContainer = styled("span", {
   "gap": "1rem",
 
   "borderRadius": theme.radii.md,
-  "backgroundColor": theme.colors.background2,
 
   "_paddingX": "1rem",
 
