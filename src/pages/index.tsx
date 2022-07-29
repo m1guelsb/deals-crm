@@ -3,28 +3,24 @@ import Image from "next/image";
 import Head from "next/head";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Logo as LogoIMG } from "@/assets/images";
 import { Button, Input } from "@/components/form";
 import { Heading } from "@/components/typography";
 import { signInFormSchema } from "@/utils/validations/yup";
 import { styled, theme } from "@/styles/stitches.config";
-import { useToast } from "@/hooks/helpers/useToast";
 import { Icon } from "@/components/media";
 import { user as userIcon, lock, loading } from "@/icons";
+import { destroyCookie, parseCookies } from "nookies";
+import { jwtVerify } from "jose";
 
 interface SignInFormInputs {
   username: string;
   password: string;
 }
 const SignIn: NextPage = () => {
-  const {
-    signIn,
-    user,
-    loading: loginLoading,
-    error: loginError,
-  } = useContext(AuthContext);
+  const { signIn, loading: loginLoading } = useContext(AuthContext);
 
   const {
     register,
@@ -37,8 +33,6 @@ const SignIn: NextPage = () => {
     shouldUseNativeValidation: false,
     resolver: yupResolver(signInFormSchema),
   });
-
-  const { newToast } = useToast();
 
   const handleSignIn: SubmitHandler<SignInFormInputs> = async ({
     username,
@@ -102,6 +96,30 @@ const SignIn: NextPage = () => {
 };
 
 export default SignIn;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { "deals.access_token": access_token } = parseCookies(ctx);
+  const secret = "123456789";
+
+  if (access_token) {
+    try {
+      jwtVerify(access_token, new TextEncoder().encode(secret));
+
+      return {
+        redirect: {
+          destination: "/app",
+          permanent: false,
+        },
+      };
+    } catch (err) {
+      destroyCookie(ctx, "next.access_token");
+    }
+  }
+
+  return {
+    props: {},
+  };
+};
 
 const Container = styled("div", {
   height: "100%",

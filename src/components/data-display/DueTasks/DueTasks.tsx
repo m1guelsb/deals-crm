@@ -18,6 +18,12 @@ export const DueTasks = ({ tasksData, css }: CloseTasksProps) => {
       </Header>
 
       <Content>
+        <TaskItem
+          css={{ cursor: "pointer" }}
+          title={"Very close date"}
+          due_date={new Date().toLocaleDateString("en-US")}
+          completed={false}
+        />
         {tasksData?.map(({ id, title, due_date, completed }) => {
           return (
             <Link href={`/app/tasks/${id}`} key={id}>

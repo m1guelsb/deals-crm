@@ -19,10 +19,10 @@ export const LastCostumers = ({ costumersData, css }: LastCostumersProps) => {
       </Header>
 
       <Content>
-        {costumersData?.map(({ id, name, email }) => (
+        {costumersData?.map(({ id, name, email, image }) => (
           <Link href={`/app/costumers/${id}`} key={id}>
             <a style={{ color: "unset", textDecoration: "none" }}>
-              <Chip title={name} description={email} imageSrc="" />
+              <Chip title={name} description={email} imageSrc={image} />
             </a>
           </Link>
         ))}

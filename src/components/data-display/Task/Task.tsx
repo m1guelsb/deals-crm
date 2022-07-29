@@ -13,7 +13,9 @@ export const Task = ({ title, due_date, completed, css }: TaskProps) => {
     dateStyle: "medium",
   });
 
-  const isClose = isTomorrow(new Date(dueDate));
+  const isClose =
+    isTomorrow(new Date(dueDate)) ||
+    new Date().getDate() === new Date(due_date).getDate();
 
   return (
     <TaskContainer css={css}>

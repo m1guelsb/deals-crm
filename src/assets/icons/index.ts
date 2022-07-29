@@ -9,6 +9,8 @@ import dashboard from "./dashboard.svg";
 import deals from "./deals.svg";
 import costumers from "./costumers.svg";
 import tasks from "./tasks.svg";
+import dollar from "./dollar.svg";
+import warning from "./warning.svg";
 
 import plus from "./plus.svg";
 
@@ -31,4 +33,6 @@ export {
   costumers,
   tasks,
   plus,
+  dollar,
+  warning,
 };
