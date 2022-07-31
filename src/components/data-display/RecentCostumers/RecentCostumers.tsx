@@ -39,7 +39,7 @@ const RecentCostumersContainer = styled("div", {
 
   display: "flex",
   flexDirection: "column",
-  gap: "1rem",
+  gap: "0.5rem",
 
   borderRadius: theme.radii.md,
 });

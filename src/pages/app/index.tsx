@@ -56,7 +56,7 @@ const Dashboard: NextPage = () => {
           >
             <Card
               title="Month Earnings"
-              value={`$${monthEarningsTotal}`}
+              value={monthEarningsTotal ? `$${monthEarningsTotal}` : ""}
               iconSrc={dollar.src}
             />
             <Card
