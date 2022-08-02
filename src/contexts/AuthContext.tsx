@@ -8,7 +8,7 @@ import {
 import Router from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { api } from "@/services/axios";
-import { AxiosError, HeadersDefaults } from "axios";
+import { AxiosError } from "axios";
 import { usePOST } from "@/hooks/api/usePOST";
 import { useToast } from "@/hooks/helpers/useToast";
 import type { User } from "@/types/User";
