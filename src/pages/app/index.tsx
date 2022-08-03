@@ -12,12 +12,12 @@ import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 
 const Dashboard: NextPage = () => {
   const { data: costumersData } = useReactQuery<Costumer[]>({
-    queryKey: "costumers",
+    queryKeys: ["costumers"],
     url: `/costumers`,
   });
 
   const { data: tasksData } = useReactQuery<Task[]>({
-    queryKey: "tasks",
+    queryKeys: ["tasks"],
     url: `/tasks`,
     requestConfigs: {
       params: {
@@ -29,7 +29,7 @@ const Dashboard: NextPage = () => {
   });
 
   const { data: dealsData } = useReactQuery<Deal[]>({
-    queryKey: "deals",
+    queryKeys: ["deals"],
     url: `/deals`,
     requestConfigs: {
       params: {

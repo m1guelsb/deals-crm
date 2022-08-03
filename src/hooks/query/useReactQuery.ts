@@ -1,9 +1,9 @@
 import { api } from "@/services/axios";
 import { AxiosRequestConfig } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 interface useReactQueryProps {
-  queryKey: string;
+  queryKeys: string[];
   url: string;
   requestConfigs?: AxiosRequestConfig<any> | undefined;
   queryConfigs?: {
@@ -13,13 +13,13 @@ interface useReactQueryProps {
 }
 
 export function useReactQuery<ResponseDataType>({
-  queryKey,
+  queryKeys,
   url,
   requestConfigs,
   queryConfigs,
 }: useReactQueryProps) {
   const queryResponse = useQuery(
-    queryKey,
+    queryKeys,
     async () => {
       const { data } = await api.get<ResponseDataType>(url, {
         ...requestConfigs,
