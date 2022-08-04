@@ -31,13 +31,15 @@ const Dashboard: NextPage = () => {
     url: `/deals`,
     reqParams: {
       _sort: "title",
+      _limit: 1,
     },
   });
 
   const monthEarningsTotal = dealsData
     ?.slice(0, 4)
     ?.map((deal) => Number(deal.price.replace("$", "")))
-    .reduce((a, b) => a + b, 0);
+    .reduce((a, b) => a + b, 0)
+    .toString();
 
   return (
     <>
@@ -47,12 +49,10 @@ const Dashboard: NextPage = () => {
 
       <AppLayout sessionTitle={"Dashboard"}>
         <DashboardContainer>
-          <CardsWrapper
-            css={{ gridColumn: "1", gridRowStart: "1", gridRowEnd: "2" }}
-          >
+          <CardsWrapper css={{ gridColumn: "1", gridRow: "1 / 2" }}>
             <Card
               title="Month Earnings"
-              value={monthEarningsTotal ? `$${monthEarningsTotal}` : ""}
+              value={monthEarningsTotal && `$${monthEarningsTotal}`}
               iconSrc={dollar.src}
             />
             <Card
@@ -69,16 +69,16 @@ const Dashboard: NextPage = () => {
 
           <RecentDeals
             dealsData={dealsData?.slice(0, 7)}
-            css={{ gridColumn: "1", gridRowStart: "2", gridRowEnd: "4" }}
+            css={{ gridColumn: "1", gridRow: "2 / 4" }}
           />
 
           <DueTasks
-            tasksData={tasksData}
-            css={{ gridColumn: "2", gridRowStart: "1", gridRowEnd: "3" }}
+            tasksData={tasksData?.slice(0, 5)}
+            css={{ gridColumn: "2", gridRow: "1 / 3" }}
           />
           <RecentCostumers
             costumersData={costumersData?.slice(0, 6)}
-            css={{ gridColumn: "2", gridRowStart: "3", gridRowEnd: "4" }}
+            css={{ gridColumn: "2", gridRow: "3 / 4" }}
           />
         </DashboardContainer>
       </AppLayout>
@@ -106,7 +106,4 @@ const CardsWrapper = styled("div", {
   alignItems: "center",
   justifyContent: "space-evenly",
   gap: "1.5rem",
-
-  gridColumn: "1",
-  gridRow: "1",
 });
