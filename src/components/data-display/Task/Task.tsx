@@ -1,8 +1,8 @@
 import { warning } from "@/assets/icons";
 import { Icon } from "@/components/media";
 import { CSS, styled, theme } from "@/styles/stitches.config";
-import { Task as TaskType } from "@/types/Task";
-import { format, isTomorrow } from "date-fns";
+import { isTomorrow } from "date-fns";
+import type { Task as TaskType } from "@/types";
 
 interface TaskProps extends Omit<TaskType, "id"> {
   css?: CSS;

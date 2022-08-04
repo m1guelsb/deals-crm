@@ -11,7 +11,7 @@ import { api } from "@/services/axios";
 import { AxiosError } from "axios";
 import { usePost } from "@/hooks/api/usePost";
 import { useToast } from "@/hooks/helpers/useToast";
-import type { User } from "@/types/User";
+import type { User } from "@/types";
 
 type SignInCredentials = {
   username: string;

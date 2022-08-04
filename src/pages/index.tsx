@@ -32,6 +32,10 @@ const SignIn: NextPage = () => {
     reValidateMode: "onChange",
     shouldUseNativeValidation: false,
     resolver: yupResolver(signInFormSchema),
+    defaultValues: {
+      username: "m1guelsb",
+      password: "123",
+    },
   });
 
   const handleSignIn: SubmitHandler<SignInFormInputs> = async ({

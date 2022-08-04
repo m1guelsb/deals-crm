@@ -1,5 +1,5 @@
 import { styled, theme } from "@/styles/stitches.config";
-import { Deal } from "@/types/Deal";
+import type { Deal } from "@/types";
 
 interface DealChipProps extends Omit<Deal, "id"> {}
 

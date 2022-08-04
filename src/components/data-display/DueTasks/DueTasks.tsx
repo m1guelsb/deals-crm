@@ -1,9 +1,9 @@
+import Link from "next/link";
 import { LinkButton } from "@/components/form";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
-import type { Task } from "@/types/Task";
-import Link from "next/link";
 import { Task as TaskItem } from "@/components/data-display";
+import type { Task } from "@/types";
 
 interface DueTasksProps {
   tasksData: Task[] | undefined;

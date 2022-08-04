@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
-import { Costumer } from "@/types/Costumer";
 import { CostumerChip } from "@/components/data-display";
 import { LinkButton } from "@/components/form";
+import type { Costumer } from "@/types";
 
 interface RecentCostumersProps {
   costumersData: Costumer[] | undefined;

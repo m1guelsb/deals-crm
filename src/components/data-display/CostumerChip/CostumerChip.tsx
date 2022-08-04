@@ -1,6 +1,6 @@
 import { styled, theme } from "@/styles/stitches.config";
 import { Avatar } from "@/components/data-display";
-import { Costumer } from "@/types/Costumer";
+import type { Costumer } from "@/types";
 
 interface CostumerChipProps extends Omit<Costumer, "id" | "phone"> {}
 

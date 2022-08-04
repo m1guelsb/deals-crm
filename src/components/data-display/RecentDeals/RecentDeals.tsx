@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { LinkButton } from "@/components/form";
-import type { Deal } from "@/types/Deal";
 import { DealChip } from "@/components/data-display";
+import type { Deal } from "@/types";
 
 interface RecentDealsProps {
   dealsData: Deal[] | undefined;

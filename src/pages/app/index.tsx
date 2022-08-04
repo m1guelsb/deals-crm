@@ -6,9 +6,7 @@ import { costumers, deals, dollar } from "@/assets/icons";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { Card, DueTasks, RecentCostumers } from "@/components/data-display";
 import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
-import type { Costumer } from "@/types/Costumer";
-import type { Task } from "@/types/Task";
-import type { Deal } from "@/types/Deal";
+import type { Costumer, Task, Deal } from "@/types";
 
 const Dashboard: NextPage = () => {
   const { data: costumersData } = useQueryGet<Costumer[]>({
