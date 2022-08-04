@@ -47,7 +47,7 @@ const Dashboard: NextPage = () => {
 
       <AppLayout sessionTitle={"Dashboard"}>
         <DashboardContainer>
-          <CardsWrapper css={{ gridColumn: "1", gridRow: "1 / 2" }}>
+          <CardsWrapper css={{ gridArea: "cards" }}>
             <Card
               title="Month Earnings"
               value={monthEarningsTotal && `$${monthEarningsTotal}`}
@@ -67,16 +67,16 @@ const Dashboard: NextPage = () => {
 
           <RecentDeals
             dealsData={dealsData?.slice(0, 7)}
-            css={{ gridColumn: "1", gridRow: "2 / 4" }}
+            css={{ gridArea: "deals" }}
           />
 
           <DueTasks
             tasksData={tasksData?.slice(0, 5)}
-            css={{ gridColumn: "2", gridRow: "1 / 3" }}
+            css={{ gridArea: "tasks" }}
           />
           <RecentCostumers
             costumersData={costumersData?.slice(0, 6)}
-            css={{ gridColumn: "2", gridRow: "3 / 4" }}
+            css={{ gridArea: "costumers" }}
           />
         </DashboardContainer>
       </AppLayout>
@@ -89,10 +89,14 @@ export default Dashboard;
 const DashboardContainer = styled("section", {
   height: "100%",
   padding: "2rem",
+  paddingBottom: "3rem",
 
   display: "grid",
-  gridTemplateColumns: "7fr 3fr",
-  gridTemplateRows: "auto auto 1fr",
+  gridTemplateAreas: `
+  'cards tasks'
+  'deals tasks'
+  'deals costumers'
+  'deals costumers'`,
 
   alignItems: "start",
 
