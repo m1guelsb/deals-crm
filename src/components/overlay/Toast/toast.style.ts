@@ -21,7 +21,7 @@ export const Title = styled(ToastPrimitive.Title, {
   width: "100%",
   fontSize: theme.fontSizes.lg,
   fontWeight: theme.fontWeights.regular,
-  _truncate: true,
+  _lineClamp: 4,
 });
 export const Close = styled(ToastPrimitive.Close, {
   all: "unset",

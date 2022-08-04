@@ -35,6 +35,7 @@ export const styleUtils = {
     WebkitLineClamp: value,
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
+    wordWrap: "break-word",
   }),
 
   //truncate a line of text with a ellipsis
