@@ -1,5 +1,5 @@
 import { signOut } from "@/contexts/AuthContext";
-import axios, { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import { parseCookies } from "nookies";
 
 export const api = axios.create({
@@ -7,12 +7,13 @@ export const api = axios.create({
 });
 
 //handle set token in every request
-api.interceptors.request.use((config) => {
+api.interceptors.request.use((reqConfig) => {
   const { "deals.access_token": access_token } = parseCookies();
-  if (config.headers) {
-    config.headers.Authorization = `Bearer ${access_token}`;
-    return config;
+  if (reqConfig.headers && access_token) {
+    reqConfig.headers.Authorization = `Bearer ${access_token}`;
+    return reqConfig;
   }
+  return reqConfig;
 });
 
 //handle unauthorized error and logout
@@ -23,6 +24,8 @@ api.interceptors.response.use(
   (responseError: AxiosError) => {
     if (responseError.response?.status === 401) {
       signOut();
+      return Promise.reject(responseError);
     }
+    return Promise.reject(responseError);
   }
 );
