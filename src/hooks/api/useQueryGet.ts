@@ -1,28 +1,29 @@
 import { api } from "@/services/axios";
 import { AxiosRequestConfig } from "axios";
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { number } from "yup";
 
 interface useReactQueryProps {
   queryKeys: string[];
   url: string;
-  requestConfigs?: AxiosRequestConfig<any> | undefined;
+  reqParams?: { [key: string]: string | number };
   queryConfigs?: {
     enabled?: boolean;
     refetchOnWindowFocus?: boolean;
   };
 }
 
-export function useReactQuery<ResponseDataType>({
+export function useQueryGet<ResponseDataType>({
   queryKeys,
   url,
-  requestConfigs,
+  reqParams,
   queryConfigs,
 }: useReactQueryProps) {
   const queryResponse = useQuery(
     queryKeys,
     async () => {
       const { data } = await api.get<ResponseDataType>(url, {
-        ...requestConfigs,
+        ...reqParams,
       });
       return data;
     },

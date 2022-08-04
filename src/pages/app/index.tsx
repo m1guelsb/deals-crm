@@ -3,38 +3,34 @@ import { NextPage } from "next";
 import { AppLayout } from "@/components/layout";
 import { styled } from "@/styles/stitches.config";
 import { costumers, deals, dollar } from "@/assets/icons";
-import { useReactQuery } from "@/hooks/query/useReactQuery";
+import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { Card, DueTasks, RecentCostumers } from "@/components/data-display";
+import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 import type { Costumer } from "@/types/Costumer";
 import type { Task } from "@/types/Task";
 import type { Deal } from "@/types/Deal";
-import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 
 const Dashboard: NextPage = () => {
-  const { data: costumersData } = useReactQuery<Costumer[]>({
+  const { data: costumersData } = useQueryGet<Costumer[]>({
     queryKeys: ["costumers"],
     url: `/costumers`,
   });
 
-  const { data: tasksData } = useReactQuery<Task[]>({
+  const { data: tasksData } = useQueryGet<Task[]>({
     queryKeys: ["tasks"],
     url: `/tasks`,
-    requestConfigs: {
-      params: {
-        _page: 1,
-        _limit: 5,
-        _sort: "due_date",
-      },
+    reqParams: {
+      _page: 1,
+      _limit: 5,
+      _sort: "due_date",
     },
   });
 
-  const { data: dealsData } = useReactQuery<Deal[]>({
+  const { data: dealsData } = useQueryGet<Deal[]>({
     queryKeys: ["deals"],
     url: `/deals`,
-    requestConfigs: {
-      params: {
-        _sort: "title",
-      },
+    reqParams: {
+      _sort: "title",
     },
   });
 

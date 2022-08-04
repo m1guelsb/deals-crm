@@ -9,7 +9,7 @@ import Router from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { api } from "@/services/axios";
 import { AxiosError } from "axios";
-import { usePOST } from "@/hooks/api/usePOST";
+import { usePost } from "@/hooks/api/usePost";
 import { useToast } from "@/hooks/helpers/useToast";
 import type { User } from "@/types/User";
 
@@ -39,11 +39,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { newToast } = useToast();
 
   //handle signin post
-  const { loading, error, POST } = usePOST<
+  const { loading, error, post } = usePost<
     { access_token: string },
     SignInCredentials
   >({
-    onSuccess: async ({ data: { access_token } }) => {
+    onSuccess: async ({ access_token }) => {
       setCookie(undefined, "deals.access_token", access_token, {
         maxAge: 60 * 60 * 24 * 30, //30 days
         path: "/",
@@ -81,8 +81,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   //signin fn
   const signIn = useCallback(
     ({ username, password }: SignInCredentials) =>
-      POST("/auth/login", { username, password }),
-    [POST]
+      post("/auth/login", { username, password }),
+    [post]
   );
 
   //handle get user

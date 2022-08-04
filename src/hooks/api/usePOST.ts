@@ -2,34 +2,30 @@ import { api } from "@/services/axios";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 
-interface usePOSTProps<ResponseDataType> {
-  onSuccess?(response: AxiosResponse<ResponseDataType>): void;
+interface usePostProps<Response> {
+  onSuccess?(response: Response): void;
   onError?(err: AxiosError): void;
 }
 
-export const usePOST = <ResponseDataType, PayloadDataType = any>({
+export const usePost = <Response, Payload = any>({
   onSuccess,
   onError,
-}: usePOSTProps<ResponseDataType>) => {
-  const [response, setResponse] = useState<AxiosResponse<ResponseDataType>>();
+}: usePostProps<Response>) => {
+  const [response, setResponse] = useState<Response>();
   const [error, setError] = useState<AxiosError>();
   const [loading, setLoading] = useState(false);
 
-  const POST = useCallback(
-    async (
-      url: string,
-      data: PayloadDataType,
-      configs?: AxiosRequestConfig
-    ) => {
+  const post = useCallback(
+    async (url: string, payload: Payload, configs?: AxiosRequestConfig) => {
       try {
         setLoading(true);
         setError(undefined);
 
-        const response = await api.post<ResponseDataType>(url, data, configs);
+        const { data } = await api.post<Response>(url, payload, configs);
 
-        setResponse(response);
-        onSuccess?.(response);
-        return response.data;
+        setResponse(data);
+        onSuccess?.(data);
+        return data;
       } catch (error) {
         const err = error as AxiosError;
         setError(err);
@@ -41,5 +37,5 @@ export const usePOST = <ResponseDataType, PayloadDataType = any>({
     [onError, onSuccess]
   );
 
-  return { response, error, loading, POST };
+  return { response, error, loading, post };
 };
