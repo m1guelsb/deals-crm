@@ -8,11 +8,10 @@ interface NavButton {
   iconSrc: string;
 }
 export const NavButton = ({ href, iconSrc }: NavButton) => {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
 
   let isActive = false;
-
-  if (asPath.includes(href)) {
+  if (pathname === href) {
     isActive = true;
   }
   return (
