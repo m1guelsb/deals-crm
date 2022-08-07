@@ -9,12 +9,14 @@ import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 import type { Costumer, Task, Deal } from "@/types";
 
 const Dashboard: NextPage = () => {
-  const { data: costumersData } = useQueryGet<Costumer[]>({
+  const { data: costumersData, isLoading: costumersload } = useQueryGet<
+    Costumer[]
+  >({
     queryKeys: ["costumers"],
     url: `/costumers`,
   });
 
-  const { data: tasksData } = useQueryGet<Task[]>({
+  const { data: tasksData, isLoading: tasksLoad } = useQueryGet<Task[]>({
     queryKeys: ["tasks"],
     url: `/tasks`,
     reqParams: {
@@ -23,7 +25,7 @@ const Dashboard: NextPage = () => {
     },
   });
 
-  const { data: dealsData } = useQueryGet<Deal[]>({
+  const { data: dealsData, isLoading: dealsLoad } = useQueryGet<Deal[]>({
     queryKeys: ["deals"],
     url: `/deals`,
   });
@@ -62,15 +64,18 @@ const Dashboard: NextPage = () => {
 
           <RecentDeals
             dealsData={dealsData?.slice(0, 7)}
+            isLoading={dealsLoad}
             css={{ gridArea: "deals" }}
           />
 
           <DueTasks
             tasksData={tasksData?.slice(0, 5)}
+            isLoading={tasksLoad}
             css={{ gridArea: "tasks" }}
           />
           <RecentCostumers
             costumersData={costumersData?.slice(0, 6)}
+            isLoading={costumersload}
             css={{ gridArea: "costumers" }}
           />
         </DashboardContainer>

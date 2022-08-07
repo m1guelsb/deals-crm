@@ -4,12 +4,18 @@ import { CSS, styled, theme } from "@/styles/stitches.config";
 import { LinkButton } from "@/components/form";
 import { DealChip } from "@/components/data-display";
 import type { Deal } from "@/types";
+import { Skeleton } from "@/components/feedback";
 
 interface RecentDealsProps {
   dealsData: Deal[] | undefined;
+  isLoading: boolean;
   css?: CSS;
 }
-export const RecentDeals = ({ dealsData, css }: RecentDealsProps) => {
+export const RecentDeals = ({
+  dealsData,
+  isLoading,
+  css,
+}: RecentDealsProps) => {
   return (
     <RecentDealsContainer css={css}>
       <Header>
@@ -31,6 +37,12 @@ export const RecentDeals = ({ dealsData, css }: RecentDealsProps) => {
             </a>
           </Link>
         ))}
+
+        {isLoading && !dealsData
+          ? Array(7)
+              .fill({})
+              .map((item, index) => <Skeleton height="5.5rem" key={index} />)
+          : null}
       </Content>
     </RecentDealsContainer>
   );

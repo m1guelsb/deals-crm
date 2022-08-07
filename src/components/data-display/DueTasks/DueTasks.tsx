@@ -4,12 +4,14 @@ import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Task as TaskItem } from "@/components/data-display";
 import type { Task } from "@/types";
+import { Skeleton } from "@/components/feedback";
 
 interface DueTasksProps {
   tasksData: Task[] | undefined;
+  isLoading: boolean;
   css?: CSS;
 }
-export const DueTasks = ({ tasksData, css }: DueTasksProps) => {
+export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
   return (
     <DueTasksContainer css={css}>
       <Header>
@@ -38,6 +40,12 @@ export const DueTasks = ({ tasksData, css }: DueTasksProps) => {
             </Link>
           );
         })}
+
+        {isLoading && !tasksData
+          ? Array(5)
+              .fill({})
+              .map((item, index) => <Skeleton height="2.5rem" key={index} />)
+          : null}
       </Content>
     </DueTasksContainer>
   );

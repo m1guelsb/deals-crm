@@ -1,6 +1,7 @@
 import { styled, theme } from "@/styles/stitches.config";
 import { Icon } from "@/components/media";
 import { Heading } from "@/components/typography";
+import { Skeleton } from "@/components/feedback";
 
 interface CardProps {
   title: string;
@@ -13,8 +14,8 @@ export const Card = ({ title, value, iconSrc }: CardProps) => {
       <TextBox>
         <Title title={title}>{title}</Title>
 
-        <Heading as={"h2"} sType={"3"} title={value}>
-          {value}
+        <Heading as={"h2"} sType={"3"} title={value} css={{ width: "100%" }}>
+          {value ? value : <Skeleton />}
         </Heading>
       </TextBox>
 
