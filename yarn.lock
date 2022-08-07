@@ -949,6 +949,18 @@
     "@types/use-sync-external-store" "^0.0.3"
     use-sync-external-store "^1.2.0"
 
+"@tanstack/react-table@^8.5.10":
+  version "8.5.10"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-table/-/react-table-8.5.10.tgz#abd8f1be79e46b2d3754e45759c7c0fca1f3a82b"
+  integrity sha512-TG+iyqtZD5/N7gCDNM8HJc+ZWbUAkSjv8JaVqk2eYs4xaTUfPnTTsG0vJYqGkoxp8i2GFY78dRx1FDCsctYPGA==
+  dependencies:
+    "@tanstack/table-core" "8.5.10"
+
+"@tanstack/table-core@8.5.10":
+  version "8.5.10"
+  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.5.10.tgz#617501c064dda1275dba90c7fecd9c0714df30f7"
+  integrity sha512-L1GU/BAF7k50vfk1qDvHkRLhEKSjE46EtCuWRrbdu2UKP4mKClTEeL4/zMr6iefMo8QgWa+Gc0CTVVfYcFLlLA==
+
 "@testing-library/dom@^8.5.0":
   version "8.16.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.16.0.tgz#d6fc50250aed17b1035ca1bd64655e342db3936a"
