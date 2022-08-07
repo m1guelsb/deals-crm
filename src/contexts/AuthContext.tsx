@@ -43,7 +43,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     { access_token: string },
     SignInCredentials
   >({
-    onSuccess: async ({ access_token }) => {
+    onSuccess: ({ access_token }) => {
       setCookie(undefined, "deals.access_token", access_token, {
         maxAge: 60 * 60 * 24 * 30, //30 days
         path: "/",

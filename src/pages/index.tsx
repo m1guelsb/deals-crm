@@ -11,9 +11,10 @@ import { Heading } from "@/components/typography";
 import { signInFormSchema } from "@/utils/validations/yup";
 import { styled, theme } from "@/styles/stitches.config";
 import { Icon } from "@/components/media";
-import { user as userIcon, lock, loading } from "@/icons";
+import { user as userIcon, lock } from "@/icons";
 import { destroyCookie, parseCookies } from "nookies";
 import { jwtVerify } from "jose";
+import { Spinner } from "@/components/feedback";
 
 interface SignInFormInputs {
   username: string;
@@ -86,7 +87,7 @@ const SignIn: NextPage = () => {
 
             <Button
               type={"submit"}
-              rightIcon={loginLoading && <Icon src={loading.src} />}
+              rightIcon={loginLoading && <Spinner sType={"secondary"} />}
               disabled={loginLoading}
               css={{ width: "100%" }}
             >

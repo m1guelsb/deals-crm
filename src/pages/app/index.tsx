@@ -19,7 +19,6 @@ const Dashboard: NextPage = () => {
     url: `/tasks`,
     reqParams: {
       _page: 1,
-      _limit: 5,
       _sort: "due_date",
     },
   });
@@ -27,16 +26,12 @@ const Dashboard: NextPage = () => {
   const { data: dealsData } = useQueryGet<Deal[]>({
     queryKeys: ["deals"],
     url: `/deals`,
-    reqParams: {
-      _sort: "title",
-      _limit: 1,
-    },
   });
 
   const monthEarningsTotal = dealsData
     ?.slice(0, 4)
     ?.map((deal) => Number(deal.price.replace("$", "")))
-    .reduce((a, b) => a + b, 0)
+    .reduce((prev, cur) => prev + cur, 0)
     .toString();
 
   return (
@@ -89,7 +84,8 @@ export default Dashboard;
 const DashboardContainer = styled("section", {
   height: "100%",
   padding: "2rem",
-  paddingBottom: "3rem",
+
+  overflow: "auto",
 
   display: "grid",
   gridTemplateAreas: `
