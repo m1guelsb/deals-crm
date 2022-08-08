@@ -32,7 +32,7 @@ const Dashboard: NextPage = () => {
 
   const monthEarningsTotal = dealsData
     ?.slice(0, 4)
-    ?.map((deal) => Number(deal.price.replace("$", "")))
+    ?.map((deal) => Number(deal.price))
     .reduce((prev, cur) => prev + cur, 0)
     .toString();
 
@@ -93,7 +93,7 @@ const DashboardContainer = styled("section", {
   overflow: "auto",
 
   display: "grid",
-  gridTemplateColumns: "1fr 27rem",
+  gridTemplateColumns: "1fr minmax(18rem, 27rem)",
   gridTemplateAreas: `
   'cards tasks'
   'deals tasks'

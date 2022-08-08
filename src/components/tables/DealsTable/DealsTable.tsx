@@ -8,6 +8,9 @@ export const DealsTable = () => {
   const { data, isLoading, isFetching } = useQueryGet<Deal[]>({
     url: "/deals",
     queryKeys: ["deals"],
+    reqParams: {
+      _sort: "price",
+    },
   });
 
   const columnHelper = createColumnHelper<Deal>();
@@ -23,11 +26,17 @@ export const DealsTable = () => {
     }),
     columnHelper.accessor("status", {
       header: "Status",
-      cell: ({ getValue }) => (
-        <StatusTag status={getValue() === "closed" ? "closed" : "inProgress"}>
-          {getValue() === "closed" ? "CLOSED" : "IN PROGRESS"}
-        </StatusTag>
-      ),
+      cell: ({ getValue }) => {
+        const value = getValue();
+
+        return value ? (
+          <StatusTag status={value === "closed" ? "closed" : "inProgress"}>
+            {value === "closed" ? "CLOSED" : "IN PROGRESS"}
+          </StatusTag>
+        ) : (
+          value
+        );
+      },
     }),
   ];
 
