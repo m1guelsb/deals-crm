@@ -1,15 +1,15 @@
 import { useQueryGet } from "@/hooks/api/useQueryGet";
-import { Deal } from "@/types";
 import { createColumnHelper } from "@tanstack/react-table";
 import { BaseTable } from "@/components/tables";
 import { styled, theme } from "@/styles/stitches.config";
+import type { Deal } from "@/types";
 
 export const DealsTable = () => {
   const { data, isLoading, isFetching } = useQueryGet<Deal[]>({
     url: "/deals",
     queryKeys: ["deals"],
     reqParams: {
-      _sort: "price",
+      _sort: "title",
     },
   });
 

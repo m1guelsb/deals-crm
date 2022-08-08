@@ -23,7 +23,7 @@ export function useQueryGet<ResponseDataType>({
     queryKeys,
     async () => {
       const { data } = await api.get<ResponseDataType>(url, {
-        ...reqParams,
+        params: { ...reqParams },
       });
       return data;
     },
