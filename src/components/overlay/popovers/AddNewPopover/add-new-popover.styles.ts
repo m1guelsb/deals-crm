@@ -1,4 +1,4 @@
-import { Content as PopoverContent } from "@radix-ui/react-popover";
+import * as Popover from "@radix-ui/react-popover";
 import { keyframes, styled, theme } from "@/styles/stitches.config";
 
 const slideDownAndFade = keyframes({
@@ -6,7 +6,7 @@ const slideDownAndFade = keyframes({
   "100%": { opacity: 1, transform: "translateY(0)" },
 });
 
-export const Content = styled(PopoverContent, {
+export const Content = styled(Popover.Content, {
   "height": "fit-content",
   "width": "10rem",
 
@@ -28,7 +28,8 @@ export const Content = styled(PopoverContent, {
       '&[data-side="bottom"]': { animationName: slideDownAndFade },
     },
   },
-  "&:focus": {
-    boxShadow: `hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px, 0 0 0 2px violet`,
-  },
+});
+
+export const Arrow = styled(Popover.Arrow, {
+  fill: theme.colors.primary,
 });

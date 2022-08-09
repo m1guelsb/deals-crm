@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Root, Trigger, Portal } from "@radix-ui/react-popover";
-import { Content } from "./add-new-popover.styles";
+import { Arrow, Content } from "./add-new-popover.styles";
 import { Button } from "@/components/form";
 import { costumers, deals } from "@/assets/icons";
 import { Icon } from "@/components/media";
@@ -11,7 +11,7 @@ interface PopoverProps {
 }
 export const AddNewPopover = ({ children }: PopoverProps) => (
   <Root>
-    <Trigger asChild>{children}</Trigger>
+    <Trigger style={{ all: "unset" }}>{children}</Trigger>
 
     <Portal>
       <Content sideOffset={5}>
@@ -38,6 +38,8 @@ export const AddNewPopover = ({ children }: PopoverProps) => (
         >
           Customer
         </Button>
+
+        <Arrow />
       </Content>
     </Portal>
   </Root>
