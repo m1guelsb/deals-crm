@@ -3,6 +3,7 @@ import closeCircle from "@/assets/icons/close-circle.svg";
 import email from "./email.svg";
 import lock from "./lock.svg";
 import user from "./user.svg";
+import logout from "./logout.svg";
 
 import dashboard from "./dashboard.svg";
 import deals from "./deals.svg";
@@ -33,4 +34,5 @@ export {
   plus,
   dollar,
   warning,
+  logout,
 };

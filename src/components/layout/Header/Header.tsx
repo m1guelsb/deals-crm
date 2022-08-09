@@ -1,13 +1,13 @@
 import { useContext } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
+import { AddNewPopover, ProfilePopover } from "@/components/overlay";
 import { Icon } from "@/components/media";
 import { Heading } from "@/components/typography";
-import { AuthContext } from "@/contexts/AuthContext";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Logo as LogoIMG } from "@/assets/images";
 import { Button } from "@/components/form";
 import { plus } from "@/assets/icons";
 import { Avatar } from "@/components/data-display";
-import { AddNewPopover } from "@/components/overlay";
 
 interface HeaderProps {
   children: string;
@@ -34,7 +34,9 @@ export const Header = ({ children, ...props }: HeaderProps) => {
             <Button rightIcon={<Icon src={plus.src} />}>Add New</Button>
           </AddNewPopover>
 
-          <Avatar imageSrc={``} username={user?.username} />
+          <ProfilePopover>
+            <Avatar imageSrc={``} username={user?.username} />
+          </ProfilePopover>
         </RightSide>
       </HeaderBox>
     </HeaderContainer>
