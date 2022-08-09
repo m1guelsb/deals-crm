@@ -7,10 +7,10 @@ import {
   Arrow,
   popoverSlideDown,
 } from "@/components/overlay/popovers/BasePopover";
-
 import { AlertDialog } from "@/components/overlay";
 import { Avatar } from "@/components/data-display";
 import { Button } from "@/components/form";
+import { signOut } from "@/contexts/AuthContext";
 import { Icon } from "@/components/media";
 import { logout } from "@/assets/icons";
 
@@ -29,7 +29,7 @@ export const ProfilePopover = ({ children }: PopoverProps) => {
           <Username>{user?.username}</Username>
         </ProfileWrapper>
 
-        <AlertDialog title="Logout?">
+        <AlertDialog title="Logout?" onConfirm={() => signOut()}>
           <Button
             sType={"tertiary"}
             rightIcon={<Icon src={logout.src} />}
