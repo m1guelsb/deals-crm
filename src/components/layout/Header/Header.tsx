@@ -7,6 +7,7 @@ import { Logo as LogoIMG } from "@/assets/images";
 import { Button } from "@/components/form";
 import { plus } from "@/assets/icons";
 import { Avatar } from "@/components/data-display";
+import { AddNewPopover } from "@/components/overlay";
 
 interface HeaderProps {
   children: string;
@@ -29,7 +30,9 @@ export const Header = ({ children, ...props }: HeaderProps) => {
         </Heading>
 
         <RightSide>
-          <Button rightIcon={<Icon src={plus.src} />}>Add New</Button>
+          <AddNewPopover>
+            <Button rightIcon={<Icon src={plus.src} />}>Add New</Button>
+          </AddNewPopover>
 
           <Avatar imageSrc={``} username={user?.username} />
         </RightSide>
