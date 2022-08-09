@@ -29,7 +29,7 @@ export const ProfilePopover = ({ children }: PopoverProps) => {
           <Username>{user?.username}</Username>
         </ProfileWrapper>
 
-        <AlertDialog title="Are you sure you want to log out?">
+        <AlertDialog title="Logout?">
           <Button
             sType={"tertiary"}
             rightIcon={<Icon src={logout.src} />}
