@@ -10,6 +10,7 @@ export interface OptionType {
 interface SelectProps {
   options: OptionType[];
   label: string;
+  errorMessage?: string;
   defaultSelected?: OptionType;
   value?: OptionType;
   onChange?: (selectedOptionValue: OptionType | null | undefined) => void;
@@ -19,6 +20,7 @@ interface SelectProps {
 export const Select = ({
   options,
   label,
+  errorMessage,
   value,
   onChange,
   notRequired,
@@ -67,6 +69,7 @@ export const Select = ({
 
           <Icon sSize={"small"} src={isOpen ? arrowUp.src : arrowDown.src} />
         </SelectButton>
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </TriggerWrapper>
 
       <Content
@@ -147,4 +150,15 @@ const Item = styled("li", {
   "&:hover": {
     backgroundColor: theme.colors.background2,
   },
+});
+
+const ErrorMessage = styled("span", {
+  height: "1rem",
+  display: "flex",
+  alignItems: "start",
+
+  color: theme.colors.error,
+
+  fontSize: theme.fontSizes.xs,
+  _truncate: true,
 });
