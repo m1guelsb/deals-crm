@@ -9,4 +9,6 @@ export interface Deal {
     | { label: "In Progress"; value: "inprogress" };
 }
 
-export interface DealForm extends Omit<Deal, "id"> {}
+export interface DealForm extends Omit<Deal, "id" | "customerId"> {
+  customerId: string;
+}

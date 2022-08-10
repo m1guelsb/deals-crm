@@ -7,7 +7,7 @@ export const signInFormSchema = object().shape({
 });
 
 export const newDealFormSchema: SchemaOf<DealForm> = object({
-  customerId: number().required("Select a customer"),
+  customerId: string().required("Select a customer"),
   title: string().required("Field required"),
   description: string().required("Field required"),
   price: string().required("Field required"),
