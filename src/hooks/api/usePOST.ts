@@ -2,26 +2,26 @@ import { api } from "@/services/axios";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 
-interface usePostProps<Response> {
-  onSuccess?(response: Response): void;
+interface usePostProps<TResponse> {
+  onSuccess?(response: TResponse): void;
   onError?(err: AxiosError): void;
 }
 
-export const usePost = <Response, Payload = any>({
+export const usePost = <TPayload = any, TResponse = any>({
   onSuccess,
   onError,
-}: usePostProps<Response>) => {
-  const [response, setResponse] = useState<Response>();
+}: usePostProps<TResponse>) => {
+  const [response, setResponse] = useState<TResponse>();
   const [error, setError] = useState<AxiosError>();
   const [loading, setLoading] = useState(false);
 
   const post = useCallback(
-    async (url: string, payload: Payload, configs?: AxiosRequestConfig) => {
+    async (url: string, payload: TPayload, configs?: AxiosRequestConfig) => {
       try {
         setLoading(true);
         setError(undefined);
 
-        const { data } = await api.post<Response>(url, payload, configs);
+        const { data } = await api.post<TResponse>(url, payload, configs);
 
         setResponse(data);
         onSuccess?.(data);
