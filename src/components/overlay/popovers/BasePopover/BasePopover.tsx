@@ -8,7 +8,7 @@ interface PopoverProps {
 }
 export const BasePopover = ({ trigger, children }: PopoverProps) => (
   <P.Root>
-    <P.Trigger style={{ all: "unset" }}>{trigger}</P.Trigger>
+    <P.Trigger asChild>{trigger}</P.Trigger>
 
     <P.Portal>{children}</P.Portal>
   </P.Root>

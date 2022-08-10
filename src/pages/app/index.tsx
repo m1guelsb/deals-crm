@@ -14,6 +14,9 @@ const Dashboard: NextPage = () => {
   >({
     queryKeys: ["costumers"],
     url: `/costumers`,
+    reqParams: {
+      _sort: "title",
+    },
   });
 
   const { data: tasksData, isLoading: tasksLoad } = useQueryGet<Task[]>({
