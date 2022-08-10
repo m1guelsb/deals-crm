@@ -27,14 +27,16 @@ export const DealsTable = () => {
     columnHelper.accessor("status", {
       header: "Status",
       cell: ({ getValue }) => {
-        const value = getValue();
+        const status = getValue();
 
-        return value ? (
-          <StatusTag status={value === "closed" ? "closed" : "inProgress"}>
-            {value === "closed" ? "CLOSED" : "IN PROGRESS"}
-          </StatusTag>
-        ) : (
-          value
+        return (
+          status && (
+            <StatusTag
+              status={status.value === "closed" ? "closed" : "inProgress"}
+            >
+              {status.value === "closed" ? "CLOSED" : "IN PROGRESS"}
+            </StatusTag>
+          )
         );
       },
     }),
