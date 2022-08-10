@@ -47,8 +47,6 @@ export const stitchesGlobalStyles = globalCss({
   "body": {
     fontFamily: theme.fonts.Poppins,
 
-    overflow: "hidden",
-
     backgroundColor: theme.colors.background1,
     color: theme.colors.text1,
   },
