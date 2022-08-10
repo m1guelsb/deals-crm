@@ -7,7 +7,7 @@ export const Wrapper = styled("div", {
   gap: "0.25rem",
 });
 export const InputWrapper = styled("span", {
-  "width": "23rem",
+  "minWidth": "10rem",
   "color": theme.colors.text1,
 
   "display": "flex",
