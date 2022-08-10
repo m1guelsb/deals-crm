@@ -4,8 +4,8 @@ import {
   dialogContentShow,
   Title,
   Close,
+  DialogContent,
 } from "@/components/overlay/dialogs/BaseDialog";
-import * as D from "@radix-ui/react-dialog";
 import { styled, theme } from "@/styles/stitches.config";
 import { Button } from "@/components/form";
 
@@ -37,7 +37,7 @@ const Actions = styled("div", {
   display: "flex",
   justifyContent: "space-between",
 });
-const Content = styled(D.Content, {
+const Content = styled(DialogContent, {
   "width": "20rem",
 
   "display": "flex",
