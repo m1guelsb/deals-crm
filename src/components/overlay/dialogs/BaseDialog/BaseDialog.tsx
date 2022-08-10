@@ -2,21 +2,28 @@ import { keyframes, styled, theme } from "@/styles/stitches.config";
 import * as D from "@radix-ui/react-dialog";
 import { ReactElement, ReactNode } from "react";
 
-interface BaseDialogProps {
+interface BaseDialogProps extends D.DialogProps {
   trigger: ReactNode;
   children: ReactElement;
 }
-export const BaseDialog = ({ trigger, children }: BaseDialogProps) => (
-  <D.Root>
-    <D.Trigger asChild>{trigger}</D.Trigger>
+export const BaseDialog = ({
+  trigger,
+  children,
+  open,
+  onOpenChange,
+}: BaseDialogProps) => {
+  return (
+    <D.Root open={open} onOpenChange={onOpenChange}>
+      <D.Trigger asChild>{trigger}</D.Trigger>
 
-    <D.Portal>
-      <Overlay />
+      <D.Portal>
+        <Overlay />
 
-      {children}
-    </D.Portal>
-  </D.Root>
-);
+        {children}
+      </D.Portal>
+    </D.Root>
+  );
+};
 
 export const DialogContent = D.Content;
 
