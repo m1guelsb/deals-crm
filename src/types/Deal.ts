@@ -6,3 +6,5 @@ export interface Deal {
   price: string;
   status: "closed" | "inprogress";
 }
+
+export interface DealForm extends Omit<Deal, "id"> {}
