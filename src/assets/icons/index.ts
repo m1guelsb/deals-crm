@@ -4,6 +4,8 @@ import email from "./email.svg";
 import lock from "./lock.svg";
 import user from "./user.svg";
 import logout from "./logout.svg";
+import arrowUp from "./arrow-up.svg";
+import arrowDown from "./arrow-down.svg";
 
 import dashboard from "./dashboard.svg";
 import deals from "./deals.svg";
@@ -35,4 +37,6 @@ export {
   dollar,
   warning,
   logout,
+  arrowUp,
+  arrowDown,
 };
