@@ -8,7 +8,7 @@ interface BaseDialogProps {
 }
 export const BaseDialog = ({ trigger, children }: BaseDialogProps) => (
   <D.Root>
-    <D.Trigger style={{ all: "unset" }}>{trigger}</D.Trigger>
+    <D.Trigger asChild>{trigger}</D.Trigger>
 
     <D.Portal>
       <Overlay />
