@@ -6,7 +6,7 @@ import {
   DialogContent,
 } from "@/components/overlay/dialogs/BaseDialog";
 import { styled, theme } from "@/styles/stitches.config";
-import { NewDealForm } from "@/components/form/form-groups";
+import { NewDealForm } from "@/components/form-groups";
 
 interface DialogProps {
   children: ReactElement;
