@@ -32,7 +32,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const styleProps = { sSize, sRadius, sType, css };
 
     return (
-      <S.Wrapper>
+      <S.Wrapper css={css}>
         {label && (
           <S.Label sSize={sSize} htmlFor={label}>
             {label}

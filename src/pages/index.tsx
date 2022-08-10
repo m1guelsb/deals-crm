@@ -72,7 +72,6 @@ const SignIn: NextPage = () => {
               errorMessage={inputError.username?.message}
               rightIcon={<Icon src={userIcon.src} />}
               disabled={loginLoading}
-              css={{ width: "100%" }}
               {...register("username")}
             />
             <Input
@@ -81,7 +80,6 @@ const SignIn: NextPage = () => {
               errorMessage={inputError.password?.message}
               rightIcon={<Icon src={lock.src} />}
               disabled={loginLoading}
-              css={{ width: "100%" }}
               {...register("password")}
             />
 
