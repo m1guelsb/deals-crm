@@ -39,8 +39,12 @@ export const Button = styled("button", {
       },
 
       tertiary: {
-        backgroundColor: theme.colors.background3,
-        color: theme.colors.error,
+        "backgroundColor": "transparent",
+        "color": theme.colors.error,
+
+        "&:hover": {
+          backgroundColor: theme.colors.background2,
+        },
       },
     },
     sSize: {
