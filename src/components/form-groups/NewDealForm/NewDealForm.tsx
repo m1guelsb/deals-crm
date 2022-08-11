@@ -1,8 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import { styled } from "@/styles/stitches.config";
-import { Button, Input, Select } from "@/components/form";
+import { Button, ComboBox, Input, Select } from "@/components/form";
 import { Controller, useForm } from "react-hook-form";
-import { DealForm } from "@/types";
 import { usePost } from "@/hooks/api/usePost";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { newDealFormSchema } from "@/utils/validations/yup";
@@ -30,11 +29,9 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
     control,
     formState: { errors },
   } = useForm<DealForm>({
-    mode: "onBlur",
     mode: "onChange",
     reValidateMode: "onChange",
     shouldUseNativeValidation: false,
-    shouldFocusError: true,
     shouldFocusError: false,
     resolver: yupResolver(newDealFormSchema),
   });
@@ -46,12 +43,22 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
   return (
     <Form onSubmit={handleSubmit(handlePostNewDeal)}>
       <InputsGrid>
-        <Input
-          label="Customer"
-          errorMessage={errors.customerId?.message}
-          css={{ gridColumn: "1 / 3" }}
-          {...register("customerId")}
+        <Controller
+          name="customerId"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <ComboBox
+              value={value}
+              placeholder={"Search a customer"}
+              onChange={onChange}
+              label="Customer"
+              searchUrl="/costumers"
+              errorMessage={errors.customerId?.message}
+              css={{ gridColumn: "1 / 3" }}
+            />
+          )}
         />
+
         <Input
           label="Title"
           errorMessage={errors.title?.message}
@@ -107,7 +114,6 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
 const Form = styled("form", {
   display: "flex",
   flexDirection: "column",
-  gap: "1.5rem",
   gap: "1rem",
 });
 const InputsGrid = styled("div", {
