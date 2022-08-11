@@ -17,8 +17,10 @@ export const DealChip = ({
       </TextBox>
       <RightBox>
         <Price>{price}</Price>
-        <StatusTag status={status === "inprogress" ? "inProgress" : "closed"}>
-          {status === "inprogress" ? "IN PROGRESS" : "CLOSED"}
+        <StatusTag
+          status={status.value === "inprogress" ? "inProgress" : "closed"}
+        >
+          {status.value === "inprogress" ? "IN PROGRESS" : "CLOSED"}
         </StatusTag>
       </RightBox>
     </ChipContainer>
