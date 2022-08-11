@@ -155,7 +155,7 @@ const Item = styled("li", {
 const ErrorMessage = styled("span", {
   height: "1rem",
   display: "flex",
-  alignItems: "start",
+  alignItems: "flex-end",
 
   color: theme.colors.error,
 

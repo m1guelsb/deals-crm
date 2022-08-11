@@ -26,7 +26,7 @@ export const InputWrapper = styled("span", {
   "&:focus-within": {
     outlineColor: theme.colors.primary,
     outlineStyle: "solid",
-    outlineWidth: "0.2rem",
+    outlineWidth: "0.1rem",
   },
 
   "variants": {
@@ -89,7 +89,7 @@ export const Icon = styled("span", {});
 export const ErrorMessage = styled("span", {
   height: "1rem",
   display: "flex",
-  alignItems: "start",
+  alignItems: "flex-end",
 
   color: theme.colors.error,
 
