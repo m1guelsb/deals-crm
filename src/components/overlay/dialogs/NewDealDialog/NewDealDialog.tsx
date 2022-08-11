@@ -30,7 +30,7 @@ const Content = styled(DialogContent, {
 
   "display": "flex",
   "flexDirection": "column",
-  "gap": "1.5rem",
+  "gap": "1rem",
 
   "backgroundColor": theme.colors.background1,
   "_border": "All",
