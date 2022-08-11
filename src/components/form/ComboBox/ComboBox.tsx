@@ -1,0 +1,170 @@
+import { useState } from "react";
+import { useCombobox } from "downshift";
+import { styled, theme } from "@/styles/stitches.config";
+import { Input } from "@/components/form";
+import { api } from "@/services/axios";
+import { CSS } from "@stitches/react";
+import { Icon } from "@/components/media";
+import { search } from "@/assets/icons";
+import { Spinner } from "@/components/feedback";
+
+interface OptionType {
+  label: string;
+  value: number | string;
+}
+
+interface SearchSelectProps {
+  label?: string;
+  placeholder?: string;
+  searchUrl: string;
+  value?: string;
+  errorMessage?: string;
+  onChange?: (selectedOptionValue: number | string | null | undefined) => void;
+  css?: CSS;
+}
+export const ComboBox = ({
+  label,
+  placeholder,
+  searchUrl,
+  errorMessage,
+  value,
+  onChange,
+  css,
+}: SearchSelectProps) => {
+  const [options, setOptions] = useState<OptionType[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const {
+    isOpen,
+    getMenuProps,
+    getInputProps,
+    getComboboxProps,
+    getItemProps,
+    inputValue,
+    closeMenu,
+    selectedItem,
+  } = useCombobox({
+    id: "combo-box",
+    onInputValueChange({ inputValue }) {
+      if (inputValue) {
+        setLoading(true);
+        api
+          .get<any[]>(searchUrl, {
+            params: {
+              name_like: inputValue,
+              _limit: 10,
+            },
+          })
+          .then((res) => {
+            const options = res.data.map((option) => {
+              return {
+                label: option.name,
+                value: option.id,
+              };
+            });
+            setOptions(options);
+          })
+          .finally(() => setLoading(false));
+      }
+      if (inputValue?.length === 0) {
+        onChange?.("");
+        closeMenu();
+      }
+    },
+    items: options,
+    itemToString(item) {
+      return item ? item.label : "";
+    },
+    onSelectedItemChange({ selectedItem }) {
+      onChange?.(selectedItem?.value);
+    },
+  });
+
+  const hasResults =
+    isOpen && inputValue && options.length === 0 ? false : true;
+
+  return (
+    <Container style={{ position: "relative" }} css={css}>
+      <div {...getComboboxProps()}>
+        <Input
+          {...getInputProps()}
+          label={label}
+          placeholder={placeholder}
+          errorMessage={`${
+            !hasResults && !loading
+              ? "No results founded"
+              : errorMessage
+              ? errorMessage
+              : ""
+          }`}
+          rightIcon={
+            loading ? (
+              <Spinner sType={"secondary"} />
+            ) : (
+              <Icon src={search.src} />
+            )
+          }
+          css={{
+            outlineColor: isOpen ? theme.colors.primary : "transparent",
+            borderBottomRightRadius: isOpen ? "0" : theme.radii.md,
+            borderBottomLeftRadius: isOpen ? "0" : theme.radii.md,
+          }}
+        />
+      </div>
+      <Content
+        css={{
+          width: "100%",
+          visibility: isOpen && hasResults ? "visible" : "hidden",
+        }}
+        {...getMenuProps()}
+      >
+        {isOpen && hasResults
+          ? options.map((option, index) => (
+              <Item
+                key={`${option.value}${index}`}
+                {...getItemProps({ item: option, index })}
+              >
+                {option.label}
+              </Item>
+            ))
+          : null}
+      </Content>
+    </Container>
+  );
+};
+
+const Container = styled("div", {
+  position: "relative",
+});
+const Content = styled("ul", {
+  maxHeight: "15rem",
+
+  position: "absolute",
+  overflow: "auto",
+  zIndex: "5",
+
+  backgroundColor: theme.colors.background3,
+  borderBottomLeftRadius: theme.radii.sm,
+  borderBottomRightRadius: theme.radii.sm,
+
+  outlineColor: theme.colors.primary,
+  outlineStyle: "solid",
+  outlineWidth: "0.1rem",
+
+  boxShadow:
+    "0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)",
+});
+
+const Item = styled("li", {
+  "minHeight": "3rem",
+  "display": "flex",
+  "alignItems": "center",
+
+  "_paddingX": "1rem",
+
+  "cursor": "pointer",
+
+  "&:hover": {
+    backgroundColor: theme.colors.background2,
+  },
+});

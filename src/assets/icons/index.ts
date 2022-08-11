@@ -6,6 +6,7 @@ import user from "./user.svg";
 import logout from "./logout.svg";
 import arrowUp from "./arrow-up.svg";
 import arrowDown from "./arrow-down.svg";
+import search from "./search.svg";
 
 import dashboard from "./dashboard.svg";
 import deals from "./deals.svg";
@@ -39,4 +40,5 @@ export {
   logout,
   arrowUp,
   arrowDown,
+  search,
 };

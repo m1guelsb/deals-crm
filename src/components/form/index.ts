@@ -3,3 +3,4 @@ export * from "./Input/Input";
 export * from "./IconButton/IconButton";
 export * from "./LinkButton/LinkButton";
 export * from "./Select/Select";
+export * from "./ComboBox/ComboBox";
