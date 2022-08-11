@@ -56,7 +56,7 @@ const Content = styled(PopoverContent, {
   "flexDirection": "column",
   "alignItems": "stretch",
 
-  "backgroundColor": theme.colors.background3,
+  "backgroundColor": theme.colors.background2,
 
   "borderRadius": theme.radii.md,
   "_border": "All",
