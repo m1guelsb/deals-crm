@@ -29,7 +29,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const styleProps = { sSize, sRadius, sType, css };
+    const styleProps = { sSize, sRadius, sType };
 
     return (
       <S.Wrapper css={css}>
@@ -38,7 +38,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {label}
           </S.Label>
         )}
-        <S.InputWrapper {...styleProps}>
+        <S.InputWrapper {...styleProps} css={css}>
           {leftIcon && <S.Icon>{leftIcon}</S.Icon>}
           <S.Input id={label} type="text" ref={ref} {...props} />
           {rightIcon && <S.Icon>{rightIcon}</S.Icon>}
