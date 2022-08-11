@@ -1,5 +1,5 @@
 import { api } from "@/services/axios";
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosError, AxiosRequestConfig } from "axios";
 import { useCallback, useState } from "react";
 
 interface usePostProps<TResponse> {
