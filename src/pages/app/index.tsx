@@ -14,9 +14,6 @@ const Dashboard: NextPage = () => {
   >({
     queryKeys: ["costumers"],
     url: `/costumers`,
-    reqParams: {
-      _sort: "title",
-    },
   });
 
   const { data: tasksData, isLoading: tasksLoad } = useQueryGet<Task[]>({
@@ -31,6 +28,9 @@ const Dashboard: NextPage = () => {
   const { data: dealsData, isLoading: dealsLoad } = useQueryGet<Deal[]>({
     queryKeys: ["deals"],
     url: `/deals`,
+    reqParams: {
+      _sort: "title",
+    },
   });
 
   const monthEarningsTotal = dealsData
