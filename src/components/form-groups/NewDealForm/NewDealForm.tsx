@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { newDealFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
+import type { DealForm } from "@/types";
 
 interface NewDealFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -30,9 +31,11 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
     formState: { errors },
   } = useForm<DealForm>({
     mode: "onBlur",
+    mode: "onChange",
     reValidateMode: "onChange",
     shouldUseNativeValidation: false,
     shouldFocusError: true,
+    shouldFocusError: false,
     resolver: yupResolver(newDealFormSchema),
   });
 
@@ -105,6 +108,7 @@ const Form = styled("form", {
   display: "flex",
   flexDirection: "column",
   gap: "1.5rem",
+  gap: "1rem",
 });
 const InputsGrid = styled("div", {
   display: "grid",
