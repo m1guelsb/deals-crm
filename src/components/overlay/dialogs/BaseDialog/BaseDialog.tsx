@@ -34,6 +34,7 @@ export const dialogContentShow = keyframes({
 
 export const Close = styled(D.Close, {
   all: "unset",
+  cursor: "pointer",
 });
 export const Title = styled(D.Title, {
   fontSize: theme.fontSizes.xl,

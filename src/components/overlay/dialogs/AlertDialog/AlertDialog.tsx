@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { styled, theme } from "@/styles/stitches.config";
 import {
   BaseDialog,
   dialogContentShow,
@@ -6,7 +7,6 @@ import {
   Close,
   DialogContent,
 } from "@/components/overlay/dialogs/BaseDialog";
-import { styled, theme } from "@/styles/stitches.config";
 import { Button } from "@/components/form";
 
 interface DialogProps {
@@ -21,10 +21,10 @@ export const AlertDialog = ({ title, onConfirm, children }: DialogProps) => {
         <Title>{title}</Title>
 
         <Actions>
-          <Close>
+          <Close asChild>
             <Button sType={"tertiary"}>Cancel</Button>
           </Close>
-          <Close>
+          <Close asChild>
             <Button onClick={onConfirm}>Yes</Button>
           </Close>
         </Actions>
