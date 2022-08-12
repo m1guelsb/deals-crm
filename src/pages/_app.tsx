@@ -1,19 +1,19 @@
-import type { AppProps } from "next/app";
 import { stitchesGlobalStyles } from "@/styles/global.styles";
 import { QueryProvider } from "@/contexts/QueryContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ToastProvider } from "@/contexts/ToastContext";
+import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
   stitchesGlobalStyles();
 
   return (
     <ToastProvider>
-      <AuthProvider>
-        <QueryProvider pageProps={pageProps}>
+      <QueryProvider pageProps={pageProps}>
+        <AuthProvider>
           <Component {...pageProps} />
-        </QueryProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </QueryProvider>
     </ToastProvider>
   );
 }
