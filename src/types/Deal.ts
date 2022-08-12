@@ -1,14 +1,15 @@
 export interface Deal {
-  id: number;
-  customerId: number;
+  id: string;
   title: string;
   description: string;
   price: string;
+  customer: {
+    id: string;
+    name: string;
+  };
   status:
-    | { label: "Closed"; value: "closed" }
-    | { label: "In Progress"; value: "inprogress" };
+    | { label: "Closed"; value: "1" }
+    | { label: "In Progress"; value: "2" };
 }
 
-export interface DealForm extends Omit<Deal, "id" | "customerId"> {
-  customerId: string;
-}
+export interface DealForm extends Omit<Deal, "id"> {}

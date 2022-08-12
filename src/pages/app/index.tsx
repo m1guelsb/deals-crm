@@ -6,14 +6,14 @@ import { costumers, deals, dollar } from "@/assets/icons";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { Card, DueTasks, RecentCostumers } from "@/components/data-display";
 import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
-import type { Costumer, Task, Deal } from "@/types";
+import type { Customer, Task, Deal } from "@/types";
 
 const Dashboard: NextPage = () => {
   const { data: costumersData, isLoading: costumersload } = useQueryGet<
-    Costumer[]
+    Customer[]
   >({
-    queryKeys: ["costumers"],
-    url: `/costumers`,
+    queryKeys: ["customers"],
+    url: `/customers`,
   });
 
   const { data: tasksData, isLoading: tasksLoad } = useQueryGet<Task[]>({
