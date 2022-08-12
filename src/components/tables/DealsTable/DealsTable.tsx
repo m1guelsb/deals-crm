@@ -1,16 +1,18 @@
-import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { createColumnHelper } from "@tanstack/react-table";
-import { BaseTable } from "@/components/tables";
 import { styled, theme } from "@/styles/stitches.config";
+import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { BaseTable } from "@/components/tables";
 import type { Deal } from "@/types";
+import { Skeleton } from "@/components/feedback";
 
 export const DealsTable = () => {
-  const { data, isLoading, isFetching } = useQueryGet<Deal[]>({
+  const { data, isLoading } = useQueryGet<Deal[]>({
     url: "/deals",
     queryKeys: ["deals"],
     reqParams: {
       _sort: "title",
     },
+    queryConfigs: { refetchOnWindowFocus: false },
   });
 
   const columnHelper = createColumnHelper<Deal>();
@@ -29,14 +31,14 @@ export const DealsTable = () => {
       cell: ({ getValue }) => {
         const status = getValue();
 
-        return (
-          status && (
-            <StatusTag
-              status={status.value === "closed" ? "closed" : "inProgress"}
-            >
-              {status.value === "closed" ? "CLOSED" : "IN PROGRESS"}
-            </StatusTag>
-          )
+        return status ? (
+          <StatusTag
+            status={status.label === "Closed" ? "closed" : "inProgress"}
+          >
+            {status?.label?.toUpperCase()}
+          </StatusTag>
+        ) : (
+          <Skeleton />
         );
       },
     }),
@@ -47,7 +49,7 @@ export const DealsTable = () => {
       total={data?.length}
       data={data}
       columns={columns}
-      isLoading={isLoading || isFetching}
+      isLoading={isLoading}
     />
   );
 };
