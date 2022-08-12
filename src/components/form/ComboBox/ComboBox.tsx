@@ -17,9 +17,9 @@ interface SearchSelectProps {
   label?: string;
   placeholder?: string;
   searchUrl: string;
-  value?: string;
   errorMessage?: string;
-  onChange?: (selectedOptionValue: number | string | null | undefined) => void;
+  value?: OptionType;
+  onChange?: (selectedOption: OptionType | null | undefined) => void;
   css?: CSS;
 }
 export const ComboBox = ({
@@ -33,7 +33,6 @@ export const ComboBox = ({
 }: SearchSelectProps) => {
   const [options, setOptions] = useState<OptionType[]>([]);
   const [loading, setLoading] = useState(false);
-
   const {
     isOpen,
     getMenuProps,
@@ -59,7 +58,7 @@ export const ComboBox = ({
             const options = res.data.map((option) => {
               return {
                 label: option.name,
-                value: option.id,
+                value: option.id.toString(),
               };
             });
             setOptions(options);
@@ -67,16 +66,17 @@ export const ComboBox = ({
           .finally(() => setLoading(false));
       }
       if (inputValue?.length === 0) {
-        onChange?.("");
+        onChange?.({ label: "", value: "" });
         closeMenu();
       }
     },
     items: options,
+    defaultSelectedItem: value,
     itemToString(item) {
-      return item ? item.label : "";
+      return item?.label || "";
     },
     onSelectedItemChange({ selectedItem }) {
-      onChange?.(selectedItem?.value);
+      onChange?.(selectedItem);
     },
   });
 
