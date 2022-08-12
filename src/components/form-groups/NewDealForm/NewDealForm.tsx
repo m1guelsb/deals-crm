@@ -1,12 +1,13 @@
 import type { Dispatch, SetStateAction } from "react";
 import { styled } from "@/styles/stitches.config";
-import { Button, ComboBox, Input, Select } from "@/components/form";
 import { Controller, useForm } from "react-hook-form";
-import { usePost } from "@/hooks/api/usePost";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, ComboBox, Input, Select } from "@/components/form";
 import { newDealFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
+import { useQueryPost } from "@/hooks/api/useQueryPost";
+import { useQueryClient } from "@tanstack/react-query";
 import type { DealForm } from "@/types";
 
 interface NewDealFormProps {
@@ -14,14 +15,10 @@ interface NewDealFormProps {
 }
 export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
   const { newToast } = useToast();
-  const { post: postDeal, loading: postLoading } = usePost<DealForm>({
-    onSuccess: () => {
-      newToast({ styleType: "success", title: "Deal created!" });
-      setIsOpen(false);
-    },
-    onError: () =>
-      newToast({ styleType: "error", title: "Unspected error has occured!" }),
+  const { post: postDeal, isLoading } = useQueryPost<DealForm>({
+    url: "/deals",
   });
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -36,24 +33,34 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
     resolver: yupResolver(newDealFormSchema),
   });
 
-  const handlePostNewDeal = (dealFormData: DealForm) => {
-    postDeal("/deals", dealFormData);
-  };
+  const handlePostNewDeal = (dealFormData: DealForm) =>
+    postDeal(dealFormData, {
+      onSuccess() {
+        newToast({ styleType: "success", title: "Deal created!" });
+        setIsOpen(false);
+        queryClient.invalidateQueries(["deals"]);
+      },
+      onError() {
+        newToast({ styleType: "error", title: "Unexpected error, try again." });
+      },
+    });
 
   return (
     <Form onSubmit={handleSubmit(handlePostNewDeal)}>
       <InputsGrid>
         <Controller
-          name="customerId"
+          name="customer"
           control={control}
           render={({ field: { value, onChange } }) => (
             <ComboBox
-              value={value}
+              value={{ label: value?.name, value: value?.id }}
+              onChange={(selected) =>
+                onChange({ name: selected?.label, id: selected?.value })
+              }
               placeholder={"Search a customer"}
-              onChange={onChange}
               label="Customer"
-              searchUrl="/costumers"
-              errorMessage={errors.customerId?.message}
+              searchUrl="/customers"
+              errorMessage={errors.customer?.id?.message}
               css={{ gridColumn: "1 / 3" }}
             />
           )}
@@ -85,8 +92,8 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
               label="Status"
               errorMessage={errors.status?.value?.message}
               options={[
-                { label: "In Progress", value: "inprogress" },
-                { label: "Closed", value: "closed" },
+                { label: "Closed", value: "1" },
+                { label: "In Progress", value: "2" },
               ]}
               value={value}
               onChange={(selected) => onChange(selected)}
@@ -103,7 +110,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
         >
           Cancel
         </Button>
-        <Button type="submit" rightIcon={postLoading && <Spinner />}>
+        <Button type="submit" rightIcon={isLoading && <Spinner />}>
           Save Deal
         </Button>
       </Actions>
