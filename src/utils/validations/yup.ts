@@ -7,16 +7,19 @@ export const signInFormSchema = object().shape({
 });
 
 export const newDealFormSchema: SchemaOf<DealForm> = object({
-  customerId: string().required("Select a customer"),
   title: string().required("Field required"),
   description: string().required("Field required"),
   price: string().required("Field required"),
+  customer: object({
+    id: string().required("Select a customer"),
+    name: string().required("Select a customer"),
+  }).required("Select a customer"),
   status: object({
     label: string()
-      .equals(["In Progress", "Closed"], "Select a option")
+      .equals(["Closed", "In Progress"], "Wrong value")
       .required("Select a option"),
     value: string()
-      .equals(["inprogress", "closed"], "Select a option")
+      .equals(["1", "2"], "Wrong value")
       .required("Select a option"),
   }).required("Select a option"),
 });
