@@ -30,10 +30,6 @@ interface AuthProviderProps {
 
 export const AuthContext = createContext({} as AuthContextType);
 
-export const signOut = () => {
-  destroyCookie(undefined, "deals.access_token", { path: "/" });
-  Router.push("/");
-};
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
   const { newToast } = useToast();

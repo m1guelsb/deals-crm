@@ -10,9 +10,9 @@ import {
 import { AlertDialog } from "@/components/overlay";
 import { Avatar } from "@/components/data-display";
 import { Button } from "@/components/form";
-import { signOut } from "@/contexts/AuthContext";
 import { Icon } from "@/components/media";
 import { logout } from "@/assets/icons";
+import { signOut } from "@/utils/functions/signOut";
 
 interface PopoverProps {
   children: ReactElement;
