@@ -107,10 +107,15 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
           sType={"tertiary"}
           type="button"
           onClick={() => setIsOpen(false)}
+          disabled={isLoading}
         >
           Cancel
         </Button>
-        <Button type="submit" rightIcon={isLoading && <Spinner />}>
+        <Button
+          type="submit"
+          disabled={isLoading}
+          rightIcon={isLoading && <Spinner />}
+        >
           Save Deal
         </Button>
       </Actions>

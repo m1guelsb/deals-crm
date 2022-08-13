@@ -3,11 +3,11 @@ import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { CostumerChip } from "@/components/data-display";
 import { LinkButton } from "@/components/form";
-import type { Costumer } from "@/types";
 import { Skeleton } from "@/components/feedback";
+import type { Customer } from "@/types";
 
 interface RecentCostumersProps {
-  costumersData: Costumer[] | undefined;
+  costumersData: Customer[] | undefined;
   isLoading: boolean;
   css?: CSS;
 }
