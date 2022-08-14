@@ -5,7 +5,7 @@ import { Input } from "@/components/form";
 import { api } from "@/services/axios";
 import { CSS } from "@stitches/react";
 import { Icon } from "@/components/media";
-import { search } from "@/assets/icons";
+import { closeCircle, search } from "@/assets/icons";
 import { Spinner } from "@/components/feedback";
 
 interface OptionType {
@@ -13,7 +13,7 @@ interface OptionType {
   value: number | string;
 }
 
-interface SearchSelectProps {
+interface ComboboxProps {
   label?: string;
   placeholder?: string;
   searchUrl: string;
@@ -30,7 +30,7 @@ export const ComboBox = ({
   value,
   onChange,
   css,
-}: SearchSelectProps) => {
+}: ComboboxProps) => {
   const [options, setOptions] = useState<OptionType[]>([]);
   const [loading, setLoading] = useState(false);
   const {
@@ -42,6 +42,7 @@ export const ComboBox = ({
     inputValue,
     closeMenu,
     selectedItem,
+    selectItem,
   } = useCombobox({
     id: "combo-box",
     onInputValueChange({ inputValue }) {
@@ -100,6 +101,15 @@ export const ComboBox = ({
           rightIcon={
             loading ? (
               <Spinner sType={"secondary"} />
+            ) : selectedItem?.label ? (
+              <Icon
+                title="Clear"
+                css={{ cursor: "pointer" }}
+                onClick={() => {
+                  selectItem({ label: "", value: "" });
+                }}
+                src={closeCircle.src}
+              />
             ) : (
               <Icon src={search.src} />
             )
