@@ -136,5 +136,5 @@ const InputsGrid = styled("div", {
 
 const Actions = styled("div", {
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "space-evenly",
 });
