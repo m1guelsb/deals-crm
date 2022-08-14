@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useCallback, useState } from "react";
+import { createContext, ReactNode, useCallback, useId, useState } from "react";
 
 import {
   Provider as BaseToastProvider,
@@ -35,20 +35,20 @@ interface ToastProviderProps {
 
 export const ToastProvider = ({ children }: ToastProviderProps) => {
   const [toaster, setToaster] = useState<ToastProps[]>([]);
+  const uuid = useId();
 
-  const newToast = useCallback(({ title, styleType, duration }: ToastProps) => {
-    const randomId = Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-
-    const newToast = {
-      id: randomId,
-      title,
-      styleType,
-      duration,
-    };
-    setToaster((toaster) => [...toaster, newToast]);
-  }, []);
+  const newToast = useCallback(
+    ({ title, styleType, duration }: ToastProps) => {
+      const newToast = {
+        id: uuid,
+        title,
+        styleType,
+        duration,
+      };
+      setToaster((toaster) => [...toaster, newToast]);
+    },
+    [uuid]
+  );
 
   return (
     <BaseToastProvider>
