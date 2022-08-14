@@ -25,6 +25,11 @@ export const DealsTable = () => {
     }),
     columnHelper.accessor("price", {
       header: "Price",
+      cell: ({ getValue }) => {
+        const price = getValue();
+
+        return price ? `$${price}` : <Skeleton />;
+      },
     }),
     columnHelper.accessor("status", {
       header: "Status",
