@@ -1,7 +1,7 @@
 import { styled, theme } from "@/styles/stitches.config";
 import type { Deal } from "@/types";
 
-interface DealChipProps extends Omit<Deal, "id"> {}
+interface DealChipProps extends Omit<Deal, "id" | "customer"> {}
 
 export const DealChip = ({
   title,
@@ -16,11 +16,11 @@ export const DealChip = ({
         <Description>{description}</Description>
       </TextBox>
       <RightBox>
-        <Price>{price}</Price>
+        <Price>${price}</Price>
         <StatusTag
-          status={status.value === "inprogress" ? "inProgress" : "closed"}
+          status={status.label === "In Progress" ? "inProgress" : "closed"}
         >
-          {status.value === "inprogress" ? "IN PROGRESS" : "CLOSED"}
+          {status.label.toUpperCase()}
         </StatusTag>
       </RightBox>
     </ChipContainer>
