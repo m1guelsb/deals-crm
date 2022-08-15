@@ -97,6 +97,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
         <Controller
           name="price"
           control={control}
+          defaultValue=""
           render={({ field: { value, onChange } }) => (
             <Input
               value={value}
