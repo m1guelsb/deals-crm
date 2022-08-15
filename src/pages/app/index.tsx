@@ -7,6 +7,7 @@ import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { Card, DueTasks, RecentCostumers } from "@/components/data-display";
 import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 import type { Customer, Task, Deal } from "@/types";
+import { currencyMask } from "@/utils/masks/currencyMask";
 
 const Dashboard: NextPage = () => {
   const { data: costumersData, isLoading: costumersload } = useQueryGet<
@@ -35,7 +36,7 @@ const Dashboard: NextPage = () => {
 
   const monthEarningsTotal = dealsData
     ?.slice(0, 4)
-    ?.map((deal) => Number(deal.price))
+    ?.map((deal) => Number(deal.price.replace(/\D/g, "")))
     .reduce((prev, cur) => prev + cur, 0)
     .toString();
 
@@ -50,7 +51,7 @@ const Dashboard: NextPage = () => {
           <CardsWrapper css={{ gridArea: "cards" }}>
             <Card
               title="Month Earnings"
-              value={monthEarningsTotal && `$${monthEarningsTotal}`}
+              value={monthEarningsTotal && currencyMask(monthEarningsTotal)}
               iconSrc={dollar.src}
             />
             <Card
