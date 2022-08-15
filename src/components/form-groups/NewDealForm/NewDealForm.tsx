@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryPost } from "@/hooks/api/useQueryPost";
 import { useQueryClient } from "@tanstack/react-query";
 import type { DealForm } from "@/types";
+import { currencyMask } from "@/utils/masks/currencyMask";
 
 interface NewDealFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -33,8 +34,22 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
     resolver: yupResolver(newDealFormSchema),
   });
 
-  const handlePostNewDeal = (dealFormData: DealForm) =>
-    postDeal(dealFormData, {
+  const handlePostNewDeal = ({
+    title,
+    customer,
+    description,
+    price,
+    status,
+  }: DealForm) => {
+    const dealPayload = {
+      title,
+      customer,
+      description,
+      price: price.replace("$", ""),
+      status,
+    };
+
+    postDeal(dealPayload, {
       onSuccess() {
         newToast({ styleType: "success", title: "Deal created!" });
         setIsOpen(false);
@@ -44,6 +59,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
         newToast({ styleType: "error", title: "Unexpected error, try again." });
       },
     });
+  };
 
   return (
     <Form onSubmit={handleSubmit(handlePostNewDeal)}>
@@ -78,12 +94,22 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
           {...register("description")}
         />
 
-        <Input
-          label="Price"
-          errorMessage={errors.price?.message}
-          {...register("price")}
+        <Controller
+          name="price"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Input
+              value={value}
+              onChange={({ target: { value } }) =>
+                onChange(currencyMask(value))
+              }
+              label="Price"
+              placeholder="$"
+              errorMessage={errors.price?.message}
+              maxLength={11}
+            />
+          )}
         />
-
         <Controller
           name="status"
           control={control}
