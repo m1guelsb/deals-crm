@@ -11,7 +11,7 @@ import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { api } from "@/services/axios";
 import { useQueryPost } from "@/hooks/api/useQueryPost";
 import { useToast } from "@/hooks/helpers/useToast";
-import { signOut } from "@/utils/functions/signOut";
+import { signOut } from "@/utils/functions";
 import type { User } from "@/types";
 
 type SignInCredentials = {

@@ -1,5 +1,5 @@
 import { styled, theme } from "@/styles/stitches.config";
-import { sliceAcronym } from "@/utils/functions/sliceAcronym";
+import { sliceAcronym } from "@/utils/functions";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 interface AvatarProps {

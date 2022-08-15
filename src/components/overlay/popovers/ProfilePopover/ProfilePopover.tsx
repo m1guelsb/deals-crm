@@ -12,7 +12,7 @@ import { Avatar } from "@/components/data-display";
 import { Button } from "@/components/form";
 import { Icon } from "@/components/media";
 import { logout } from "@/assets/icons";
-import { signOut } from "@/utils/functions/signOut";
+import { signOut } from "@/utils/functions";
 
 interface PopoverProps {
   children: ReactElement;

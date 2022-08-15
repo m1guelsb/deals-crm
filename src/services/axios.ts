@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { signOut } from "@/utils/functions/signOut";
+import { signOut } from "@/utils/functions";
 import { parseCookies } from "nookies";
 
 export const api = axios.create({
