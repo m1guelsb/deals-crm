@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCombobox } from "downshift";
 import { styled, theme } from "@/styles/stitches.config";
 import { Input } from "@/components/form";
-import { api } from "@/services/axios";
 import { CSS } from "@stitches/react";
 import { Icon } from "@/components/media";
-import { closeCircle, search } from "@/assets/icons";
+import { getComboboxOptions } from "@/utils/functions";
 import { Spinner } from "@/components/feedback";
+import { closeCircle, search } from "@/assets/icons";
 
 interface OptionType {
   label: string;
@@ -33,6 +33,11 @@ export const ComboBox = ({
 }: ComboboxProps) => {
   const [options, setOptions] = useState<OptionType[]>([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getComboboxOptions(searchUrl, "").then((options) => setOptions(options));
+  }, [searchUrl]);
+
   const {
     isOpen,
     getMenuProps,
@@ -48,22 +53,9 @@ export const ComboBox = ({
     onInputValueChange({ inputValue }) {
       if (inputValue) {
         setLoading(true);
-        api
-          .get<any[]>(searchUrl, {
-            params: {
-              name_like: inputValue,
-              _limit: 10,
-            },
-          })
-          .then((res) => {
-            const options = res.data.map((option) => {
-              return {
-                label: option.name,
-                value: option.id.toString(),
-              };
-            });
-            setOptions(options);
-          })
+
+        getComboboxOptions(searchUrl, inputValue)
+          .then((options) => setOptions(options))
           .finally(() => setLoading(false));
       }
       if (inputValue?.length === 0) {
