@@ -7,6 +7,7 @@ import logout from "./logout.svg";
 import arrowUp from "./arrow-up.svg";
 import arrowDown from "./arrow-down.svg";
 import search from "./search.svg";
+import edit from "./edit.svg";
 
 import dashboard from "./dashboard.svg";
 import deals from "./deals.svg";
@@ -23,6 +24,7 @@ import toastError from "@/assets/icons/toast-error.svg";
 
 export {
   error,
+  edit,
   closeCircle,
   toastSuccess,
   toastInfo,

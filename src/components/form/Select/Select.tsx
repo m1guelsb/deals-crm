@@ -2,6 +2,7 @@ import { styled, theme } from "@/styles/stitches.config";
 import { useSelect } from "downshift";
 import { Icon } from "@/components/media";
 import { arrowDown, arrowUp } from "@/assets/icons";
+import { useEffect } from "react";
 
 export interface OptionType {
   label: string;
@@ -36,6 +37,7 @@ export const Select = ({
     getLabelProps,
     getMenuProps,
     getItemProps,
+    selectItem,
   } = useSelect({
     id: "select-component",
     items: optionsList,
