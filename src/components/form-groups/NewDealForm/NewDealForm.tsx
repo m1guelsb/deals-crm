@@ -45,7 +45,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
       title,
       customer,
       description,
-      price: price.replace("$", ""),
+      price,
       status,
     };
 

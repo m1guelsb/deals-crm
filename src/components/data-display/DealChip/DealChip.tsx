@@ -16,7 +16,7 @@ export const DealChip = ({
         <Description>{description}</Description>
       </TextBox>
       <RightBox>
-        <Price>${price}</Price>
+        <Price>{price}</Price>
         <StatusTag
           status={status.label === "In Progress" ? "inProgress" : "closed"}
         >
