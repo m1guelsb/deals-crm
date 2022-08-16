@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
-import { CostumerChip } from "@/components/data-display";
+import { CustomerChip } from "@/components/data-display";
 import { LinkButton } from "@/components/form";
 import { Skeleton } from "@/components/feedback";
 import type { Customer } from "@/types";
@@ -28,7 +28,7 @@ export const RecentCostumers = ({
         {costumersData?.map(({ id, name, email, image }) => (
           <Link href={`/app/costumers/${id}`} key={id}>
             <a style={{ color: "unset", textDecoration: "none" }}>
-              <CostumerChip name={name} email={email} image={image} />
+              <CustomerChip name={name} email={email} image={image} />
             </a>
           </Link>
         ))}

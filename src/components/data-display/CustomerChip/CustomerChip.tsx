@@ -1,10 +1,10 @@
 import { styled, theme } from "@/styles/stitches.config";
 import { Avatar } from "@/components/data-display";
-import type { Costumer } from "@/types";
+import type { Customer } from "@/types";
 
-interface CostumerChipProps extends Omit<Costumer, "id" | "phone"> {}
+interface CostumerChipProps extends Omit<Customer, "id" | "phone"> {}
 
-export const CostumerChip = ({ name, email, image }: CostumerChipProps) => {
+export const CustomerChip = ({ name, email, image }: CostumerChipProps) => {
   return (
     <ChipContainer>
       <ImageBox>
