@@ -135,7 +135,6 @@ const TableHead = styled("thead", {
   "boxShadow": "0px 9px 12px -10px rgba(0,0,0,0.3)",
 
   "textAlign": "left",
-  "zIndex": "1",
 
   "& :first-child": {
     borderTopLeftRadius: theme.radii.md,
