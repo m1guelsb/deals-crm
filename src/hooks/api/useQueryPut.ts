@@ -3,7 +3,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { api } from "@/services/axios";
 
 interface usePostProps {
-  url: string;
+  url: `/${string}/${string}`;
   putParams?: { [key: string]: string | number };
 }
 
