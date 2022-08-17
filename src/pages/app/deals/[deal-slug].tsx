@@ -43,6 +43,16 @@ const DealSlug: NextPage = () => {
       <AppLayout sessionTitle={"Deals"}>
         <DealContainer>
           <Link href={`/customers/${customer?.id}`} passHref>
+            <CustomerDetails>
+              <Avatar
+                username={customer?.name}
+                imageSrc={customer?.image ?? ""}
+              />
+
+              <DisplayChip title="Customer" data={customer?.name} />
+              <DisplayChip title="Email" data={customer?.email} />
+              <DisplayChip title="Phone" data={customer?.phone} />
+            </CustomerDetails>
           </Link>
         </DealContainer>
       </AppLayout>
