@@ -7,7 +7,6 @@ import {
 } from "@tanstack/react-table";
 import { Heading } from "@/components/typography";
 import { Skeleton, Spinner } from "@/components/feedback";
-import { useMemo } from "react";
 
 interface BaseTableProps {
   total: string | number | undefined;
@@ -166,8 +165,6 @@ const TableData = styled("td", {
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
-
-  cursor: "context-menu",
 
   _border: "Top",
   borderColor: theme.colors.background3,
