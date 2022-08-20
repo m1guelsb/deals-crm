@@ -8,6 +8,7 @@ import { Icon } from "@/components/media";
 import { EditDealDialog } from "@/components/overlay";
 import { edit } from "@/assets/icons";
 import { useState } from "react";
+import Link from "next/link";
 
 export const DealsTable = () => {
   const { data, isLoading: dealsLoad } = useQueryGet<Deal[]>({
@@ -30,9 +31,29 @@ export const DealsTable = () => {
   const columns = [
     columnHelper.accessor("title", {
       header: "Title",
+      cell: ({ row, getValue }) => {
+        const title = getValue();
+        return title ? (
+          <Link href={`deals/${row.getValue("id")}`} passHref>
+            <LinkCell>{title}</LinkCell>
+          </Link>
+        ) : (
+          <Skeleton />
+        );
+      },
     }),
     columnHelper.accessor("description", {
       header: "Description",
+      cell: ({ row, getValue }) => {
+        const description = getValue();
+        return description ? (
+          <Link href={`deals/${row.getValue("id")}`} passHref>
+            <LinkCell>{description}</LinkCell>
+          </Link>
+        ) : (
+          <Skeleton />
+        );
+      },
     }),
     columnHelper.accessor("price", {
       header: "Price",
@@ -58,9 +79,12 @@ export const DealsTable = () => {
       cell: ({ getValue }) => {
         const rowDealId = getValue();
         return (
-          <EditCell onClick={() => handleDealEdit(rowDealId)} title="Edit Deal">
+          <ButtonCell
+            onClick={() => handleDealEdit(rowDealId)}
+            title="Edit Deal"
+          >
             <Icon src={edit.src} />
-          </EditCell>
+          </ButtonCell>
         );
       },
     }),
@@ -107,7 +131,7 @@ const StatusTag = styled("span", {
   },
 });
 
-const EditCell = styled("button", {
+const ButtonCell = styled("button", {
   "border": "unset",
   "backgroundColor": "transparent",
   "width": "100%",
@@ -122,4 +146,14 @@ const EditCell = styled("button", {
     opacity: "1",
   },
   "&[disabled]": { opacity: "0.3" },
+});
+const LinkCell = styled("a", {
+  all: "unset",
+
+  width: "100%",
+  height: "3rem",
+  display: "flex",
+  alignItems: "center",
+
+  cursor: "pointer",
 });
