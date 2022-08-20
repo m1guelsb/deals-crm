@@ -9,7 +9,7 @@ interface AvatarProps {
 export const Avatar = ({ imageSrc, username }: AvatarProps) => (
   <AvatarContainer title={username}>
     <Image src={imageSrc} alt={username} />
-    <Fallback delayMs={200}>{sliceAcronym(username)}</Fallback>
+    <Fallback>{sliceAcronym(username)}</Fallback>
   </AvatarContainer>
 );
 
