@@ -40,7 +40,7 @@ const DealSlug: NextPage = () => {
         <title>Deals CMS | Deal - {deal?.title}</title>
       </Head>
 
-      <AppLayout sessionTitle={"Deals"}>
+      <AppLayout sessionTitle={`Deal: ${deal ? deal.title : ""}`}>
         <DealContainer>
           <Link href={`/customers/${customer?.id}`} passHref>
             <CustomerDetails>
