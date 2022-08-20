@@ -42,8 +42,8 @@ export const EditDealDialog = ({
             <Skeleton />
             <Skeleton />
             <Skeleton />
-            <Skeleton />
-            <Skeleton />
+            <Skeleton width="6rem" />
+            <Skeleton width="6rem" />
           </SkeletonGrid>
         ) : (
           <EditDealForm dealData={dealData} setIsOpen={setIsOpen} />
@@ -55,7 +55,7 @@ export const EditDealDialog = ({
 
 const Content = styled(DialogContent, {
   "width": "38rem",
-  "height": "20rem",
+  "minHeight": "20rem",
 
   "display": "flex",
   "flexDirection": "column",
@@ -84,4 +84,5 @@ const SkeletonGrid = styled("div", {
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   gridGap: "2rem",
+  justifyItems: "center",
 });
