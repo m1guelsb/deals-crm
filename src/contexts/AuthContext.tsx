@@ -13,6 +13,7 @@ import { useQueryPost } from "@/hooks/api/useQueryPost";
 import { useToast } from "@/hooks/helpers/useToast";
 import { signOut } from "@/utils/functions";
 import type { User } from "@/types";
+import { useQueryGet } from "@/hooks/api/useQueryGet";
 
 type SignInCredentials = {
   username: string;
@@ -32,7 +33,6 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User>();
   const { newToast } = useToast();
 
   const {
@@ -41,6 +41,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     error,
   } = useQueryPost<SignInCredentials, { access_token: string }>({
     url: "/auth/login",
+  });
+
+  const { data: user, refetch: getUser } = useQueryGet<User>({
+    url: "/user",
+    queryKeys: ["user-data"],
+    queryConfigs: { enabled: false },
   });
 
   //signin fn
@@ -57,16 +63,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             Router.push("/app");
 
-            api
-              .get<User>("/user")
-              .then(({ data: User }) => setUser(User))
-              .catch(() =>
-                newToast({
-                  styleType: "error",
-                  title: "Error on get user info.",
-                  duration: 3000,
-                })
-              );
+            getUser().catch(() =>
+              newToast({
+                styleType: "error",
+                title: "Error on get user info.",
+                duration: 3000,
+              })
+            );
           },
           onError(error) {
             if (error?.response?.status === 401) {
@@ -85,7 +88,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
       );
     },
-    [newToast, postCredentials]
+    [getUser, newToast, postCredentials]
   );
 
   //handle get user
@@ -93,12 +96,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { "deals.access_token": access_token } = parseCookies();
 
     if (access_token) {
-      api
-        .get<User>("/user")
-        .then(({ data: User }) => setUser(User))
-        .catch(() => signOut());
+      getUser().catch(() => signOut());
     }
-  }, []);
+  }, [getUser]);
 
   return (
     <AuthContext.Provider
