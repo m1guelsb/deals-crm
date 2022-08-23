@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { styled, theme } from "@/styles/stitches.config";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
@@ -7,7 +8,7 @@ import { Skeleton } from "@/components/feedback";
 import { Icon } from "@/components/media";
 import { EditDealDialog } from "@/components/overlay";
 import { edit } from "@/assets/icons";
-import { useState } from "react";
+import { DealStatusTag } from "@/components/data-display";
 import Link from "next/link";
 
 export const DealsTable = () => {
@@ -63,15 +64,7 @@ export const DealsTable = () => {
       cell: ({ getValue }) => {
         const status = getValue();
 
-        return status ? (
-          <StatusTag
-            status={status.label === "Closed" ? "closed" : "inProgress"}
-          >
-            {status?.label?.toUpperCase()}
-          </StatusTag>
-        ) : (
-          <Skeleton />
-        );
+        return status ? <DealStatusTag status={status.label} /> : <Skeleton />;
       },
     }),
     columnHelper.accessor("id", {
@@ -106,30 +99,6 @@ export const DealsTable = () => {
     </>
   );
 };
-
-const StatusTag = styled("span", {
-  _alignCenter: true,
-
-  width: "8rem",
-  paddingY: "0.3rem",
-
-  fontWeight: theme.fontWeights.bold,
-
-  borderRadius: theme.radii.md,
-
-  variants: {
-    status: {
-      inProgress: {
-        color: theme.colors.text1,
-        backgroundColor: theme.colors.primary,
-      },
-      closed: {
-        color: theme.colors.text2,
-        backgroundColor: theme.colors.background3,
-      },
-    },
-  },
-});
 
 const ButtonCell = styled("button", {
   "border": "unset",
