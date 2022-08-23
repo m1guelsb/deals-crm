@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import { api } from "@/services/axios";
 
-interface usePostProps {
+interface useQueryPutProps {
   url: `/${string}/${string}`;
   putParams?: { [key: string]: string | number };
 }
@@ -10,7 +10,7 @@ interface usePostProps {
 export const useQueryPut = <TPayload = any, TResponse = any>({
   url,
   putParams,
-}: usePostProps) => {
+}: useQueryPutProps) => {
   const mutation = useMutation<AxiosResponse<TResponse>, AxiosError, TPayload>(
     (payload: TPayload) =>
       api.put<TPayload, AxiosResponse<TResponse>>(url, payload, {
