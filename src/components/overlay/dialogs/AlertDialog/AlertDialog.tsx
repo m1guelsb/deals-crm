@@ -8,13 +8,20 @@ import {
   DialogContent,
 } from "@/components/overlay/dialogs/BaseDialog";
 import { Button } from "@/components/form";
+import { Spinner } from "@/components/feedback";
 
 interface DialogProps {
   title: string;
+  isLoading?: boolean;
   children: ReactElement;
   onConfirm: () => void;
 }
-export const AlertDialog = ({ title, onConfirm, children }: DialogProps) => {
+export const AlertDialog = ({
+  title,
+  onConfirm,
+  children,
+  isLoading,
+}: DialogProps) => {
   return (
     <BaseDialog trigger={children}>
       <Content>
@@ -24,9 +31,12 @@ export const AlertDialog = ({ title, onConfirm, children }: DialogProps) => {
           <Close asChild>
             <Button sType={"tertiary"}>Cancel</Button>
           </Close>
-          <Close asChild>
-            <Button onClick={onConfirm}>Yes</Button>
-          </Close>
+          <Button
+            rightIcon={isLoading && <Spinner sType={"secondary"} />}
+            onClick={onConfirm}
+          >
+            Yes
+          </Button>
         </Actions>
       </Content>
     </BaseDialog>
