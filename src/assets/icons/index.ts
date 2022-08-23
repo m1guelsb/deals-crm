@@ -15,6 +15,7 @@ import costumers from "./costumers.svg";
 import tasks from "./tasks.svg";
 import dollar from "./dollar.svg";
 import warning from "./warning.svg";
+import trash from "./trash.svg";
 
 import plus from "./plus.svg";
 
@@ -24,6 +25,7 @@ import toastError from "@/assets/icons/toast-error.svg";
 
 export {
   error,
+  trash,
   edit,
   closeCircle,
   toastSuccess,

@@ -4,21 +4,25 @@ import { AppLayout } from "@/components/layout";
 import { styled, theme } from "@/styles/stitches.config";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { Customer, Deal } from "@/types";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { Avatar, DisplayChip } from "@/components/data-display";
-import { Skeleton } from "@/components/feedback";
+import Router, { useRouter } from "next/router";
+import { Avatar, DealStatusTag, DisplayChip } from "@/components/data-display";
 import Link from "next/link";
+import { Heading } from "@/components/typography";
+import { IconButton } from "@/components/form";
+import { edit, trash } from "@/assets/icons";
+import { AlertDialog, EditDealDialog } from "@/components/overlay";
+import { useState } from "react";
+import { Skeleton } from "@/components/feedback";
+import { useQueryDelete } from "@/hooks/api/useQueryDelete";
+import { useToast } from "@/hooks/helpers/useToast";
 
 const DealSlug: NextPage = () => {
-  const dealSlug = String(useRouter().query["deal-slug"]);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const { newToast } = useToast();
 
-  const [dealId, setDealId] = useState("");
-  useEffect(() => {
-    setDealId(dealSlug);
-  }, [dealSlug]);
+  const dealId = String(useRouter().query["deal-slug"]);
 
-  const { data: deal } = useQueryGet<Deal>({
+  const { data: deal, isLoading: dealLoad } = useQueryGet<Deal>({
     url: `/deals/${dealId}`,
     queryKeys: ["deal-slug", dealId],
     queryConfigs: {
@@ -27,15 +31,27 @@ const DealSlug: NextPage = () => {
   });
 
   const { data: customer, isLoading: customerLoad } = useQueryGet<Customer>({
-    url: `/customers/${deal?.customer.id}`,
-    queryKeys: ["customer-slug", deal?.customer.id ?? ""],
+    url: `/customers/${deal?.customer?.id}`,
+    queryKeys: ["customer-slug", deal?.customer?.id ?? ""],
     queryConfigs: {
       enabled: !!deal,
     },
   });
 
+  const { queryDelete, isLoading: deleteCustomerLoad } = useQueryDelete({
+    url: `/deals/${deal?.id}`,
+  });
+
   return (
     <>
+      {deal && (
+        <EditDealDialog
+          isOpen={editModalOpen}
+          setIsOpen={setEditModalOpen}
+          dealId={deal?.id}
+        />
+      )}
+
       <Head>
         <title>Deals CMS | Deal - {deal?.title}</title>
       </Head>
@@ -54,6 +70,58 @@ const DealSlug: NextPage = () => {
               <DisplayChip title="Phone" data={customer?.phone} />
             </CustomerDetails>
           </Link>
+
+          <DealHeader css={{ gridColumn: "1", gridRow: "2" }}>
+            <Title>
+              {dealLoad && !deal ? (
+                <>
+                  <Skeleton width="25rem" />
+                  <Skeleton height="2rem" width="15rem" />
+                </>
+              ) : (
+                <>
+                  <Heading sType={"3"}>{deal?.title}</Heading>
+
+                  <Description>{deal?.description}</Description>
+                </>
+              )}
+            </Title>
+
+            <DisplayChip title="Price" data={deal?.price} />
+
+            {deal && <DealStatusTag status={deal?.status.label} />}
+            <Actions>
+              <IconButton
+                onClick={() => setEditModalOpen(true)}
+                iconSrc={edit.src}
+                title="Edit deal"
+              />
+
+              <AlertDialog
+                onConfirm={() =>
+                  queryDelete(undefined, {
+                    onSuccess() {
+                      newToast({
+                        styleType: "success",
+                        title: "Deal deleted!",
+                      });
+                      Router.push("/app/deals");
+                    },
+                    onError() {
+                      newToast({
+                        styleType: "error",
+                        title: "Unknown error",
+                      });
+                    },
+                  })
+                }
+                isLoading={deleteCustomerLoad}
+                title="Delete deal?"
+              >
+                <IconButton sType={"tertiary"} iconSrc={trash.src} />
+              </AlertDialog>
+            </Actions>
+          </DealHeader>
         </DealContainer>
       </AppLayout>
     </>
@@ -68,6 +136,8 @@ const DealContainer = styled("section", {
 
   display: "grid",
   gridTemplateColumns: "3fr 1.5fr",
+  gridTemplateRows: "auto auto 1fr",
+  gridGap: "1rem",
 });
 
 const CustomerDetails = styled("a", {
@@ -88,4 +158,29 @@ const CustomerDetails = styled("a", {
   "&:hover": {
     backgroundColor: theme.colors.background2,
   },
+});
+
+const DealHeader = styled("header", {
+  height: "10rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  padding: "1rem",
+  borderRadius: theme.radii.md,
+
+  backgroundColor: theme.colors.background2,
+});
+const Title = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.5rem",
+});
+const Description = styled("span", {
+  fontSize: theme.fontSizes.lg,
+});
+const Actions = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
 });
