@@ -28,6 +28,9 @@ const IconContainer = styled("span", {
       secondary: {
         _iconColor: { fill: theme.colors.background3 },
       },
+      tertiary: {
+        _iconColor: { fill: theme.colors.error },
+      },
       baseColor: {},
     },
 
