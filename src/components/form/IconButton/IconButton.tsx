@@ -1,17 +1,24 @@
+/* eslint-disable react/display-name */
 import { Icon } from "@/components/media";
 import { CSS, styled, theme, VariantProps } from "@/styles/stitches.config";
+import { ButtonHTMLAttributes, forwardRef } from "react";
 
-interface IconButton extends VariantProps<typeof S_IconButton> {
+interface IconButtonProps
+  extends VariantProps<typeof S_IconButton>,
+    ButtonHTMLAttributes<HTMLButtonElement> {
   iconSrc: string;
   css?: CSS;
 }
-export const IconButton = ({ iconSrc, sType, ...props }: IconButton) => {
-  return (
-    <S_IconButton sType={sType} {...props}>
-      <Icon sType={sType} src={iconSrc} />
-    </S_IconButton>
-  );
-};
+
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  ({ iconSrc, sType, ...props }, ref) => {
+    return (
+      <S_IconButton ref={ref} sType={sType} {...props}>
+        <Icon sType={sType} src={iconSrc} />
+      </S_IconButton>
+    );
+  }
+);
 
 const S_IconButton = styled("button", {
   "width": "fit-content",
@@ -47,6 +54,14 @@ const S_IconButton = styled("button", {
 
       secondary: {
         backgroundColor: theme.colors.text1,
+      },
+      tertiary: {
+        "backgroundColor": "transparent",
+        "color": theme.colors.error,
+
+        "&:hover": {
+          backgroundColor: theme.colors.background2,
+        },
       },
     },
     sSize: {
