@@ -1,8 +1,8 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, ComboBox, Input, Select } from "@/components/form";
+import { Button, Input, Select } from "@/components/form";
 import { newDealFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
@@ -56,6 +56,8 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
         newToast({ styleType: "success", title: "Deal edited!" });
         setIsOpen(false);
         queryClient.invalidateQueries(["deals"]);
+
+        queryClient.invalidateQueries(["deal-slug", `${dealData?.id}`]);
       },
       onError() {
         newToast({ styleType: "error", title: "Unexpected error, try again." });
