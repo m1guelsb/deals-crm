@@ -65,11 +65,13 @@ const S_IconButton = styled("button", {
       },
     },
     sSize: {
+      small: {
+        height: "2.5rem",
+        width: "2.5rem",
+      },
       medium: {
         height: "3rem",
         width: "3rem",
-        gap: "0.5rem",
-        padding: "1.5rem",
       },
     },
   },
