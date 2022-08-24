@@ -8,3 +8,4 @@ export * from "./RecentDeals/RecentDeals";
 export * from "./DueTasks/DueTasks";
 export * from "./DisplayChip/DisplayChip";
 export * from "./DealStatusTag/DealStatusTag";
+export * from "./DealTasks/DealTasks";
