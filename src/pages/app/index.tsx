@@ -43,7 +43,7 @@ const Dashboard: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Deals CMS | Dashboard</title>
+        <title>Deals CRM | Dashboard</title>
       </Head>
 
       <AppLayout sessionTitle={"Dashboard"}>

@@ -53,7 +53,7 @@ const DealSlug: NextPage = () => {
       )}
 
       <Head>
-        <title>Deals CMS | Deal - {deal?.title}</title>
+        <title>Deals CRM | Deal - {deal?.title}</title>
       </Head>
 
       <AppLayout sessionTitle={`Deal: ${deal ? deal.title : ""}`}>

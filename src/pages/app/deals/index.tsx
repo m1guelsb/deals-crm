@@ -8,7 +8,7 @@ const Deals: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Deals CMS | Deals</title>
+        <title>Deals CRM | Deals</title>
       </Head>
 
       <AppLayout sessionTitle={"Deals"}>

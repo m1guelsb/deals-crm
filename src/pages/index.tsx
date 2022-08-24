@@ -50,7 +50,7 @@ const SignIn: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Deals CMS</title>
+        <title>Deals CRM</title>
       </Head>
 
       <Container>
@@ -59,7 +59,7 @@ const SignIn: NextPage = () => {
             <Logo>
               <Image src={LogoIMG} alt="logo" />
             </Logo>
-            <Heading>Deals CMS</Heading>
+            <Heading>Deals CRM</Heading>
           </LogoBox>
 
           <SignInForm onSubmit={handleSubmit(handleSignIn)}>
