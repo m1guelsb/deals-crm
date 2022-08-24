@@ -5,7 +5,12 @@ import { styled, theme } from "@/styles/stitches.config";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { Customer, Deal } from "@/types";
 import Router, { useRouter } from "next/router";
-import { Avatar, DealStatusTag, DisplayChip } from "@/components/data-display";
+import {
+  Avatar,
+  DealStatusTag,
+  DealTasks,
+  DisplayChip,
+} from "@/components/data-display";
 import Link from "next/link";
 import { Heading } from "@/components/typography";
 import { IconButton } from "@/components/form";
@@ -24,7 +29,7 @@ const DealSlug: NextPage = () => {
 
   const { data: deal, isLoading: dealLoad } = useQueryGet<Deal>({
     url: `/deals/${dealId}`,
-    queryKeys: ["deal-slug", dealId],
+    queryKeys: ["deal", dealId ?? ""],
     queryConfigs: {
       enabled: !!dealId,
     },
@@ -32,7 +37,7 @@ const DealSlug: NextPage = () => {
 
   const { data: customer, isLoading: customerLoad } = useQueryGet<Customer>({
     url: `/customers/${deal?.customer?.id}`,
-    queryKeys: ["customer-slug", deal?.customer?.id ?? ""],
+    queryKeys: ["customer", deal?.customer?.id ?? ""],
     queryConfigs: {
       enabled: !!deal,
     },
@@ -56,7 +61,7 @@ const DealSlug: NextPage = () => {
         <title>Deals CRM | Deal - {deal?.title}</title>
       </Head>
 
-      <AppLayout sessionTitle={`Deal: ${deal ? deal.title : ""}`}>
+      <AppLayout sessionTitle={`Deal: ${deal?.title ?? ""}`}>
         <DealContainer>
           <Link href={`/customers/${customer?.id}`} passHref>
             <CustomerDetails>
@@ -73,17 +78,19 @@ const DealSlug: NextPage = () => {
 
           <DealHeader css={{ gridColumn: "1", gridRow: "2" }}>
             <Title>
-              {dealLoad && !deal ? (
-                <>
-                  <Skeleton width="25rem" />
-                  <Skeleton height="2rem" width="15rem" />
-                </>
-              ) : (
+              {deal ? (
                 <>
                   <Heading sType={"3"}>{deal?.title}</Heading>
 
                   <Description>{deal?.description}</Description>
                 </>
+              ) : (
+                dealLoad && (
+                  <>
+                    <Skeleton width="25rem" />
+                    <Skeleton height="2rem" width="15rem" />
+                  </>
+                )
               )}
             </Title>
 
@@ -122,6 +129,11 @@ const DealSlug: NextPage = () => {
               </AlertDialog>
             </Actions>
           </DealHeader>
+
+          <DealTasks
+            dealId={dealId}
+            css={{ gridColumn: "2", gridRow: "1 / 4" }}
+          />
         </DealContainer>
       </AppLayout>
     </>
@@ -136,7 +148,7 @@ const DealContainer = styled("section", {
 
   display: "grid",
   gridTemplateColumns: "3fr 1.5fr",
-  gridTemplateRows: "auto auto 1fr",
+  gridTemplateRows: "auto auto auto 1fr",
   gridGap: "1rem",
 });
 
