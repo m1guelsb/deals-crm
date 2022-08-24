@@ -59,7 +59,7 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
         setIsOpen(false);
         queryClient.invalidateQueries(["deals"]);
 
-        queryClient.invalidateQueries(["deal-slug", `${dealData?.id}`]);
+        queryClient.invalidateQueries(["deal", `${dealData?.id}`]);
       },
       onError() {
         newToast({ styleType: "error", title: "Unexpected error, try again." });
