@@ -36,17 +36,19 @@ export const EditDealDialog = ({
       <Content>
         <Title>Edit Deal</Title>
 
-        {isLoading && !dealData ? (
-          <SkeletonGrid>
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton width="6rem" />
-            <Skeleton width="6rem" />
-          </SkeletonGrid>
-        ) : (
+        {dealData ? (
           <EditDealForm dealData={dealData} setIsOpen={setIsOpen} />
+        ) : (
+          isLoading && (
+            <SkeletonGrid>
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton width="6rem" />
+              <Skeleton width="6rem" />
+            </SkeletonGrid>
+          )
         )}
       </Content>
     </BaseDialog>
