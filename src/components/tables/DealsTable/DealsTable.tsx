@@ -15,7 +15,7 @@ export const DealsTable = () => {
   const { data, isLoading: dealsLoad } = useQueryGet<Deal[]>({
     url: "/deals",
     queryKeys: ["deals"],
-    reqParams: {
+    params: {
       _sort: "title",
     },
     queryConfigs: { refetchOnWindowFocus: false },

@@ -20,7 +20,7 @@ const Dashboard: NextPage = () => {
   const { data: tasksData, isLoading: tasksLoad } = useQueryGet<Task[]>({
     queryKeys: ["tasks"],
     url: `/tasks`,
-    reqParams: {
+    params: {
       _page: 1,
       _sort: "due_date",
     },
@@ -29,7 +29,7 @@ const Dashboard: NextPage = () => {
   const { data: dealsData, isLoading: dealsLoad } = useQueryGet<Deal[]>({
     queryKeys: ["deals"],
     url: `/deals`,
-    reqParams: {
+    params: {
       _sort: "title",
     },
   });

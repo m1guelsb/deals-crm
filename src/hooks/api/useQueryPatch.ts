@@ -2,21 +2,21 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import { api } from "@/services/axios";
 
-interface usePostProps {
-  url: string;
+interface useQueryPatchProps {
+  url: `/${string}/${string}`;
   params?: { [key: string]: string | number };
 }
 
-export const useQueryPost = <TPayload = any, TResponse = any>({
+export const useQueryPatch = <TPayload = any, TResponse = any>({
   url,
   params,
-}: usePostProps) => {
+}: useQueryPatchProps) => {
   const mutation = useMutation<AxiosResponse<TResponse>, AxiosError, TPayload>(
     (payload: TPayload) =>
-      api.post<TPayload, AxiosResponse<TResponse>>(url, payload, {
+      api.patch<TPayload, AxiosResponse<TResponse>>(url, payload, {
         params,
       })
   );
 
-  return { ...mutation, post: mutation.mutate };
+  return { ...mutation, patch: mutation.mutate };
 };

@@ -4,16 +4,16 @@ import { api } from "@/services/axios";
 
 interface useQueryDeleteProps {
   url: `/${string}/${string}`;
-  deleteParams?: { [key: string]: string | number };
+  params?: { [key: string]: string | number };
 }
 
 export const useQueryDelete = <TResponse = any>({
   url,
-  deleteParams,
+  params,
 }: useQueryDeleteProps) => {
   const mutation = useMutation<AxiosResponse<TResponse>, AxiosError>(() =>
     api.delete<TResponse>(url, {
-      params: { ...deleteParams },
+      params,
     })
   );
 

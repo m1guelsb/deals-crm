@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Deal, DealForm } from "@/types";
 import { currencyMask } from "@/utils/masks/currencyMask";
-import { useQueryPut } from "@/hooks/api/useQueryPut";
+import { useQueryPatch } from "@/hooks/api/useQueryPatch";
 
 interface EditDealFormProps {
   dealData: Deal | undefined;
@@ -19,7 +19,9 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
   const { newToast } = useToast();
   const queryClient = useQueryClient();
 
-  const { put: putDeal, isLoading } = useQueryPut<Omit<DealForm, "customer">>({
+  const { patch: patchDeal, isLoading } = useQueryPatch<
+    Omit<DealForm, "customer">
+  >({
     url: `/deals/${dealData?.id}`,
   });
 
@@ -39,7 +41,6 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
       description: dealData?.description,
       price: dealData?.price,
       status: { label: dealData?.status.label, value: dealData?.status.value },
-      customer: { id: "notEditable", name: "notEditable" },
     },
   });
 
@@ -51,7 +52,7 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
       status,
     };
 
-    putDeal(dealPayload, {
+    patchDeal(dealPayload, {
       onSuccess() {
         newToast({ styleType: "success", title: "Deal edited!" });
         setIsOpen(false);

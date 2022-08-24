@@ -5,7 +5,7 @@ import { useState } from "react";
 interface prefetchProps {
   queryKeys: string[];
   url: string;
-  reqParams?: { [key: string]: string | number };
+  params?: { [key: string]: string | number };
   queryConfigs?: {
     staleTime?: number;
     enabled?: boolean;
@@ -21,14 +21,14 @@ export const useQueryPrefetch = () => {
     url,
     queryKeys,
     queryConfigs,
-    reqParams,
+    params,
   }: prefetchProps) => {
     setIsLoading(true);
     queryClient
       .prefetchQuery(
         queryKeys,
         async () => {
-          const { data } = await api.get(url, { params: { ...reqParams } });
+          const { data } = await api.get(url, { params });
           return data;
         },
         {

@@ -6,7 +6,7 @@ import { number } from "yup";
 interface useReactQueryProps {
   queryKeys: string[];
   url: string;
-  reqParams?: { [key: string]: string | number };
+  params?: { [key: string]: string | number };
   queryConfigs?: {
     enabled?: boolean;
     refetchOnWindowFocus?: boolean;
@@ -16,14 +16,14 @@ interface useReactQueryProps {
 export function useQueryGet<ResponseDataType>({
   queryKeys,
   url,
-  reqParams,
+  params,
   queryConfigs,
 }: useReactQueryProps) {
   const queryResponse = useQuery(
     queryKeys,
     async () => {
       const { data } = await api.get<ResponseDataType>(url, {
-        params: { ...reqParams },
+        params,
       });
       return data;
     },
