@@ -1,4 +1,4 @@
-import { DealForm } from "@/types";
+import { DealForm, TaskForm } from "@/types";
 import { number, object, SchemaOf, string } from "yup";
 
 export const signInFormSchema = object().shape({
@@ -22,4 +22,9 @@ export const newDealFormSchema: SchemaOf<DealForm> = object({
       .equals(["1", "2"], "Wrong value")
       .required("Select a option"),
   }).required("Select a option"),
+});
+
+export const newTaskFormSchema: SchemaOf<TaskForm> = object({
+  title: string().required("Field required"),
+  due_date: string().required("Chose a due date"),
 });
