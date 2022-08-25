@@ -1,11 +1,10 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import {
   BaseDialog,
-  dialogContentShow,
   Title,
   DialogContent,
 } from "@/components/overlay/dialogs/BaseDialog";
-import { styled, theme } from "@/styles/stitches.config";
+import { styled } from "@/styles/stitches.config";
 import { EditDealForm } from "@/components/form-groups";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import type { Deal } from "@/types";
@@ -33,7 +32,7 @@ export const EditDealDialog = ({
 
   return (
     <BaseDialog trigger={children} open={isOpen} onOpenChange={setIsOpen}>
-      <Content>
+      <DialogContent>
         <Title>Edit Deal</Title>
 
         {dealData ? (
@@ -50,37 +49,10 @@ export const EditDealDialog = ({
             </SkeletonGrid>
           )
         )}
-      </Content>
+      </DialogContent>
     </BaseDialog>
   );
 };
-
-const Content = styled(DialogContent, {
-  "width": "38rem",
-  "minHeight": "20rem",
-
-  "display": "flex",
-  "flexDirection": "column",
-  "gap": "1rem",
-
-  "backgroundColor": theme.colors.background1,
-  "_border": "All",
-  "borderColor": theme.colors.primary,
-
-  "padding": "1rem",
-
-  "borderRadius": theme.radii.md,
-
-  "position": "fixed",
-  "top": "50%",
-  "left": "50%",
-  "transform": "translate(-50%, -50%)",
-
-  "@media (prefers-reduced-motion: no-preference)": {
-    animation: `${dialogContentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
-  },
-  "&:focus": { outline: "none" },
-});
 
 const SkeletonGrid = styled("div", {
   display: "grid",

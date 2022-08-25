@@ -151,6 +151,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
 };
 
 const Form = styled("form", {
+  width: "35rem",
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
