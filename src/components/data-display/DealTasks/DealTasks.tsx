@@ -7,6 +7,7 @@ import type { Task } from "@/types";
 import { Skeleton } from "@/components/feedback";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { plus } from "@/assets/icons";
+import { NewTaskDialog } from "@/components/overlay";
 
 interface DealTasksProps {
   dealId: string;
@@ -22,10 +23,13 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
   });
 
   return (
-    <DueTasksContainer css={css}>
+    <TasksContainer css={css}>
       <Header>
         <Heading sType={"4"}>Deal Tasks</Heading>
-        <IconButton title="Add task" iconSrc={plus.src} sSize={"small"} />
+
+        <NewTaskDialog dealId={dealId}>
+          <IconButton title="Add task" iconSrc={plus.src} sSize={"small"} />
+        </NewTaskDialog>
       </Header>
 
       <Content>
@@ -50,11 +54,11 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
               .map((item, index) => <Skeleton height="2.5rem" key={index} />)
           : null}
       </Content>
-    </DueTasksContainer>
+    </TasksContainer>
   );
 };
 
-const DueTasksContainer = styled("div", {
+const TasksContainer = styled("div", {
   height: "100%",
   display: "flex",
   flexDirection: "column",
