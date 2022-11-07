@@ -40,12 +40,13 @@ export const EditDealDialog = ({
         ) : (
           isLoading && (
             <SkeletonGrid>
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton width="6rem" />
-              <Skeleton width="6rem" />
+              <Skeleton width="16rem" />
+              <Skeleton width="100%" />
+              <Skeleton width="100%" />
+              <Skeleton width="100%" />
+
+              <Skeleton width="7rem" />
+              <Skeleton width="7rem" />
             </SkeletonGrid>
           )
         )}
