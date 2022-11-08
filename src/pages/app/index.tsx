@@ -4,7 +4,7 @@ import { AppLayout } from "@/components/layout";
 import { styled } from "@/styles/stitches.config";
 import { costumers, deals, dollar } from "@/assets/icons";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
-import { Card, DueTasks, RecentCostumers } from "@/components/data-display";
+import { Card, DueTasks, RecentCustomers } from "@/components/data-display";
 import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 import type { Customer, Task, Deal } from "@/types";
 import { currencyMask } from "@/utils/masks/currencyMask";
@@ -60,7 +60,7 @@ const Dashboard: NextPage = () => {
               iconSrc={deals.src}
             />
             <Card
-              title="Costumers"
+              title="Customers"
               value={costumersData?.length.toString()}
               iconSrc={costumers.src}
             />
@@ -77,7 +77,7 @@ const Dashboard: NextPage = () => {
             isLoading={tasksLoad}
             css={{ gridArea: "tasks" }}
           />
-          <RecentCostumers
+          <RecentCustomers
             costumersData={costumersData?.slice(0, 6)}
             isLoading={costumersload}
             css={{ gridArea: "costumers" }}

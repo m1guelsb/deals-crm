@@ -6,18 +6,18 @@ import { LinkButton } from "@/components/form";
 import { Skeleton } from "@/components/feedback";
 import type { Customer } from "@/types";
 
-interface RecentCostumersProps {
+interface RecentCustomersProps {
   costumersData: Customer[] | undefined;
   isLoading: boolean;
   css?: CSS;
 }
-export const RecentCostumers = ({
+export const RecentCustomers = ({
   costumersData,
   isLoading,
   css,
-}: RecentCostumersProps) => {
+}: RecentCustomersProps) => {
   return (
-    <RecentCostumersContainer css={css}>
+    <RecentCustomersContainer css={css}>
       <Header>
         <Heading sType={"4"}>Recent Customers</Heading>
 
@@ -39,11 +39,11 @@ export const RecentCostumers = ({
               .map((item, index) => <Skeleton height="5rem" key={index} />)
           : null}
       </Content>
-    </RecentCostumersContainer>
+    </RecentCustomersContainer>
   );
 };
 
-const RecentCostumersContainer = styled("div", {
+const RecentCustomersContainer = styled("div", {
   height: "100%",
 
   display: "flex",
