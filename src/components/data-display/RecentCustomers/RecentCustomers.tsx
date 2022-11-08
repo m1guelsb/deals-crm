@@ -21,12 +21,12 @@ export const RecentCustomers = ({
       <Header>
         <Heading sType={"4"}>Recent Customers</Heading>
 
-        <LinkButton label="View All" href="/app/costumers" />
+        <LinkButton label="View All" href="/app/customers" />
       </Header>
 
       <Content>
         {costumersData?.map(({ id, name, email, image }) => (
-          <Link href={`/app/costumers/${id}`} key={id}>
+          <Link href={`/app/customers/${id}`} key={id}>
             <a style={{ color: "unset", textDecoration: "none" }}>
               <CustomerChip name={name} email={email} image={image} />
             </a>

@@ -10,7 +10,7 @@ export const Sidebar = ({ ...props }: SidebarProps) => {
     <S_Sidebar {...props}>
       <NavButton href="/app" iconSrc={dashboard.src} />
       <NavButton href="/app/deals" iconSrc={deals.src} />
-      <NavButton href="/app/costumers" iconSrc={costumers.src} />
+      <NavButton href="/app/customers" iconSrc={costumers.src} />
       <NavButton href="/app/tasks" iconSrc={tasks.src} />
     </S_Sidebar>
   );
