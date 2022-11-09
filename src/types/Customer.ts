@@ -5,3 +5,5 @@ export interface Customer {
   phone: string;
   image: string;
 }
+
+export interface CustomerForm extends Omit<Customer, "id" | "image"> {}
