@@ -6,7 +6,7 @@ import { BaseTable } from "@/components/tables";
 import type { Customer } from "@/types";
 import { Skeleton } from "@/components/feedback";
 import { Icon } from "@/components/media";
-import { EditDealDialog } from "@/components/overlay";
+import { EditCustomerDialog } from "@/components/overlay";
 import { edit } from "@/assets/icons";
 import { Avatar } from "@/components/data-display";
 import Link from "next/link";
@@ -33,7 +33,7 @@ export const CustomersTable = () => {
     columnHelper.accessor("image", {
       header: "Avatar",
       cell: ({ row, getValue }) => {
-        const avatar = getValue<string>();
+        const avatar = getValue();
         return (
           <Link href={`customers/${row.getValue("id")}`} passHref>
             <ImageBox>
@@ -46,7 +46,7 @@ export const CustomersTable = () => {
     columnHelper.accessor("name", {
       header: "Name",
       cell: ({ row, getValue }) => {
-        const name = getValue<string>();
+        const name = getValue();
         return name ? (
           <Link href={`customers/${row.getValue("id")}`} passHref>
             <LinkCell>{name}</LinkCell>
@@ -90,8 +90,8 @@ export const CustomersTable = () => {
 
   return (
     <>
-      <EditDealDialog
-        dealId={rowCustomerId}
+      <EditCustomerDialog
+        customerId={rowCustomerId}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
