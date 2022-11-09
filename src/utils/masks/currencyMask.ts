@@ -1,5 +1,3 @@
-import { ChangeEvent } from "react";
-
 export const currencyMask = (value: string) => {
   const maskedValue = value
     .replace(/\D/g, "")
