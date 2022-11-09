@@ -3,7 +3,7 @@ import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input, Select } from "@/components/form";
-import { newDealFormSchema } from "@/utils/validations/yup";
+import { dealFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryClient } from "@tanstack/react-query";
@@ -35,7 +35,7 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
     reValidateMode: "onChange",
     shouldUseNativeValidation: false,
     shouldFocusError: false,
-    resolver: yupResolver(newDealFormSchema),
+    resolver: yupResolver(dealFormSchema),
     defaultValues: {
       title: dealData?.title,
       description: dealData?.description,
