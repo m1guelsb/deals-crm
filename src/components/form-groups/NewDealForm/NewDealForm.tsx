@@ -3,7 +3,7 @@ import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, ComboBox, Input, Select } from "@/components/form";
-import { newDealFormSchema } from "@/utils/validations/yup";
+import { dealFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryPost } from "@/hooks/api/useQueryPost";
@@ -31,7 +31,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
     reValidateMode: "onChange",
     shouldUseNativeValidation: false,
     shouldFocusError: false,
-    resolver: yupResolver(newDealFormSchema),
+    resolver: yupResolver(dealFormSchema),
   });
 
   const handlePostNewDeal = ({
