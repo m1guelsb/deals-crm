@@ -3,7 +3,7 @@ import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input } from "@/components/form";
-import { newTaskFormSchema } from "@/utils/validations/yup";
+import { taskFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryPost } from "@/hooks/api/useQueryPost";
@@ -31,7 +31,7 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
     reValidateMode: "onChange",
     shouldUseNativeValidation: false,
     shouldFocusError: false,
-    resolver: yupResolver(newTaskFormSchema),
+    resolver: yupResolver(taskFormSchema),
   });
 
   const handlePostNewDeal = ({ title, due_date }: TaskForm) => {
