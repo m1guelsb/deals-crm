@@ -9,3 +9,4 @@ export * from "./DueTasks/DueTasks";
 export * from "./DisplayChip/DisplayChip";
 export * from "./DealStatusTag/DealStatusTag";
 export * from "./DealTasks/DealTasks";
+export * from "./CustomerDeals/CustomerDeals";
