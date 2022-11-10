@@ -40,13 +40,21 @@ export const EditCustomerDialog = ({
         ) : (
           isLoading && (
             <SkeletonGrid>
-              <Skeleton width="16rem" />
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
-              <Skeleton width="100%" />
+              <div style={{ gridColumn: "1 / 2" }}>
+                <Skeleton width="35rem" />
+              </div>
 
-              <Skeleton width="7rem" />
-              <Skeleton width="7rem" />
+              <div
+                style={{
+                  gridColumn: "1 / 2",
+                  gridRow: "2",
+                  display: "flex",
+                  gap: "2rem",
+                }}
+              >
+                <Skeleton width="16.5rem" />
+                <Skeleton width="16.5rem" />
+              </div>
             </SkeletonGrid>
           )
         )}
@@ -57,7 +65,7 @@ export const EditCustomerDialog = ({
 
 const SkeletonGrid = styled("div", {
   display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gridGap: "2rem",
+  gridTemplateColumns: "auto auto",
+  gridRowGap: "2rem",
   justifyItems: "center",
 });
