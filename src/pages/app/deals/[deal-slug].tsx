@@ -63,7 +63,7 @@ const DealSlug: NextPage = () => {
 
       <AppLayout sessionTitle={`Deal: ${deal?.title ?? ""}`}>
         <DealContainer>
-          <Link href={`/customers/${customer?.id}`} passHref>
+          <Link href={`/app/customers/${customer?.id}`} passHref>
             <CustomerDetails>
               <Avatar
                 username={customer?.name}
@@ -148,7 +148,7 @@ const DealContainer = styled("section", {
 
   display: "grid",
   gridTemplateColumns: "3fr 1.5fr",
-  gridTemplateRows: "auto auto auto 1fr",
+  gridTemplateRows: "auto auto 1fr",
   gridGap: "1rem",
 });
 
