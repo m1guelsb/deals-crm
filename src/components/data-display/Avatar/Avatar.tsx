@@ -5,9 +5,10 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar";
 interface AvatarProps {
   imageSrc: string;
   username: string | undefined;
+  size?: `${number}rem`;
 }
-export const Avatar = ({ imageSrc, username }: AvatarProps) => (
-  <AvatarContainer title={username}>
+export const Avatar = ({ imageSrc, username, size }: AvatarProps) => (
+  <AvatarContainer title={username} style={{ width: size, height: size }}>
     <Image src={imageSrc} alt={username} />
     <Fallback>{sliceAcronym(username)}</Fallback>
   </AvatarContainer>
@@ -24,7 +25,6 @@ const AvatarContainer = styled(AvatarPrimitive.Root, {
 
   overflow: "hidden",
   userSelect: "none",
-  cursor: "pointer",
 });
 
 const Image = styled(AvatarPrimitive.Image, {
