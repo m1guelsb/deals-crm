@@ -49,9 +49,12 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
         })}
 
         {tasksLoad && !tasksData
-          ? Array(5)
-              .fill({})
-              .map((item, index) => <Skeleton height="2.5rem" key={index} />)
+          ? Array.from(
+              {
+                length: 12,
+              },
+              (_, index) => <Skeleton height="4rem" key={index} />
+            )
           : null}
       </Content>
     </TasksContainer>
@@ -79,6 +82,8 @@ const Content = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "0.25rem",
+
+  overflow: "auto",
 
   borderRadius: theme.radii.md,
   _border: "All",
