@@ -5,19 +5,16 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar";
 interface AvatarProps {
   imageSrc: string;
   username: string | undefined;
-  size?: `${number}rem`;
+  sSize?: "sm" | "md" | "lg";
 }
-export const Avatar = ({ imageSrc, username, size }: AvatarProps) => (
-  <AvatarContainer title={username} style={{ width: size, height: size }}>
+export const Avatar = ({ imageSrc, username, sSize }: AvatarProps) => (
+  <AvatarContainer sSize={sSize} title={username}>
     <Image src={imageSrc} alt={username} />
     <Fallback>{sliceAcronym(username)}</Fallback>
   </AvatarContainer>
 );
 
 const AvatarContainer = styled(AvatarPrimitive.Root, {
-  width: "3rem",
-  height: "3rem",
-
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -25,6 +22,30 @@ const AvatarContainer = styled(AvatarPrimitive.Root, {
 
   overflow: "hidden",
   userSelect: "none",
+
+  defaultVariants: {
+    sSize: "md",
+  },
+
+  variants: {
+    sSize: {
+      sm: {
+        height: "1.5rem",
+        width: "1.5rem",
+        fontSize: theme.fontSizes.md,
+      },
+      md: {
+        height: "3rem",
+        width: "3rem",
+        fontSize: theme.fontSizes.lg,
+      },
+      lg: {
+        height: "5rem",
+        width: "5rem",
+        fontSize: theme.fontSizes["2xl"],
+      },
+    },
+  },
 });
 
 const Image = styled(AvatarPrimitive.Image, {
@@ -43,6 +64,5 @@ const Fallback = styled(AvatarPrimitive.Fallback, {
   backgroundColor: theme.colors.text1,
 
   color: theme.colors.primary,
-  fontSize: theme.fontSizes.lg,
   fontWeight: theme.fontWeights.medium,
 });
