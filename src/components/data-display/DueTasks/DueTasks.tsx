@@ -4,7 +4,8 @@ import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Task as TaskItem } from "@/components/data-display";
 import type { Task } from "@/types";
-import { Skeleton } from "@/components/feedback";
+import { NoData, Skeleton } from "@/components/feedback";
+import { tasks } from "@/assets/icons";
 
 interface DueTasksProps {
   tasksData: Task[] | undefined;
@@ -20,12 +21,6 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
       </Header>
 
       <Content>
-        <TaskItem
-          css={{ cursor: "pointer" }}
-          title={"Very Due date"}
-          due_date={new Date().toLocaleDateString("en-US")}
-          completed={false}
-        />
         {tasksData?.map(({ id, title, due_date, completed }) => {
           return (
             <Link href={`/app/tasks/${id}`} key={id}>
@@ -40,6 +35,10 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
             </Link>
           );
         })}
+
+        {tasksData?.length === 0 && (
+          <NoData icon={tasks.src} message="No tasks found" alignY />
+        )}
 
         {isLoading && !tasksData
           ? Array(5)
