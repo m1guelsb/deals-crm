@@ -4,9 +4,9 @@ import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Task as TaskItem } from "@/components/data-display";
 import type { Task } from "@/types";
-import { Skeleton } from "@/components/feedback";
+import { NoData, Skeleton } from "@/components/feedback";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
-import { plus } from "@/assets/icons";
+import { plus, tasks } from "@/assets/icons";
 import { NewTaskDialog } from "@/components/overlay";
 
 interface DealTasksProps {
@@ -33,20 +33,24 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
       </Header>
 
       <Content>
-        {tasksData?.map(({ id, title, due_date, completed }) => {
-          return (
-            <Link href={`/app/tasks/${id}`} key={id}>
-              <a style={{ color: "unset", textDecoration: "none" }}>
-                <TaskItem
-                  css={{ cursor: "pointer" }}
-                  title={title}
-                  due_date={due_date}
-                  completed={completed}
-                />
-              </a>
-            </Link>
-          );
-        })}
+        {tasksData && tasksData?.length > 0
+          ? tasksData?.map(({ id, title, due_date, completed }) => {
+              return (
+                <Link href={`/app/tasks/${id}`} key={id}>
+                  <a style={{ color: "unset", textDecoration: "none" }}>
+                    <TaskItem
+                      css={{ cursor: "pointer" }}
+                      title={title}
+                      due_date={due_date}
+                      completed={completed}
+                    />
+                  </a>
+                </Link>
+              );
+            })
+          : !tasksLoad && (
+              <NoData icon={tasks.src} message="No tasks found" alignY />
+            )}
 
         {tasksLoad && !tasksData
           ? Array.from(
