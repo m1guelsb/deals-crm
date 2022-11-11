@@ -17,7 +17,10 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
     <DueTasksContainer css={css}>
       <Header>
         <Heading sType={"4"}>Due Tasks</Heading>
-        <LinkButton label="View All" href="/app/tasks" />
+
+        {tasksData && tasksData?.length > 0 && (
+          <LinkButton label="View All" href="/app/tasks" />
+        )}
       </Header>
 
       <Content>
@@ -75,4 +78,6 @@ const Content = styled("div", {
   borderRadius: theme.radii.md,
   _border: "All",
   borderColor: theme.colors.background3,
+
+  overflow: "auto",
 });
