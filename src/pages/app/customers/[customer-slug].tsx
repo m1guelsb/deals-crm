@@ -44,16 +44,6 @@ const CustomerSlug: NextPage = () => {
     url: `/customers/${customer?.id}`,
   });
 
-  const { data: customerDeals, isLoading: customerDealsLoad } = useQueryGet<
-    Deal[]
-  >({
-    url: `/customers/${customerId}/deals`,
-    queryKeys: ["deals", customerId ?? ""],
-    queryConfigs: {
-      enabled: !!customer,
-    },
-  });
-
   return (
     <>
       {customer && (
@@ -74,7 +64,7 @@ const CustomerSlug: NextPage = () => {
             <Avatar
               username={customer?.name}
               imageSrc={customer?.image ?? ""}
-              size={"5rem"}
+              sSize={"lg"}
             />
             <Heading sType={"3"}>{customer?.name ?? ""}</Heading>
           </CustomerHeader>
@@ -110,6 +100,7 @@ const CustomerSlug: NextPage = () => {
                 }
                 isLoading={deleteCustomerLoad}
                 title="Delete customer?"
+                description="Delete that customer will also delete all his deals."
               >
                 <IconButton sType={"tertiary"} iconSrc={trash.src} />
               </AlertDialog>
