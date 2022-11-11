@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryPost } from "@/hooks/api/useQueryPost";
 import { useQueryClient } from "@tanstack/react-query";
 import type { TaskForm } from "@/types";
+import { DatePicker } from "@/components/form";
 
 interface NewTaskFormProps {
   dealId: string;
@@ -32,19 +33,23 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
     shouldUseNativeValidation: false,
     shouldFocusError: false,
     resolver: yupResolver(taskFormSchema),
+    defaultValues: {
+      completed: false,
+    },
   });
 
-  const handlePostNewDeal = ({ title, due_date }: TaskForm) => {
+  const handlePostNewDeal = ({ title, due_date, completed }: TaskForm) => {
     const taskPayload = {
       title,
       due_date,
+      completed,
     };
 
     postTask(taskPayload, {
       onSuccess() {
         newToast({ styleType: "success", title: "Task created!" });
         setIsOpen(false);
-        queryClient.invalidateQueries(["tasks"]);
+        queryClient.invalidateQueries(["deal-tasks", dealId]);
       },
       onError() {
         newToast({ styleType: "error", title: "Unexpected error, try again." });
@@ -58,25 +63,21 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
         <Input
           label="Title"
           errorMessage={errors.title?.message}
+          placeholder="Task title"
           {...register("title")}
         />
 
-        {/* <Controller
+        <Controller
           name="due_date"
           control={control}
           render={({ field: { value, onChange } }) => (
-            <Select
-              label="Status"
-              errorMessage={errors.status?.value?.message}
-              options={[
-                { label: "Closed", value: "1" },
-                { label: "In Progress", value: "2" },
-              ]}
+            <DatePicker
               value={value}
-              onChange={(selected) => onChange(selected)}
+              onChange={(value) => onChange(value)}
+              errorMessage={errors.due_date?.message}
             />
           )}
-        /> */}
+        />
       </InputsGrid>
 
       <Actions>
