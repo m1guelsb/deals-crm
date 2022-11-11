@@ -1,5 +1,5 @@
-import { plus } from "@/assets/icons";
-import { Skeleton } from "@/components/feedback";
+import { deals, plus } from "@/assets/icons";
+import { NoData, Skeleton } from "@/components/feedback";
 import { IconButton } from "@/components/form";
 import { NewDealDialog } from "@/components/overlay";
 import { Heading } from "@/components/typography";
@@ -34,25 +34,29 @@ export const CustomerDeals = ({ customerId, css }: customerDealsProps) => {
       </Header>
 
       <Content>
-        {dealsData?.map(({ id, title, description, price, status }) => {
-          return (
-            <Link href={`/app/deals/${id}`} key={id}>
-              <a style={{ color: "unset", textDecoration: "none" }}>
-                <DealChip
-                  title={title}
-                  description={description}
-                  price={price}
-                  status={status}
-                />
-              </a>
-            </Link>
-          );
-        })}
+        {dealsData && dealsData?.length > 0
+          ? dealsData?.map(({ id, title, description, price, status }) => {
+              return (
+                <Link href={`/app/deals/${id}`} key={id}>
+                  <a style={{ color: "unset", textDecoration: "none" }}>
+                    <DealChip
+                      title={title}
+                      description={description}
+                      price={price}
+                      status={status}
+                    />
+                  </a>
+                </Link>
+              );
+            })
+          : !dealsLoad && (
+              <NoData icon={deals.src} message="No deals found" alignY />
+            )}
 
         {dealsLoad && !dealsData
           ? Array.from(
               {
-                length: 6,
+                length: 12,
               },
               (_, index) => <Skeleton height="8rem" key={index} />
             )
@@ -81,10 +85,11 @@ const Content = styled("div", {
 
   display: "flex",
   flexDirection: "column",
-  paddingRight: "0.25rem",
-  gap: "0.5rem",
+  gap: "0.25rem",
 
   overflow: "auto",
 
   borderRadius: theme.radii.md,
+  _border: "All",
+  borderColor: theme.colors.background3,
 });
