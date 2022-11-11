@@ -12,12 +12,14 @@ import { Spinner } from "@/components/feedback";
 
 interface DialogProps {
   title: string;
+  description?: string;
   isLoading?: boolean;
   children: ReactElement;
   onConfirm: () => void;
 }
 export const AlertDialog = ({
   title,
+  description,
   onConfirm,
   children,
   isLoading,
@@ -26,6 +28,7 @@ export const AlertDialog = ({
     <BaseDialog trigger={children}>
       <Content>
         <Title>{title}</Title>
+        <Description>{description}</Description>
 
         <Actions>
           <Close asChild>
@@ -47,6 +50,7 @@ const Actions = styled("div", {
   display: "flex",
   justifyContent: "space-between",
 });
+const Description = styled("p", {});
 const Content = styled(DialogContent, {
   "width": "20rem",
 
