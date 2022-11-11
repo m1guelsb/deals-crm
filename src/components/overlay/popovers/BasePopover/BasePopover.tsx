@@ -5,9 +5,16 @@ import { keyframes, styled, theme } from "@/styles/stitches.config";
 interface PopoverProps {
   trigger: ReactNode;
   children: ReactElement;
+  open?: boolean;
+  onOpenChange?: (arg1: boolean) => void;
 }
-export const BasePopover = ({ trigger, children }: PopoverProps) => (
-  <P.Root>
+export const BasePopover = ({
+  trigger,
+  children,
+  open,
+  onOpenChange,
+}: PopoverProps) => (
+  <P.Root open={open} onOpenChange={onOpenChange}>
     <P.Trigger asChild>{trigger}</P.Trigger>
 
     <P.Portal>{children}</P.Portal>
