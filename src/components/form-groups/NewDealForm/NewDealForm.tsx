@@ -17,7 +17,7 @@ interface NewDealFormProps {
 export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
   const { newToast } = useToast();
   const { post: postDeal, isLoading } = useQueryPost<DealForm>({
-    url: "/deals",
+    url: `/deals`,
   });
   const queryClient = useQueryClient();
 
@@ -40,10 +40,12 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
     description,
     price,
     status,
+    customerId,
   }: DealForm) => {
     const dealPayload = {
       title,
       customer,
+      customerId: customer.id,
       description,
       price,
       status,
@@ -53,7 +55,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
       onSuccess() {
         newToast({ styleType: "success", title: "Deal created!" });
         setIsOpen(false);
-        queryClient.invalidateQueries(["deals"]);
+        queryClient.invalidateQueries(["customer-deals", customer.id]);
       },
       onError() {
         newToast({ styleType: "error", title: "Unexpected error, try again." });
