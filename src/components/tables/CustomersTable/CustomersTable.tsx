@@ -4,20 +4,22 @@ import { styled } from "@/styles/stitches.config";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { BaseTable } from "@/components/tables";
 import type { Customer } from "@/types";
-import { Skeleton } from "@/components/feedback";
+import { NoData, Skeleton } from "@/components/feedback";
 import { Icon } from "@/components/media";
-import { EditCustomerDialog } from "@/components/overlay";
-import { edit } from "@/assets/icons";
+import {
+  EditCustomerDialog,
+  NewCustomerDialog,
+  NewDealDialog,
+} from "@/components/overlay";
+import { costumers, edit } from "@/assets/icons";
 import { Avatar } from "@/components/data-display";
 import Link from "next/link";
+import { Button } from "@/components/form";
 
 export const CustomersTable = () => {
   const { data, isLoading: customersLoad } = useQueryGet<Customer[]>({
     url: "/customers",
     queryKeys: ["customers"],
-    params: {
-      _sort: "name",
-    },
     queryConfigs: { refetchOnWindowFocus: false },
   });
   const [rowCustomerId, setRowCustomerId] = useState("");
@@ -95,12 +97,29 @@ export const CustomersTable = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
-      <BaseTable
-        total={data?.length}
-        data={data}
-        columns={columns}
-        isLoading={customersLoad}
-      />
+      {data && data?.length > 0 ? (
+        <BaseTable
+          total={data?.length}
+          data={data}
+          columns={columns}
+          isLoading={customersLoad}
+        />
+      ) : (
+        !customersLoad && (
+          <NoDataWrapper>
+            <NoData message="No customers found" />
+
+            <NewCustomerDialog>
+              <Button
+                sType={"primary"}
+                rightIcon={<Icon src={costumers.src} />}
+              >
+                Add new customer
+              </Button>
+            </NewCustomerDialog>
+          </NoDataWrapper>
+        )
+      )}
     </>
   );
 };
@@ -134,4 +153,14 @@ const LinkCell = styled("a", {
 
 const ImageBox = styled("span", {
   width: "fit-content",
+});
+
+const NoDataWrapper = styled("div", {
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "0.5rem",
 });
