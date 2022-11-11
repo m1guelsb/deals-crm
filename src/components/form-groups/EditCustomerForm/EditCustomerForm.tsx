@@ -72,12 +72,14 @@ export const EditCustomerForm = ({
           label="Name"
           errorMessage={errors.name?.message}
           {...register("name")}
+          placeholder={"Insert customer name"}
           css={{ gridColumn: "1 / 3" }}
         />
 
         <Input
           label="Email"
           errorMessage={errors.email?.message}
+          placeholder={"example@email.com"}
           {...register("email")}
         />
 
