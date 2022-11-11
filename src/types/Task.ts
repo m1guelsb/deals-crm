@@ -8,4 +8,4 @@ export interface Task {
     title: string;
   };
 }
-export interface TaskForm extends Omit<Task, "id" | "completed" | "deal"> {}
+export interface TaskForm extends Omit<Task, "id" | "deal"> {}
