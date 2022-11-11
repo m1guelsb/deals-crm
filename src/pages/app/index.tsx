@@ -95,7 +95,7 @@ const DashboardContainer = styled("section", {
   padding: "2rem",
 
   display: "grid",
-  gridTemplateColumns: "1fr",
+  gridTemplateColumns: "1fr 28rem",
   gridTemplateRows: "10rem 1fr",
   gridTemplateAreas: `
   'cards tasks'
