@@ -1,5 +1,5 @@
 import { CustomerForm, DealForm, TaskForm } from "@/types";
-import { object, SchemaOf, string } from "yup";
+import { boolean, object, SchemaOf, string } from "yup";
 
 export const signInFormSchema = object().shape({
   username: string().required("Username required"),
@@ -10,10 +10,13 @@ export const dealFormSchema: SchemaOf<DealForm> = object({
   title: string().required("Field required"),
   description: string().required("Field required"),
   price: string().required("Field required").min(2, "Field required"),
+
   customer: object({
     id: string().required("Select a customer"),
     name: string().required("Select a customer"),
   }).required("Select a customer"),
+  customerId: string(),
+
   status: object({
     label: string()
       .equals(["Closed", "In Progress"], "Wrong value")
@@ -35,4 +38,5 @@ export const customerFormSchema: SchemaOf<CustomerForm> = object({
 export const taskFormSchema: SchemaOf<TaskForm> = object({
   title: string().required("Field required"),
   due_date: string().required("Chose a due date"),
+  completed: boolean().required(),
 });
