@@ -7,6 +7,7 @@ export interface Deal {
     id: string;
     name: string;
   };
+  customerId?: string;
   status: { label: "Closed" | "In Progress"; value: "1" | "2" };
 }
 
