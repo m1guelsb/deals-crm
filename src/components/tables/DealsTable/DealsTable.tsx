@@ -4,12 +4,13 @@ import { styled, theme } from "@/styles/stitches.config";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { BaseTable } from "@/components/tables";
 import type { Deal } from "@/types";
-import { Skeleton } from "@/components/feedback";
+import { NoData, Skeleton } from "@/components/feedback";
 import { Icon } from "@/components/media";
-import { EditDealDialog } from "@/components/overlay";
-import { edit } from "@/assets/icons";
+import { EditDealDialog, NewDealDialog } from "@/components/overlay";
+import { deals, edit } from "@/assets/icons";
 import { DealStatusTag } from "@/components/data-display";
 import Link from "next/link";
+import { Button } from "@/components/form";
 
 export const DealsTable = () => {
   const { data, isLoading: dealsLoad } = useQueryGet<Deal[]>({
@@ -33,7 +34,7 @@ export const DealsTable = () => {
     columnHelper.accessor("title", {
       header: "Title",
       cell: ({ row, getValue }) => {
-        const title = getValue();
+        const title = getValue<string>();
         return title ? (
           <Link href={`deals/${row.getValue("id")}`} passHref>
             <LinkCell>{title}</LinkCell>
@@ -90,12 +91,26 @@ export const DealsTable = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
-      <BaseTable
-        total={data?.length}
-        data={data}
-        columns={columns}
-        isLoading={dealsLoad}
-      />
+      {data && data?.length > 0 ? (
+        <BaseTable
+          total={data?.length}
+          data={data}
+          columns={columns}
+          isLoading={dealsLoad}
+        />
+      ) : (
+        !dealsLoad && (
+          <NoDataWrapper>
+            <NoData message="No deals found" />
+
+            <NewDealDialog>
+              <Button sType={"primary"} rightIcon={<Icon src={deals.src} />}>
+                Add new deal
+              </Button>
+            </NewDealDialog>
+          </NoDataWrapper>
+        )
+      )}
     </>
   );
 };
@@ -125,4 +140,13 @@ const LinkCell = styled("a", {
   alignItems: "center",
 
   cursor: "pointer",
+});
+const NoDataWrapper = styled("div", {
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "0.5rem",
 });
