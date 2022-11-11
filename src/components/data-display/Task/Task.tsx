@@ -1,21 +1,24 @@
-import { warning } from "@/assets/icons";
+import { completed, notCompleted, warning } from "@/assets/icons";
 import { Icon } from "@/components/media";
 import { CSS, styled, theme } from "@/styles/stitches.config";
-import { isTomorrow } from "date-fns";
+import { isToday, isTomorrow } from "date-fns";
 import type { Task as TaskType } from "@/types";
 
 interface TaskProps extends Omit<TaskType, "id"> {
   css?: CSS;
 }
 
-export const Task = ({ title, due_date, completed, css }: TaskProps) => {
+export const Task = ({
+  title,
+  due_date,
+  completed: isCompleted,
+  css,
+}: TaskProps) => {
   const dueDate = new Date(due_date).toLocaleDateString("en-US", {
     dateStyle: "medium",
   });
 
-  const isClose =
-    isTomorrow(new Date(dueDate)) ||
-    new Date().getDate() === new Date(due_date).getDate();
+  const isClose = isTomorrow(new Date(dueDate)) || isToday(new Date(dueDate));
 
   return (
     <TaskContainer css={css}>
@@ -23,11 +26,27 @@ export const Task = ({ title, due_date, completed, css }: TaskProps) => {
 
       <Title title={title}>{title}</Title>
 
-      {isClose && (
-        <DueStatus>
+      {isClose && !isCompleted && (
+        <DueStatus title="Task date is close">
           <Icon
             src={warning.src}
             css={{ _iconColor: { fill: theme.colors.error } }}
+          />
+        </DueStatus>
+      )}
+
+      {isCompleted ? (
+        <DueStatus title="Task completed">
+          <Icon
+            src={completed.src}
+            css={{ _iconColor: { fill: theme.colors.success } }}
+          />
+        </DueStatus>
+      ) : (
+        <DueStatus title="Task incompleted">
+          <Icon
+            src={notCompleted.src}
+            css={{ _iconColor: { fill: theme.colors.text2 } }}
           />
         </DueStatus>
       )}
