@@ -22,7 +22,9 @@ export const RecentDeals = ({
       <Header>
         <Heading sType={"4"}>Recent Deals</Heading>
 
-        <LinkButton label="View All" href="/app/deals" />
+        {dealsData && dealsData?.length > 0 && (
+          <LinkButton label="View All" href="/app/deals" />
+        )}
       </Header>
 
       <Content>
@@ -70,6 +72,7 @@ const Header = styled("div", {
 });
 
 const Content = styled("div", {
+  height: "100%",
   display: "flex",
   flexDirection: "column",
   gap: "0.5rem",
