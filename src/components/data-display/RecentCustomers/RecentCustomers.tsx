@@ -22,7 +22,9 @@ export const RecentCustomers = ({
       <Header>
         <Heading sType={"4"}>Recent Customers</Heading>
 
-        <LinkButton label="View All" href="/app/customers" />
+        {costumersData && costumersData?.length > 0 && (
+          <LinkButton label="View All" href="/app/customers" />
+        )}
       </Header>
 
       <Content>
@@ -65,6 +67,8 @@ const Header = styled("div", {
 });
 
 const Content = styled("div", {
+  height: "100%",
+
   display: "flex",
   flexDirection: "column",
   gap: "0.35rem",
@@ -72,4 +76,6 @@ const Content = styled("div", {
   borderRadius: theme.radii.md,
   _border: "All",
   borderColor: theme.colors.background3,
+
+  overflow: "auto",
 });
