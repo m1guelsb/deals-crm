@@ -3,8 +3,9 @@ import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { CustomerChip } from "@/components/data-display";
 import { LinkButton } from "@/components/form";
-import { Skeleton } from "@/components/feedback";
+import { NoData, Skeleton } from "@/components/feedback";
 import type { Customer } from "@/types";
+import { costumers } from "@/assets/icons";
 
 interface RecentCustomersProps {
   costumersData: Customer[] | undefined;
@@ -32,6 +33,10 @@ export const RecentCustomers = ({
             </a>
           </Link>
         ))}
+
+        {costumersData?.length === 0 && (
+          <NoData icon={costumers.src} message="No customers found" alignY />
+        )}
 
         {isLoading && !costumersData
           ? Array(6)
