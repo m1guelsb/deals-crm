@@ -6,7 +6,7 @@ import {
   Arrow,
   popoverSlideDown,
 } from "@/components/overlay/popovers/BasePopover";
-import { NewDealDialog } from "@/components/overlay";
+import { NewDealDialog, NewCustomerDialog } from "@/components/overlay";
 import { Button } from "@/components/form";
 import { Icon } from "@/components/media";
 import { costumers, deals } from "@/assets/icons";
@@ -31,17 +31,19 @@ export const AddNewPopover = ({ children }: PopoverProps) => (
         </Button>
       </NewDealDialog>
 
-      <Button
-        sType={"secondary"}
-        css={{
-          width: "100%",
-          borderTopLeftRadius: "0",
-          borderTopRightRadius: "0",
-        }}
-        rightIcon={<Icon src={costumers.src} />}
-      >
-        Customer
-      </Button>
+      <NewCustomerDialog>
+        <Button
+          sType={"secondary"}
+          css={{
+            width: "100%",
+            borderTopLeftRadius: "0",
+            borderTopRightRadius: "0",
+          }}
+          rightIcon={<Icon src={costumers.src} />}
+        >
+          Customer
+        </Button>
+      </NewCustomerDialog>
 
       <Arrow />
     </Content>
