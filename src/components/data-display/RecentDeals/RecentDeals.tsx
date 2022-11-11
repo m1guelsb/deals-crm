@@ -4,7 +4,8 @@ import { CSS, styled, theme } from "@/styles/stitches.config";
 import { LinkButton } from "@/components/form";
 import { DealChip } from "@/components/data-display";
 import type { Deal } from "@/types";
-import { Skeleton } from "@/components/feedback";
+import { NoData, Skeleton } from "@/components/feedback";
+import { deals } from "@/assets/icons";
 
 interface RecentDealsProps {
   dealsData: Deal[] | undefined;
@@ -37,6 +38,10 @@ export const RecentDeals = ({
             </a>
           </Link>
         ))}
+
+        {dealsData?.length === 0 && (
+          <NoData icon={deals.src} message="No deals found" alignY />
+        )}
 
         {isLoading && !dealsData
           ? Array(7)
