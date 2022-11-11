@@ -94,13 +94,11 @@ const DashboardContainer = styled("section", {
   height: "100%",
   padding: "2rem",
 
-  overflow: "auto",
-
   display: "grid",
-  gridTemplateColumns: "1fr minmax(18rem, 27rem)",
+  gridTemplateColumns: "1fr",
+  gridTemplateRows: "10rem 1fr",
   gridTemplateAreas: `
   'cards tasks'
-  'deals tasks'
   'deals costumers'
   'deals costumers'`,
 
