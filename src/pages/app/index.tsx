@@ -96,7 +96,7 @@ const DashboardContainer = styled("section", {
 
   display: "grid",
   gridTemplateColumns: "1fr 28rem",
-  gridTemplateRows: "10rem 1fr",
+  gridTemplateRows: "11.1rem 1fr",
   gridTemplateAreas: `
   'cards tasks'
   'deals costumers'
