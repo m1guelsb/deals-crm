@@ -1,7 +1,8 @@
 import { completed, notCompleted, warning } from "@/assets/icons";
 import { Icon } from "@/components/media";
 import { CSS, styled, theme } from "@/styles/stitches.config";
-import { isToday, isTomorrow } from "date-fns";
+import { isToday, isTomorrow, format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import type { Task as TaskType } from "@/types";
 
 interface TaskProps extends Omit<TaskType, "id"> {
@@ -14,11 +15,9 @@ export const Task = ({
   completed: isCompleted,
   css,
 }: TaskProps) => {
-  const dueDate = new Date(due_date).toLocaleDateString("en-US", {
-    dateStyle: "medium",
-  });
+  const dueDate = format(new Date(due_date), "dd/MM/yyyy", { locale: ptBR });
 
-  const isClose = isTomorrow(new Date(dueDate)) || isToday(new Date(dueDate));
+  const isClose = isTomorrow(new Date(due_date)) || isToday(new Date(due_date));
 
   return (
     <TaskContainer css={css}>
