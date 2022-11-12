@@ -75,5 +75,11 @@ const Content = styled("div", {
   height: "100%",
   display: "flex",
   flexDirection: "column",
-  gap: "0.5rem",
+  gap: "0.35rem",
+
+  borderRadius: theme.radii.md,
+  _border: "All",
+  borderColor: theme.colors.background3,
+
+  overflow: "auto",
 });
