@@ -6,4 +6,5 @@ export * from "./dialogs/NewDealDialog/NewDealDialog";
 export * from "./dialogs/NewCustomerDialog/NewCustomerDialog";
 export * from "./dialogs/EditDealDialog/EditDealDialog";
 export * from "./dialogs/EditCustomerDialog/EditCustomerDialog";
+export * from "./dialogs/EditTaskDialog/EditTaskDialog";
 export * from "./dialogs/NewTaskDialog/NewTaskDialog";
