@@ -7,13 +7,16 @@ import type { Task } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";
 import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { plus, tasks } from "@/assets/icons";
-import { NewTaskDialog } from "@/components/overlay";
+import { EditTaskDialog, NewTaskDialog } from "@/components/overlay";
+import { useState } from "react";
 
 interface DealTasksProps {
   dealId: string;
   css?: CSS;
 }
 export const DealTasks = ({ dealId, css }: DealTasksProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const { data: tasksData, isLoading: tasksLoad } = useQueryGet<Task[]>({
     queryKeys: ["deal-tasks", dealId],
     url: `/deals/${dealId}/tasks`,
@@ -21,6 +24,7 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
       enabled: !!dealId,
     },
   });
+  console.log("tasksData", tasksData);
 
   return (
     <TasksContainer css={css}>
@@ -36,16 +40,23 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
         {tasksData && tasksData?.length > 0
           ? tasksData?.map(({ id, title, due_date, completed }) => {
               return (
-                <Link href={`/app/tasks/${id}`} key={id}>
-                  <a style={{ color: "unset", textDecoration: "none" }}>
-                    <TaskItem
-                      css={{ cursor: "pointer" }}
-                      title={title}
-                      due_date={due_date}
-                      completed={completed}
-                    />
-                  </a>
-                </Link>
+                <span key={id}>
+                  <EditTaskDialog
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    taskId={id}
+                    dealId={dealId}
+                  >
+                    <button style={{ all: "unset" }}>
+                      <TaskItem
+                        css={{ cursor: "pointer" }}
+                        title={title}
+                        due_date={due_date}
+                        completed={completed}
+                      />
+                    </button>
+                  </EditTaskDialog>
+                </span>
               );
             })
           : !tasksLoad && (
