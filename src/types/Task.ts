@@ -3,9 +3,6 @@ export interface Task {
   title: string;
   due_date: string;
   completed: boolean;
-  deal?: {
-    id: string;
-    title: string;
-  };
+  dealId?: string;
 }
-export interface TaskForm extends Omit<Task, "id" | "deal"> {}
+export interface TaskForm extends Omit<Task, "id" | "dealId"> {}
