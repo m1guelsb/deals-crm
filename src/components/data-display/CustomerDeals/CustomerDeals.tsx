@@ -56,7 +56,7 @@ export const CustomerDeals = ({ customerId, css }: customerDealsProps) => {
         {dealsLoad && !dealsData
           ? Array.from(
               {
-                length: 12,
+                length: 6,
               },
               (_, index) => <Skeleton height="8rem" key={index} />
             )
