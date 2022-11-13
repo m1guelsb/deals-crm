@@ -36,8 +36,8 @@ const DealSlug: NextPage = () => {
   });
 
   const { data: customer, isLoading: customerLoad } = useQueryGet<Customer>({
-    url: `/customers/${deal?.customer?.id}`,
-    queryKeys: ["customer", deal?.customer?.id ?? ""],
+    url: `/customers/${deal?.customerId}`,
+    queryKeys: ["customer", deal?.customerId ?? ""],
     queryConfigs: {
       enabled: !!deal,
     },
