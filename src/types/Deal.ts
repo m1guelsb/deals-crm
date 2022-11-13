@@ -3,10 +3,6 @@ export interface Deal {
   title: string;
   description: string;
   price: string;
-  customer: {
-    id: string;
-    name: string;
-  };
   customerId?: string;
   status: { label: "Closed" | "In Progress"; value: "1" | "2" };
 }
