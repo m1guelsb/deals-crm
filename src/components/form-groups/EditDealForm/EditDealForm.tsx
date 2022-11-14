@@ -41,15 +41,23 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
       description: dealData?.description,
       price: dealData?.price,
       status: { label: dealData?.status.label, value: dealData?.status.value },
+      customerId: dealData?.customerId,
     },
   });
 
-  const handlePutDeal = ({ title, description, price, status }: DealForm) => {
+  const handlePutDeal = ({
+    title,
+    description,
+    price,
+    status,
+    customerId,
+  }: DealForm) => {
     const dealPayload = {
       title,
       description,
       price,
       status,
+      customerId,
     };
 
     patchDeal(dealPayload, {
