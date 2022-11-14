@@ -15,6 +15,7 @@ interface DealTasksProps {
   css?: CSS;
 }
 export const DealTasks = ({ dealId, css }: DealTasksProps) => {
+  const [rowTaskId, setRowTaskId] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: tasksData, isLoading: tasksLoad } = useQueryGet<Task[]>({
@@ -24,55 +25,61 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
       enabled: !!dealId,
     },
   });
-  console.log("tasksData", tasksData);
+
+  const handleEdit = (rowTaskId: string) => {
+    setRowTaskId(rowTaskId);
+    setIsOpen(true);
+  };
 
   return (
-    <TasksContainer css={css}>
-      <Header>
-        <Heading sType={"4"}>Deal Tasks</Heading>
+    <>
+      <EditTaskDialog
+        taskId={rowTaskId}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
+      <TasksContainer css={css}>
+        <Header>
+          <Heading sType={"4"}>Deal Tasks</Heading>
 
-        <NewTaskDialog dealId={dealId}>
-          <IconButton title="Add task" iconSrc={plus.src} sSize={"small"} />
-        </NewTaskDialog>
-      </Header>
+          <NewTaskDialog dealId={dealId}>
+            <IconButton title="Add task" iconSrc={plus.src} sSize={"small"} />
+          </NewTaskDialog>
+        </Header>
 
-      <Content>
-        {tasksData && tasksData?.length > 0
-          ? tasksData?.map(({ id, title, due_date, completed }) => {
-              return (
-                <span key={id}>
-                  <EditTaskDialog
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                    taskId={id}
-                    dealId={dealId}
+        <Content>
+          {tasksData && tasksData?.length > 0
+            ? tasksData?.map(({ id, title, due_date, completed }) => {
+                return (
+                  <button
+                    key={id}
+                    style={{ all: "unset" }}
+                    onClick={() => handleEdit(id)}
                   >
-                    <button style={{ all: "unset" }}>
-                      <TaskItem
-                        css={{ cursor: "pointer" }}
-                        title={title}
-                        due_date={due_date}
-                        completed={completed}
-                      />
-                    </button>
-                  </EditTaskDialog>
-                </span>
-              );
-            })
-          : !tasksLoad && (
-              <NoData icon={tasks.src} message="No tasks found" alignY />
-            )}
+                    <TaskItem
+                      css={{ cursor: "pointer" }}
+                      title={title}
+                      due_date={due_date}
+                      completed={completed}
+                    />
+                  </button>
+                );
+              })
+            : !tasksLoad && (
+                <NoData icon={tasks.src} message="No tasks found" alignY />
+              )}
 
-        {tasksLoad && !tasksData
-          ? Array.from(
-              {
-                length: 12,
-              },
-              (_, index) => <Skeleton height="4rem" key={index} />
-            )
-          : null}
-      </Content>
-    </TasksContainer>
+          {tasksLoad && !tasksData
+            ? Array.from(
+                {
+                  length: 12,
+                },
+                (_, index) => <Skeleton height="4rem" key={index} />
+              )
+            : null}
+        </Content>
+      </TasksContainer>
+    </>
   );
 };
 
