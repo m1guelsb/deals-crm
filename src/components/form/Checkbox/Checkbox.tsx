@@ -4,7 +4,7 @@ import { completed } from "@/assets/icons";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 
 interface CheckboxProps {
-  value: boolean;
+  value: boolean | undefined;
   onChange: () => void;
   css?: CSS;
 }
