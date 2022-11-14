@@ -41,7 +41,6 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
       description: dealData?.description,
       price: dealData?.price,
       status: { label: dealData?.status.label, value: dealData?.status.value },
-      customer: { id: "notEditable", name: "notEditable" },
     },
   });
 
