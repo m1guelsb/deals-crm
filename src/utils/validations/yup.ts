@@ -38,5 +38,5 @@ export const customerFormSchema: SchemaOf<CustomerForm> = object({
 export const taskFormSchema: SchemaOf<TaskForm> = object({
   title: string().required("Field required"),
   due_date: string().required("Chose a due date"),
-  completed: boolean().required(),
+  completed: boolean(),
 });
