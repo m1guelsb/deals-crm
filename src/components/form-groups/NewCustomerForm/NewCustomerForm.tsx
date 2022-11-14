@@ -35,7 +35,7 @@ export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
     resolver: yupResolver(customerFormSchema),
   });
 
-  const handlePostNewDeal = ({ name, email, phone }: CustomerForm) => {
+  const handlePostNewCustomer = ({ name, email, phone }: CustomerForm) => {
     const customerPayload = {
       name,
       email,
@@ -55,7 +55,7 @@ export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(handlePostNewDeal)}>
+    <Form onSubmit={handleSubmit(handlePostNewCustomer)}>
       <InputsGrid>
         <Input
           label="Name"
