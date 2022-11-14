@@ -53,6 +53,8 @@ export const EditTaskForm = ({ taskData, setIsOpen }: EditTaskFormProps) => {
         newToast({ styleType: "success", title: "Task edited!" });
         setIsOpen(false);
         queryClient.invalidateQueries(["deal-tasks", taskData?.dealId]);
+        queryClient.invalidateQueries(["tasks"]);
+        queryClient.invalidateQueries(["task", taskData?.id]);
       },
       onError() {
         newToast({ styleType: "error", title: "Unexpected error, try again." });

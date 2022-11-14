@@ -32,8 +32,6 @@ export const EditTaskDialog = ({
   const { newToast } = useToast();
   const queryClient = useQueryClient();
 
-  console.log("taskId", taskId);
-
   const { data: taskData, isLoading } = useQueryGet<Task>({
     url: `/tasks/${taskId}`,
     queryKeys: ["task", taskId],
@@ -60,6 +58,7 @@ export const EditTaskDialog = ({
                     title: "Task deleted!",
                   });
                   queryClient.invalidateQueries(["deal-tasks", dealId]);
+                  queryClient.invalidateQueries(["tasks"]);
                   setIsOpen(false);
                 },
                 onError() {
