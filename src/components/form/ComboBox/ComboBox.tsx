@@ -9,7 +9,7 @@ import { Spinner } from "@/components/feedback";
 import { closeCircle, search } from "@/assets/icons";
 
 interface OptionType {
-  label: string;
+  label?: string;
   value: number | string;
 }
 
