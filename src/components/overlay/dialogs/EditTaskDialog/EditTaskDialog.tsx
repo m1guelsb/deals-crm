@@ -79,8 +79,14 @@ export const EditTaskDialog = ({
         ) : (
           isLoading && (
             <SkeletonGrid>
-              <Skeleton width="16.5rem" />
-              <Skeleton width="16.5rem" />
+              <Skeleton width="15rem" />
+              <Skeleton width="15rem" />
+              <div style={{ gridColumn: "1 / 3" }}>
+                <Skeleton width="15rem" />
+              </div>
+
+              <Skeleton width="8rem" />
+              <Skeleton width="8rem" />
             </SkeletonGrid>
           )
         )}
@@ -96,6 +102,7 @@ const TitleContainer = styled("div", {
 const SkeletonGrid = styled("div", {
   display: "grid",
   gridTemplateColumns: "auto auto",
+  gridColumnGap: "1rem",
   gridRowGap: "2rem",
   justifyItems: "center",
 });
