@@ -38,7 +38,7 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
     },
   });
 
-  const handlePostNewDeal = ({ title, due_date, completed }: TaskForm) => {
+  const handlePostNewTask = ({ title, due_date, completed }: TaskForm) => {
     const taskPayload = {
       title,
       due_date,
@@ -58,7 +58,7 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(handlePostNewDeal)}>
+    <Form onSubmit={handleSubmit(handlePostNewTask)}>
       <InputsGrid>
         <Input
           label="Title"
