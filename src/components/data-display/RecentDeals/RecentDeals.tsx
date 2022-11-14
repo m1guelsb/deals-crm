@@ -28,18 +28,21 @@ export const RecentDeals = ({
       </Header>
 
       <Content>
-        {dealsData?.map(({ id, description, price, status, title }) => (
-          <Link href={`/app/deals/${id}`} key={id}>
-            <a style={{ color: "unset", textDecoration: "none" }}>
-              <DealChip
-                title={title}
-                description={description}
-                status={status}
-                price={price}
-              />
-            </a>
-          </Link>
-        ))}
+        {dealsData?.map(
+          ({ id, description, price, status, title, customerId }) => (
+            <Link href={`/app/deals/${id}`} key={id}>
+              <a style={{ color: "unset", textDecoration: "none" }}>
+                <DealChip
+                  title={title}
+                  description={description}
+                  status={status}
+                  price={price}
+                  customerId={customerId}
+                />
+              </a>
+            </Link>
+          )
+        )}
 
         {dealsData?.length === 0 && (
           <NoData icon={deals.src} message="No deals found" alignY />
