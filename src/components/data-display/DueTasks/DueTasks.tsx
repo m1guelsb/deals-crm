@@ -6,6 +6,8 @@ import { Task as TaskItem } from "@/components/data-display";
 import type { Task } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";
 import { tasks } from "@/assets/icons";
+import { useState } from "react";
+import { EditTaskDialog } from "@/components/overlay";
 
 interface DueTasksProps {
   tasksData: Task[] | undefined;
@@ -13,43 +15,64 @@ interface DueTasksProps {
   css?: CSS;
 }
 export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
+  const [rowTaskId, setRowTaskId] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleEdit = (rowTaskId: string) => {
+    setRowTaskId(rowTaskId);
+    setIsOpen(true);
+  };
+
   return (
-    <DueTasksContainer css={css}>
-      <Header>
-        <Heading sType={"4"}>Due Tasks</Heading>
+    <>
+      <EditTaskDialog
+        taskId={rowTaskId}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
 
-        {tasksData && tasksData?.length > 0 && (
-          <LinkButton label="View All" href="/app/tasks" />
-        )}
-      </Header>
+      <DueTasksContainer css={css}>
+        <Header>
+          <Heading sType={"4"}>Due Tasks</Heading>
 
-      <Content>
-        {tasksData?.map(({ id, title, due_date, completed }) => {
-          return (
-            <Link href={`/app/tasks/${id}`} key={id}>
-              <a style={{ color: "unset", textDecoration: "none" }}>
-                <TaskItem
-                  css={{ cursor: "pointer" }}
-                  title={title}
-                  due_date={due_date}
-                  completed={completed}
-                />
-              </a>
-            </Link>
-          );
-        })}
+          {tasksData && tasksData?.length > 0 && (
+            <LinkButton label="View All" href="/app/tasks" />
+          )}
+        </Header>
 
-        {tasksData?.length === 0 && (
-          <NoData icon={tasks.src} message="No tasks found" alignY />
-        )}
+        <Content>
+          {tasksData && tasksData?.length > 0
+            ? tasksData?.map(({ id, title, due_date, completed }) => {
+                return (
+                  <button
+                    key={id}
+                    style={{ all: "unset" }}
+                    onClick={() => handleEdit(id)}
+                  >
+                    <TaskItem
+                      css={{ cursor: "pointer" }}
+                      title={title}
+                      due_date={due_date}
+                      completed={completed}
+                    />
+                  </button>
+                );
+              })
+            : !isLoading && (
+                <NoData icon={tasks.src} message="No tasks found" alignY />
+              )}
 
-        {isLoading && !tasksData
-          ? Array(5)
-              .fill({})
-              .map((item, index) => <Skeleton height="2.5rem" key={index} />)
-          : null}
-      </Content>
-    </DueTasksContainer>
+          {isLoading && !tasksData
+            ? Array.from(
+                {
+                  length: 12,
+                },
+                (_, index) => <Skeleton height="4rem" key={index} />
+              )
+            : null}
+        </Content>
+      </DueTasksContainer>
+    </>
   );
 };
 
