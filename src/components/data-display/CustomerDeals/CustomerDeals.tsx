@@ -35,20 +35,23 @@ export const CustomerDeals = ({ customerId, css }: customerDealsProps) => {
 
       <Content>
         {dealsData && dealsData?.length > 0
-          ? dealsData?.map(({ id, title, description, price, status }) => {
-              return (
-                <Link href={`/app/deals/${id}`} key={id}>
-                  <a style={{ color: "unset", textDecoration: "none" }}>
-                    <DealChip
-                      title={title}
-                      description={description}
-                      price={price}
-                      status={status}
-                    />
-                  </a>
-                </Link>
-              );
-            })
+          ? dealsData?.map(
+              ({ id, title, description, price, status, customerId }) => {
+                return (
+                  <Link href={`/app/deals/${id}`} key={id}>
+                    <a style={{ color: "unset", textDecoration: "none" }}>
+                      <DealChip
+                        title={title}
+                        description={description}
+                        price={price}
+                        status={status}
+                        customerId={customerId}
+                      />
+                    </a>
+                  </Link>
+                );
+              }
+            )
           : !dealsLoad && (
               <NoData icon={deals.src} message="No deals found" alignY />
             )}
