@@ -36,7 +36,6 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
 
   const handlePostNewDeal = ({
     title,
-    customer,
     description,
     price,
     status,
@@ -44,8 +43,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
   }: DealForm) => {
     const dealPayload = {
       title,
-      customer,
-      customerId: customer.id,
+      customerId,
       description,
       price,
       status,
@@ -55,7 +53,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
       onSuccess() {
         newToast({ styleType: "success", title: "Deal created!" });
         setIsOpen(false);
-        queryClient.invalidateQueries(["customer-deals", customer.id]);
+        queryClient.invalidateQueries(["customer-deals", customerId]);
       },
       onError() {
         newToast({ styleType: "error", title: "Unexpected error, try again." });
@@ -67,18 +65,16 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
     <Form onSubmit={handleSubmit(handlePostNewDeal)}>
       <InputsGrid>
         <Controller
-          name="customer"
+          name="customerId"
           control={control}
           render={({ field: { value, onChange } }) => (
             <ComboBox
-              value={{ label: value?.name, value: value?.id }}
-              onChange={(selected) =>
-                onChange({ name: selected?.label, id: selected?.value })
-              }
+              value={{ value }}
+              onChange={(selected) => onChange(selected?.value)}
               placeholder={"Search a customer"}
               label="Customer"
               searchUrl="/customers"
-              errorMessage={errors.customer?.id?.message}
+              errorMessage={errors.customerId?.message}
               css={{ gridColumn: "1 / 3" }}
             />
           )}
