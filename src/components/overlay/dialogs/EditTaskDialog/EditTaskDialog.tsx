@@ -44,7 +44,7 @@ export const EditTaskDialog = ({
   });
   return (
     <BaseDialog trigger={children} open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent>
+      <DialogContent css={{ width: "34rem" }}>
         <TitleContainer>
           <Title>Edit Task</Title>
 
