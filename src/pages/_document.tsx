@@ -40,37 +40,6 @@ export default function Document() {
           type="font/ttf"
           crossOrigin="anonymous"
         />
-
-        {/* fontface definition */}
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              @font-face {
-                font-family: 'Poppins';
-                font-style: normal;
-                font-display: swap;
-                font-weight: 400;
-                src: url('/fonts/Poppins-Regular.ttf') format('ttf');
-              }
-              
-              @font-face {
-                font-family: 'Poppins';
-                font-style: normal;
-                font-display: swap;
-                font-weight: 500;
-                src: url('/fonts/Poppins-Medium.ttf') format('ttf');
-              }
-              
-              @font-face {
-                font-family: 'Poppins';
-                font-style: normal;
-                font-display: swap;
-                font-weight: 700;
-                src: url('/fonts/Poppins-Bold.ttf') format('ttf'); 
-              }
-            `,
-          }}
-        />
       </Head>
       <body>
         <Main />
