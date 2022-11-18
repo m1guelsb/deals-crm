@@ -59,6 +59,7 @@ const HeaderContainer = styled("header", {
 
 const LogoBox = styled("div", {
   width: "5.5rem",
+  height: "5.5rem",
 
   _alignCenter: true,
   padding: "1.25rem",
@@ -67,6 +68,8 @@ const LogoBox = styled("div", {
 });
 
 const Logo = styled("div", {
+  width: "3rem",
+  height: "3rem",
   backgroundColor: theme.colors.text1,
   borderRadius: theme.radii.sm,
   padding: "0.5rem",
