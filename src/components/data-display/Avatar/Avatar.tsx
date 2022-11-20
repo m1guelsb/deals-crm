@@ -2,13 +2,18 @@ import { styled, theme } from "@/styles/stitches.config";
 import { sliceAcronym } from "@/utils/functions";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
-interface AvatarProps {
+interface AvatarProps extends AvatarPrimitive.AvatarProps {
   imageSrc: string;
   username: string | undefined;
   sSize?: "sm" | "md" | "lg";
 }
-export const Avatar = ({ imageSrc, username, sSize }: AvatarProps) => (
-  <AvatarContainer sSize={sSize} title={username}>
+export const Avatar = ({
+  imageSrc,
+  username,
+  sSize,
+  ...props
+}: AvatarProps) => (
+  <AvatarContainer sSize={sSize} title={username} {...props}>
     <Image src={imageSrc} alt={username} />
     <Fallback>{sliceAcronym(username)}</Fallback>
   </AvatarContainer>
