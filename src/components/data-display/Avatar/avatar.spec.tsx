@@ -14,4 +14,13 @@ describe("Avatar component", () => {
     expect(avatarEl).toBeInTheDocument();
   });
 
+  it("should render acronym", () => {
+    const { getByText } = render(
+      <Avatar imageSrc={email.src} username={"user name"} />
+    );
+
+    const avatarEl = getByText("UN");
+
+    expect(avatarEl).toBeInTheDocument();
+  });
 });
