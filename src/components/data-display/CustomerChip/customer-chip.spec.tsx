@@ -33,4 +33,18 @@ describe("Card component", () => {
     expect(Element).toBeInTheDocument();
   });
 
+  it("should have customer email", () => {
+    const { getByText } = render(
+      <CustomerChip
+        name={"customer name"}
+        email={"email@gmail.com"}
+        image={"./image"}
+      />
+    );
+
+    const Element = getByText("email@gmail.com");
+
+    expect(Element).toBeInTheDocument();
+  });
+
 });
