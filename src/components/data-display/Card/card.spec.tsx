@@ -33,4 +33,14 @@ describe("Card component", () => {
 
     expect(cardEl).toBeInTheDocument();
   });
+
+  it("should have a icon", () => {
+    const { getByRole } = render(
+      <Card title="Card title" value={"Card value"} iconSrc={dollar.src} />
+    );
+
+    const cardEl = getByRole("img");
+
+    expect(cardEl).toBeInTheDocument();
+  });
 });
