@@ -23,6 +23,7 @@ export const Card = ({ title, value, iconSrc }: CardProps) => {
         <Icon
           css={{ "& svg": { height: "3rem", width: "3rem" } }}
           src={iconSrc}
+          role={"img"}
         />
       </IconBox>
     </CardContainer>
@@ -39,21 +40,21 @@ const IconBox = styled("div", {
   opacity: "0.5",
 });
 const CardContainer = styled("div", {
-  "height": "10rem",
-  "maxWidth": "22rem",
+  height: "10rem",
+  maxWidth: "22rem",
 
-  "flex": "1",
+  flex: "1",
 
-  "display": "flex",
-  "alignItems": "center",
-  "justifyContent": "space-between",
-  "gap": "0.25rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "0.25rem",
 
-  "padding": "1.5rem",
+  padding: "1.5rem",
 
-  "backgroundColor": theme.colors.background2,
+  backgroundColor: theme.colors.background2,
 
-  "borderRadius": theme.radii.md,
+  borderRadius: theme.radii.md,
 
   "&:nth-child(1)": {
     [`& ${IconBox}`]: {
