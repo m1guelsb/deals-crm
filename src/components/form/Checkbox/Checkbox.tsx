@@ -1,6 +1,6 @@
 import * as C from "@radix-ui/react-checkbox";
 import { Icon } from "@/components/media";
-import { completed } from "@/assets/icons";
+import { checked, completed } from "@/assets/icons";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 
 interface CheckboxProps {
@@ -27,7 +27,7 @@ export const Checkbox = ({ value, onChange, css }: CheckboxProps) => (
             color: value ? theme.colors.text1 : theme.colors.primary,
           }}
         >
-          ✖
+          <Icon sSize={"large"} src={checked.src} />
         </CheckboxIndicator>
       </CheckboxRoot>
     </CheckboxContainer>
@@ -41,19 +41,19 @@ const CheckboxContainer = styled("div", {
   alignSelf: "center",
 });
 const CheckboxRoot = styled(C.Root, {
-  "all": "unset",
-  "backgroundColor": theme.colors.text1,
-  "width": "1.7rem",
-  "height": "1.7rem",
-  "borderRadius": theme.radii.sm,
+  all: "unset",
+  backgroundColor: theme.colors.text1,
+  width: "1.7rem",
+  height: "1.7rem",
+  borderRadius: theme.radii.sm,
 
-  "_alignCenter": true,
+  _alignCenter: true,
   "&:focus": { boxShadow: theme.colors.primary },
 
-  "_border": "All",
-  "borderColor": theme.colors.primary,
+  _border: "All",
+  borderColor: theme.colors.primary,
 
-  "cursor": "pointer",
+  cursor: "pointer",
 });
 
 const CheckboxIndicator = styled(C.Indicator, {

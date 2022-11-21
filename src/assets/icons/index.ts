@@ -18,6 +18,7 @@ import warning from "./warning.svg";
 import trash from "./trash.svg";
 import calendar from "./calendar.svg";
 import completed from "./completed.svg";
+import checked from "./checked.svg";
 import notCompleted from "./not-completed.svg";
 
 import plus from "./plus.svg";
@@ -27,6 +28,7 @@ import toastInfo from "@/assets/icons/toast-info.svg";
 import toastError from "@/assets/icons/toast-error.svg";
 
 export {
+  checked,
   error,
   completed,
   notCompleted,
