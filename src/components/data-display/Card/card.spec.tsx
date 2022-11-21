@@ -1,7 +1,7 @@
 import React from "react";
-import { getByRole, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Card } from "./Card";
-import { dollar, email } from "@/assets/icons";
+import { dollar } from "@/assets/icons";
 
 describe("Card component", () => {
   it("should render correctly", () => {

@@ -2,13 +2,17 @@ import { styled, theme } from "@/styles/stitches.config";
 import { Avatar } from "@/components/data-display";
 import type { Customer } from "@/types";
 
-interface CostumerChipProps extends Omit<Customer, "id" | "phone"> {}
+interface CostumerChipProps {
+  name: string;
+  email: string;
+  image: string;
+}
 
 export const CustomerChip = ({ name, email, image }: CostumerChipProps) => {
   return (
     <ChipContainer>
       <ImageBox>
-        <Avatar imageSrc={image} username={name} />
+        <Avatar role={"img"} imageSrc={image} username={name} />
       </ImageBox>
 
       <TextBox>
@@ -20,14 +24,14 @@ export const CustomerChip = ({ name, email, image }: CostumerChipProps) => {
 };
 
 const ChipContainer = styled("span", {
-  "height": "5rem",
-  "display": "flex",
-  "alignItems": "center",
-  "gap": "1rem",
+  height: "5rem",
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
 
-  "borderRadius": theme.radii.md,
+  borderRadius: theme.radii.md,
 
-  "_paddingX": "1rem",
+  _paddingX: "1rem",
 
   "&:hover": {
     backgroundColor: theme.colors.background3,
