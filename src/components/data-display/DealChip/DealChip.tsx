@@ -25,16 +25,16 @@ export const DealChip = ({
 };
 
 const ChipContainer = styled("span", {
-  "height": "5.5rem",
-  "display": "flex",
-  "alignItems": "center",
-  "justifyContent": "space-between",
-  "gap": "1rem",
+  height: "5.5rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "1rem",
 
-  "borderRadius": theme.radii.md,
-  "backgroundColor": theme.colors.background2,
+  borderRadius: theme.radii.md,
+  backgroundColor: theme.colors.background2,
 
-  "_paddingX": "1rem",
+  _paddingX: "1rem",
 
   "&:hover": {
     backgroundColor: theme.colors.background3,

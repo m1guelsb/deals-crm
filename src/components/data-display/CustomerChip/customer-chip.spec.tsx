@@ -4,7 +4,7 @@ import { CustomerChip } from "./CustomerChip";
 import { Card } from "../Card/Card";
 import { dollar } from "@/assets/icons";
 
-describe("Card component", () => {
+describe("CustomerChip component", () => {
   it("should render correctly", () => {
     const { getByText } = render(
       <CustomerChip

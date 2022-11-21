@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest --watchAll --no-cache"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.5",
