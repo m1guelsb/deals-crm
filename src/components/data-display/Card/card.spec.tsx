@@ -14,4 +14,13 @@ describe("Card component", () => {
     expect(cardEl).toBeInTheDocument();
   });
 
+  it("should have a title", () => {
+    const { getByText } = render(
+      <Card title="Card title" value={"Card value"} iconSrc={dollar.src} />
+    );
+
+    const cardEl = getByText("Card title");
+
+    expect(cardEl).toBeInTheDocument();
+  });
 });
