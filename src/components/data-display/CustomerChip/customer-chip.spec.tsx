@@ -47,4 +47,17 @@ describe("Card component", () => {
     expect(Element).toBeInTheDocument();
   });
 
+  it("should have a avatar", () => {
+    const { getByRole } = render(
+      <CustomerChip
+        name={"customer name"}
+        email={"email@gmail.com"}
+        image={"./image"}
+      />
+    );
+
+    const Element = getByRole("img");
+
+    expect(Element).toBeInTheDocument();
+  });
 });
