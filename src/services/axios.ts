@@ -3,7 +3,7 @@ import { signOut } from "@/utils/functions";
 import { parseCookies } from "nookies";
 
 export const api = axios.create({
-  baseURL: "https://deals-cms-server.herokuapp.com/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 //handle set token in every request
