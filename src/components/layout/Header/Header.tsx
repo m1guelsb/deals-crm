@@ -36,7 +36,7 @@ export const Header = ({ children, ...props }: HeaderProps) => {
 
           <ProfilePopover>
             <button style={{ all: "unset" }}>
-              <Avatar imageSrc={``} username={user?.username} />
+              <Avatar imageSrc={``} username={user?.name} />
             </button>
           </ProfilePopover>
         </RightSide>

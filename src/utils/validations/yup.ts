@@ -2,7 +2,7 @@ import { CustomerForm, DealForm, TaskForm } from "@/types";
 import { boolean, object, SchemaOf, string } from "yup";
 
 export const signInFormSchema = object().shape({
-  username: string().required("Username required"),
+  email: string().email("Invalid email").required("email required"),
   password: string().required("Password required"),
 });
 

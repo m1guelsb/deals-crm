@@ -17,7 +17,7 @@ import { jwtVerify } from "jose";
 import { Spinner } from "@/components/feedback";
 
 interface SignInFormInputs {
-  username: string;
+  email: string;
   password: string;
 }
 const SignIn: NextPage = () => {
@@ -34,16 +34,16 @@ const SignIn: NextPage = () => {
     shouldUseNativeValidation: false,
     resolver: yupResolver(signInFormSchema),
     defaultValues: {
-      username: "m1guelsb",
+      email: "test@test.com",
       password: "123",
     },
   });
 
   const handleSignIn: SubmitHandler<SignInFormInputs> = async ({
-    username,
+    email,
     password,
   }) => {
-    signIn({ username, password });
+    signIn({ email, password });
     reset();
   };
 
@@ -68,14 +68,14 @@ const SignIn: NextPage = () => {
             </Heading>
 
             <Input
-              placeholder="Insert username => [m1guelsb]"
-              errorMessage={inputError.username?.message}
+              placeholder="Insert email"
+              errorMessage={inputError.email?.message}
               rightIcon={<Icon src={userIcon.src} />}
               disabled={loginLoading}
-              {...register("username")}
+              {...register("email")}
             />
             <Input
-              placeholder="Insert password => [123]"
+              placeholder="Insert password"
               type={"password"}
               errorMessage={inputError.password?.message}
               rightIcon={<Icon src={lock.src} />}
