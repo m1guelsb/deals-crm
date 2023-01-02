@@ -10,6 +10,7 @@ import { useQueryPost } from "@/hooks/api/useQueryPost";
 import { useQueryClient } from "@tanstack/react-query";
 import type { DealForm } from "@/types";
 import { currencyMask } from "@/utils/masks/currencyMask";
+import { clearDealPrice } from "@/utils/functions/clearDealPrice";
 
 interface NewDealFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -45,7 +46,7 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
       title,
       customerId,
       description,
-      price,
+      price: clearDealPrice(price),
       status,
     };
 
@@ -95,7 +96,6 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
         <Controller
           name="price"
           control={control}
-          defaultValue=""
           render={({ field: { value, onChange } }) => (
             <Input
               value={value}
@@ -115,10 +115,10 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
           render={({ field: { value, onChange } }) => (
             <Select
               label="Status"
-              errorMessage={errors.status?.value?.message}
+              errorMessage={errors.status?.message}
               options={[
-                { label: "Closed", value: "1" },
-                { label: "In Progress", value: "2" },
+                { label: "Closed", value: "CLOSED" },
+                { label: "In Progress", value: "IN_PROGRESS" },
               ]}
               value={value}
               onChange={(selected) => onChange(selected)}

@@ -65,7 +65,7 @@ export const DealsTable = () => {
       cell: ({ getValue }) => {
         const status = getValue();
 
-        return status ? <DealStatusTag status={status.label} /> : <Skeleton />;
+        return status ? <DealStatusTag status={status} /> : <Skeleton />;
       },
     }),
     columnHelper.accessor("id", {
@@ -116,15 +116,15 @@ export const DealsTable = () => {
 };
 
 const ButtonCell = styled("button", {
-  "border": "unset",
-  "backgroundColor": "transparent",
-  "width": "100%",
-  "height": "3rem",
-  "display": "flex",
-  "alignItems": "center",
+  border: "unset",
+  backgroundColor: "transparent",
+  width: "100%",
+  height: "3rem",
+  display: "flex",
+  alignItems: "center",
 
-  "cursor": "pointer",
-  "opacity": "0.3",
+  cursor: "pointer",
+  opacity: "0.3",
 
   "&:hover": {
     opacity: "1",

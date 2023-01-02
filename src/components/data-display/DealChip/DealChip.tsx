@@ -18,7 +18,7 @@ export const DealChip = ({
       </TextBox>
       <RightBox>
         <Price>{price}</Price>
-        <DealStatusTag status={status.label} />
+        <DealStatusTag status={status} />
       </RightBox>
     </ChipContainer>
   );

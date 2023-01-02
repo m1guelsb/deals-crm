@@ -35,10 +35,10 @@ const Dashboard: NextPage = () => {
     },
   });
 
-  const monthEarningsTotal = dealsData
-    ?.slice(0, 4)
-    ?.map((deal) => Number(deal.price.replace(/\D/g, "")))
-    .reduce((prev, cur) => prev + cur, 0);
+  // const monthEarningsTotal = dealsData
+  //   ?.slice(0, 4)
+  //   ?.map((deal) => Number(deal.price.replace(/\D/g, "")))
+  //   .reduce((prev, cur) => prev + cur, 0);
 
   return (
     <>
@@ -51,7 +51,7 @@ const Dashboard: NextPage = () => {
           <CardsWrapper css={{ gridArea: "cards" }}>
             <Card
               title="Earnings"
-              value={currencyFormatter(monthEarningsTotal) ?? ""}
+              value={currencyFormatter(5) ?? ""}
               iconSrc={dollar.src}
             />
             <Card

@@ -94,9 +94,9 @@ const DealSlug: NextPage = () => {
               )}
             </Title>
 
-            <DisplayChip title="Price" data={deal?.price} />
+            <DisplayChip title="Price" data={deal?.price.toString()} />
 
-            {deal && <DealStatusTag status={deal?.status.label} />}
+            {deal && <DealStatusTag status={deal?.status} />}
             <Actions>
               <IconButton
                 onClick={() => setEditModalOpen(true)}
@@ -153,19 +153,19 @@ const DealContainer = styled("section", {
 });
 
 const CustomerDetails = styled("a", {
-  "all": "unset",
-  "height": "fit-content",
-  "display": "flex",
-  "alignItems": "center",
-  "justifyContent": "space-between",
+  all: "unset",
+  height: "fit-content",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
 
-  "padding": "1rem",
+  padding: "1rem",
 
-  "_border": "All",
-  "borderColor": theme.colors.background3,
-  "borderRadius": theme.radii.md,
+  _border: "All",
+  borderColor: theme.colors.background3,
+  borderRadius: theme.radii.md,
 
-  "cursor": "pointer",
+  cursor: "pointer",
 
   "&:hover": {
     backgroundColor: theme.colors.background2,
