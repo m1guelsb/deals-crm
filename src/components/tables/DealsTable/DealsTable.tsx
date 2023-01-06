@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { styled, theme } from "@/styles/stitches.config";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { BaseTable } from "@/components/tables";
 import type { Deal } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";

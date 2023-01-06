@@ -2,11 +2,11 @@ import { createContext, ReactNode, useCallback, useEffect } from "react";
 import Router from "next/router";
 import { AxiosError } from "axios";
 import { parseCookies, setCookie } from "nookies";
-import { useQueryPost } from "@/hooks/api/useQueryPost";
 import { useToast } from "@/hooks/helpers/useToast";
 import { signOut } from "@/utils/functions";
 import type { User } from "@/types";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
+import { useQueryPost } from "@/hooks/react-query";
 
 type SignInCredentials = {
   email: string;
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const signIn = useCallback(
     ({ email, password }: SignInCredentials) => {
       postCredentials(
-        { email, password },
+        { data: { email, password } },
         {
           onSuccess({ data: { access_token } }) {
             setCookie(undefined, "deals.access_token", access_token, {

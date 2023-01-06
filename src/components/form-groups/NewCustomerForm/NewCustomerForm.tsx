@@ -6,7 +6,6 @@ import { Button, ComboBox, Input, Select } from "@/components/form";
 import { customerFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
-import { useQueryPost } from "@/hooks/api/useQueryPost";
 import { useQueryClient } from "@tanstack/react-query";
 import type { CustomerForm } from "@/types";
 import { currencyMask } from "@/utils/masks/currencyMask";
@@ -17,9 +16,7 @@ interface NewCustomerFormProps {
 }
 export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
   const { newToast } = useToast();
-  const { post: postCustomer, isLoading } = useQueryPost<CustomerForm>({
-    url: "/customers",
-  });
+
   const queryClient = useQueryClient();
 
   const {
@@ -42,16 +39,16 @@ export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
       phone,
     };
 
-    postCustomer(customerPayload, {
-      onSuccess() {
-        newToast({ styleType: "success", title: "Customer created!" });
-        setIsOpen(false);
-        queryClient.invalidateQueries(["customers"]);
-      },
-      onError() {
-        newToast({ styleType: "error", title: "Unexpected error, try again." });
-      },
-    });
+    // postCustomer(customerPayload, {
+    //   onSuccess() {
+    //     newToast({ styleType: "success", title: "Customer created!" });
+    //     setIsOpen(false);
+    //     queryClient.invalidateQueries(["customers"]);
+    //   },
+    //   onError() {
+    //     newToast({ styleType: "error", title: "Unexpected error, try again." });
+    //   },
+    // });
   };
 
   return (
@@ -94,17 +91,10 @@ export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
           sType={"tertiary"}
           type="button"
           onClick={() => setIsOpen(false)}
-          disabled={isLoading}
         >
           Cancel
         </Button>
-        <Button
-          type="submit"
-          disabled={isLoading}
-          rightIcon={isLoading && <Spinner />}
-        >
-          Save Customer
-        </Button>
+        <Button type="submit">Save Customer</Button>
       </Actions>
     </Form>
   );

@@ -2,7 +2,7 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { AppLayout } from "@/components/layout";
 import { styled, theme } from "@/styles/stitches.config";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { Customer, Deal } from "@/types";
 import Router, { useRouter } from "next/router";
 import {
@@ -18,7 +18,7 @@ import { edit, trash } from "@/assets/icons";
 import { AlertDialog, EditDealDialog } from "@/components/overlay";
 import { useState } from "react";
 import { Skeleton } from "@/components/feedback";
-import { useQueryDelete } from "@/hooks/api/useQueryDelete";
+import { useQueryDelete } from "@/hooks/react-query/useQueryDelete";
 import { useToast } from "@/hooks/helpers/useToast";
 
 const DealSlug: NextPage = () => {

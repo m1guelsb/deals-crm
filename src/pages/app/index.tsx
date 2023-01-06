@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { AppLayout } from "@/components/layout";
 import { styled } from "@/styles/stitches.config";
 import { costumers, deals, dollar } from "@/assets/icons";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { Card, DueTasks, RecentCustomers } from "@/components/data-display";
 import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 import type { Customer, Task, Deal } from "@/types";

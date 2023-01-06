@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Deal, DealForm } from "@/types";
 import { currencyMask } from "@/utils/masks/currencyMask";
-import { useQueryPatch } from "@/hooks/api/useQueryPatch";
+import { useQueryPatch } from "@/hooks/react-query/useQueryPatch";
 import { clearDealPrice } from "@/utils/functions/clearDealPrice";
 
 interface EditDealFormProps {

@@ -5,7 +5,7 @@ import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Task as TaskItem } from "@/components/data-display";
 import type { Task } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { plus, tasks } from "@/assets/icons";
 import { EditTaskDialog, NewTaskDialog } from "@/components/overlay";
 import { useState } from "react";

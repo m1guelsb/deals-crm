@@ -6,7 +6,6 @@ import { Button, Input } from "@/components/form";
 import { taskFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
-import { useQueryPost } from "@/hooks/api/useQueryPost";
 import { useQueryClient } from "@tanstack/react-query";
 import type { TaskForm } from "@/types";
 import { DatePicker } from "@/components/form";
@@ -17,9 +16,7 @@ interface NewTaskFormProps {
 }
 export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
   const { newToast } = useToast();
-  const { post: postTask, isLoading } = useQueryPost<TaskForm>({
-    url: `/deals/${dealId}/tasks`,
-  });
+
   const queryClient = useQueryClient();
 
   const {
@@ -45,16 +42,16 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
       completed,
     };
 
-    postTask(taskPayload, {
-      onSuccess() {
-        newToast({ styleType: "success", title: "Task created!" });
-        setIsOpen(false);
-        queryClient.invalidateQueries(["deal-tasks", dealId]);
-      },
-      onError() {
-        newToast({ styleType: "error", title: "Unexpected error, try again." });
-      },
-    });
+    // postTask(taskPayload, {
+    //   onSuccess() {
+    //     newToast({ styleType: "success", title: "Task created!" });
+    //     setIsOpen(false);
+    //     queryClient.invalidateQueries(["deal-tasks", dealId]);
+    //   },
+    //   onError() {
+    //     newToast({ styleType: "error", title: "Unexpected error, try again." });
+    //   },
+    // });
   };
 
   return (
@@ -85,17 +82,10 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
           sType={"tertiary"}
           type="button"
           onClick={() => setIsOpen(false)}
-          disabled={isLoading}
         >
           Cancel
         </Button>
-        <Button
-          type="submit"
-          disabled={isLoading}
-          rightIcon={isLoading && <Spinner />}
-        >
-          Create Task
-        </Button>
+        <Button type="submit">Create Task</Button>
       </Actions>
     </Form>
   );

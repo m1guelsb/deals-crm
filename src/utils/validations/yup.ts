@@ -12,9 +12,7 @@ export const dealFormSchema = object({
   price: string().required("Field required").min(2, "Field required"),
   customerId: string().required("Select a customer"),
 
-  status: string()
-    .equals(["CLOSED", "IN_PROGRESS"], "Wrong value")
-    .required("Select a option"),
+  status: string().equals(["CLOSED", "IN_PROGRESS"], "Wrong value"),
 });
 
 export const customerFormSchema: SchemaOf<CustomerForm> = object({
