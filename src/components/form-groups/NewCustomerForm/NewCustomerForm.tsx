@@ -2,22 +2,20 @@ import type { Dispatch, SetStateAction } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, ComboBox, Input, Select } from "@/components/form";
+import { Button, Input } from "@/components/form";
 import { customerFormSchema } from "@/utils/validations/yup";
-import { Spinner } from "@/components/feedback";
-import { useToast } from "@/hooks/helpers/useToast";
-import { useQueryClient } from "@tanstack/react-query";
 import type { CustomerForm } from "@/types";
-import { currencyMask } from "@/utils/masks/currencyMask";
 import { phoneMask } from "@/utils/masks/phoneMask";
+import { useCreateCustomer } from "@/hooks/api/customer";
+import { Spinner } from "@/components/feedback";
 
 interface NewCustomerFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
-  const { newToast } = useToast();
-
-  const queryClient = useQueryClient();
+  const { createCustomer, isLoading } = useCreateCustomer({
+    onCustomerCreated: () => setIsOpen(false),
+  });
 
   const {
     register,
@@ -39,16 +37,7 @@ export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
       phone,
     };
 
-    // postCustomer(customerPayload, {
-    //   onSuccess() {
-    //     newToast({ styleType: "success", title: "Customer created!" });
-    //     setIsOpen(false);
-    //     queryClient.invalidateQueries(["customers"]);
-    //   },
-    //   onError() {
-    //     newToast({ styleType: "error", title: "Unexpected error, try again." });
-    //   },
-    // });
+    createCustomer(customerPayload);
   };
 
   return (
@@ -91,10 +80,17 @@ export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
           sType={"tertiary"}
           type="button"
           onClick={() => setIsOpen(false)}
+          disabled={isLoading}
         >
           Cancel
         </Button>
-        <Button type="submit">Save Customer</Button>
+        <Button
+          type="submit"
+          disabled={isLoading}
+          rightIcon={isLoading && <Spinner />}
+        >
+          Save Customer
+        </Button>
       </Actions>
     </Form>
   );
