@@ -6,7 +6,7 @@ import {
 } from "@/components/overlay/dialogs/BaseDialog";
 import { styled } from "@/styles/stitches.config";
 import { EditCustomerForm } from "@/components/form-groups";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import type { Customer } from "@/types";
 import { Skeleton } from "@/components/feedback";
 

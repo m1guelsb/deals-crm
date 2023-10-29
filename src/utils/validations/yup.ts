@@ -1,25 +1,18 @@
 import { CustomerForm, DealForm, TaskForm } from "@/types";
-import { boolean, object, SchemaOf, string } from "yup";
+import { boolean, number, object, SchemaOf, string } from "yup";
 
 export const signInFormSchema = object().shape({
-  username: string().required("Username required"),
+  email: string().email("Invalid email").required("email required"),
   password: string().required("Password required"),
 });
 
-export const dealFormSchema: SchemaOf<DealForm> = object({
+export const dealFormSchema = object({
   title: string().required("Field required"),
   description: string().required("Field required"),
   price: string().required("Field required").min(2, "Field required"),
   customerId: string().required("Select a customer"),
 
-  status: object({
-    label: string()
-      .equals(["Closed", "In Progress"], "Wrong value")
-      .required("Select a option"),
-    value: string()
-      .equals(["1", "2"], "Wrong value")
-      .required("Select a option"),
-  }).required("Select a option"),
+  status: string().equals(["CLOSED", "IN_PROGRESS"], "Wrong value"),
 });
 
 export const customerFormSchema: SchemaOf<CustomerForm> = object({

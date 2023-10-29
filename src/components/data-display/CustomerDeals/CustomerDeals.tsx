@@ -3,11 +3,11 @@ import { NoData, Skeleton } from "@/components/feedback";
 import { IconButton } from "@/components/form";
 import { NewDealDialog } from "@/components/overlay";
 import { Heading } from "@/components/typography";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { DealChip } from "@/components/data-display";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Deal } from "@/types";
 import Link from "next/link";
-import { DealChip } from "../DealChip/DealChip";
 
 interface customerDealsProps {
   customerId: string;

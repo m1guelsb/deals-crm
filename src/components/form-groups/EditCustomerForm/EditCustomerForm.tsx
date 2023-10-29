@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Customer, CustomerForm } from "@/types";
 import { phoneMask } from "@/utils/masks/phoneMask";
-import { useQueryPatch } from "@/hooks/api/useQueryPatch";
+import { useQueryPatch } from "@/hooks/react-query/useQueryPatch";
 
 interface EditCustomerFormProps {
   customerData: Customer | undefined;

@@ -1,22 +1,15 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useCallback, useEffect } from "react";
 import Router from "next/router";
 import { AxiosError } from "axios";
-import { destroyCookie, parseCookies, setCookie } from "nookies";
-import { api } from "@/services/axios";
-import { useQueryPost } from "@/hooks/api/useQueryPost";
+import { parseCookies, setCookie } from "nookies";
 import { useToast } from "@/hooks/helpers/useToast";
 import { signOut } from "@/utils/functions";
 import type { User } from "@/types";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
+import { useQueryPost } from "@/hooks/react-query";
 
 type SignInCredentials = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -40,20 +33,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
     isLoading,
     error,
   } = useQueryPost<SignInCredentials, { access_token: string }>({
-    url: "/auth/login",
+    url: "/auth/signin",
   });
 
   const { data: user, refetch: getUser } = useQueryGet<User>({
-    url: "/user",
+    url: "/users/me",
     queryKeys: ["user-data"],
     queryConfigs: { enabled: false },
   });
 
   //signin fn
   const signIn = useCallback(
-    ({ username, password }: SignInCredentials) => {
+    ({ email, password }: SignInCredentials) => {
       postCredentials(
-        { password, username },
+        { data: { email, password } },
         {
           onSuccess({ data: { access_token } }) {
             setCookie(undefined, "deals.access_token", access_token, {

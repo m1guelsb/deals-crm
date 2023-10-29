@@ -6,15 +6,15 @@ import { useEffect } from "react";
 
 export interface OptionType {
   label: string;
-  value: number | string | boolean;
+  value: string;
 }
 interface SelectProps {
   options: OptionType[];
   label: string;
   errorMessage?: string;
   defaultSelected?: OptionType;
-  value?: OptionType;
-  onChange?: (selectedOptionValue: OptionType | null | undefined) => void;
+  value?: string;
+  onChange?: (selectedOptionValue: string | null | undefined) => void;
   notRequired?: boolean;
 }
 
@@ -44,10 +44,10 @@ export const Select = ({
     itemToString(item) {
       return item?.label || "";
     },
-    defaultSelectedItem: value,
+    defaultSelectedItem: options.find((item) => item.value === value),
 
     onSelectedItemChange(changes) {
-      onChange?.(changes.selectedItem);
+      onChange?.(changes.selectedItem?.value);
     },
   });
 
@@ -141,13 +141,13 @@ const SelectButton = styled("button", {
 
 const Label = styled("label", {});
 const Item = styled("li", {
-  "minHeight": "3rem",
-  "display": "flex",
-  "alignItems": "center",
+  minHeight: "3rem",
+  display: "flex",
+  alignItems: "center",
 
-  "_paddingX": "1rem",
+  _paddingX: "1rem",
 
-  "cursor": "pointer",
+  cursor: "pointer",
 
   "&:hover": {
     backgroundColor: theme.colors.background2,

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { styled } from "@/styles/stitches.config";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { BaseTable } from "@/components/tables";
 import type { Customer } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";
@@ -125,15 +125,15 @@ export const CustomersTable = () => {
 };
 
 const ButtonCell = styled("button", {
-  "border": "unset",
-  "backgroundColor": "transparent",
-  "width": "100%",
-  "height": "3rem",
-  "display": "flex",
-  "alignItems": "center",
+  border: "unset",
+  backgroundColor: "transparent",
+  width: "100%",
+  height: "3rem",
+  display: "flex",
+  alignItems: "center",
 
-  "cursor": "pointer",
-  "opacity": "0.3",
+  cursor: "pointer",
+  opacity: "0.3",
 
   "&:hover": {
     opacity: "1",

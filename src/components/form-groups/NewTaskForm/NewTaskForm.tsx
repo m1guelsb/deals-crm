@@ -1,26 +1,22 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input } from "@/components/form";
 import { taskFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
-import { useToast } from "@/hooks/helpers/useToast";
-import { useQueryPost } from "@/hooks/api/useQueryPost";
-import { useQueryClient } from "@tanstack/react-query";
 import type { TaskForm } from "@/types";
 import { DatePicker } from "@/components/form";
+import { useCreateTask } from "@/hooks/api/tasks";
 
 interface NewTaskFormProps {
   dealId: string;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
-  const { newToast } = useToast();
-  const { post: postTask, isLoading } = useQueryPost<TaskForm>({
-    url: `/deals/${dealId}/tasks`,
+  const { createTask, isLoading } = useCreateTask({
+    onTaskCreated: () => setIsOpen(false),
   });
-  const queryClient = useQueryClient();
 
   const {
     register,
@@ -33,28 +29,15 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
     shouldUseNativeValidation: false,
     shouldFocusError: false,
     resolver: yupResolver(taskFormSchema),
-    defaultValues: {
-      completed: false,
-    },
   });
 
-  const handlePostNewTask = ({ title, due_date, completed }: TaskForm) => {
+  const handlePostNewTask = ({ title, due_date }: TaskForm) => {
     const taskPayload = {
       title,
       due_date,
-      completed,
     };
 
-    postTask(taskPayload, {
-      onSuccess() {
-        newToast({ styleType: "success", title: "Task created!" });
-        setIsOpen(false);
-        queryClient.invalidateQueries(["deal-tasks", dealId]);
-      },
-      onError() {
-        newToast({ styleType: "error", title: "Unexpected error, try again." });
-      },
-    });
+    createTask(dealId, taskPayload);
   };
 
   return (

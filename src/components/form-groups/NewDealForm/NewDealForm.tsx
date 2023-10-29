@@ -2,24 +2,21 @@ import type { Dispatch, SetStateAction } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, ComboBox, Input, Select } from "@/components/form";
+import { Button, ComboBox, Input } from "@/components/form";
 import { dealFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
-import { useToast } from "@/hooks/helpers/useToast";
-import { useQueryPost } from "@/hooks/api/useQueryPost";
-import { useQueryClient } from "@tanstack/react-query";
 import type { DealForm } from "@/types";
 import { currencyMask } from "@/utils/masks/currencyMask";
+import { clearDealPrice } from "@/utils/functions/clearDealPrice";
+import { useCreateDeal } from "@/hooks/api/deals";
 
 interface NewDealFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
-  const { newToast } = useToast();
-  const { post: postDeal, isLoading } = useQueryPost<DealForm>({
-    url: `/deals`,
+  const { createDeal, isLoading } = useCreateDeal({
+    onDealCreated: () => setIsOpen(false),
   });
-  const queryClient = useQueryClient();
 
   const {
     register,
@@ -38,27 +35,16 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
     title,
     description,
     price,
-    status,
     customerId,
   }: DealForm) => {
     const dealPayload = {
       title,
       customerId,
       description,
-      price,
-      status,
+      price: clearDealPrice(price),
     };
 
-    postDeal(dealPayload, {
-      onSuccess() {
-        newToast({ styleType: "success", title: "Deal created!" });
-        setIsOpen(false);
-        queryClient.invalidateQueries(["customer-deals", customerId]);
-      },
-      onError() {
-        newToast({ styleType: "error", title: "Unexpected error, try again." });
-      },
-    });
+    createDeal(customerId, dealPayload);
   };
 
   return (
@@ -86,16 +72,9 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
           {...register("title")}
         />
 
-        <Input
-          label="Description"
-          errorMessage={errors.description?.message}
-          {...register("description")}
-        />
-
         <Controller
           name="price"
           control={control}
-          defaultValue=""
           render={({ field: { value, onChange } }) => (
             <Input
               value={value}
@@ -109,21 +88,12 @@ export const NewDealForm = ({ setIsOpen }: NewDealFormProps) => {
             />
           )}
         />
-        <Controller
-          name="status"
-          control={control}
-          render={({ field: { value, onChange } }) => (
-            <Select
-              label="Status"
-              errorMessage={errors.status?.value?.message}
-              options={[
-                { label: "Closed", value: "1" },
-                { label: "In Progress", value: "2" },
-              ]}
-              value={value}
-              onChange={(selected) => onChange(selected)}
-            />
-          )}
+
+        <Input
+          label="Description"
+          errorMessage={errors.description?.message}
+          css={{ gridColumn: "1 / 3" }}
+          {...register("description")}
         />
       </InputsGrid>
 
