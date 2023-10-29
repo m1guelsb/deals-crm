@@ -24,9 +24,9 @@ export const ProfilePopover = ({ children }: PopoverProps) => {
     <BasePopover trigger={children}>
       <Content sideOffset={5} align={"end"}>
         <ProfileWrapper>
-          <Avatar imageSrc={``} username={user?.name} />
+          <Avatar imageSrc={``} username={user?.username} />
 
-          <Username>{user?.name}</Username>
+          <Username>{user?.username}</Username>
         </ProfileWrapper>
 
         <AlertDialog title="Logout?" onConfirm={() => signOut()}>
@@ -50,22 +50,22 @@ export const ProfilePopover = ({ children }: PopoverProps) => {
 };
 
 const Content = styled(PopoverContent, {
-  height: "fit-content",
+  "height": "fit-content",
 
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "stretch",
+  "display": "flex",
+  "flexDirection": "column",
+  "alignItems": "stretch",
 
-  backgroundColor: theme.colors.background2,
+  "backgroundColor": theme.colors.background2,
 
-  borderRadius: theme.radii.md,
-  _border: "All",
-  borderColor: theme.colors.primary,
+  "borderRadius": theme.radii.md,
+  "_border": "All",
+  "borderColor": theme.colors.primary,
 
   "@media (prefers-reduced-motion: no-preference)": {
-    animationDuration: "400ms",
-    animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-    willChange: "transform, opacity",
+    "animationDuration": "400ms",
+    "animationTimingFunction": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "willChange": "transform, opacity",
     '&[data-state="open"]': {
       '&[data-side="bottom"]': { animationName: popoverSlideDown },
     },

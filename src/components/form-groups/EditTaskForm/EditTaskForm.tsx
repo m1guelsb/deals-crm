@@ -8,7 +8,7 @@ import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Task, TaskForm } from "@/types";
-import { useQueryPatch } from "@/hooks/react-query/useQueryPatch";
+import { useQueryPatch } from "@/hooks/api/useQueryPatch";
 import { DatePicker } from "@/components/form";
 import { parseDate } from "@internationalized/date";
 

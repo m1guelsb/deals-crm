@@ -6,10 +6,10 @@ import {
 } from "@/components/overlay/dialogs/BaseDialog";
 import { styled } from "@/styles/stitches.config";
 import { EditTaskForm } from "@/components/form-groups";
-import { useQueryGet } from "@/hooks/react-query/useQueryGet";
+import { useQueryGet } from "@/hooks/api/useQueryGet";
 import type { Task } from "@/types";
 import { Skeleton } from "@/components/feedback";
-import { useQueryDelete } from "@/hooks/react-query/useQueryDelete";
+import { useQueryDelete } from "@/hooks/api/useQueryDelete";
 import { IconButton } from "@/components/form";
 import { trash } from "@/assets/icons";
 import { useToast } from "@/hooks/helpers/useToast";

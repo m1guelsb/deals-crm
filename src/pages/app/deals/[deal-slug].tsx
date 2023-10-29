@@ -2,7 +2,7 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { AppLayout } from "@/components/layout";
 import { styled, theme } from "@/styles/stitches.config";
-import { useQueryGet } from "@/hooks/react-query/useQueryGet";
+import { useQueryGet } from "@/hooks/api/useQueryGet";
 import { Customer, Deal } from "@/types";
 import Router, { useRouter } from "next/router";
 import {
@@ -18,7 +18,7 @@ import { edit, trash } from "@/assets/icons";
 import { AlertDialog, EditDealDialog } from "@/components/overlay";
 import { useState } from "react";
 import { Skeleton } from "@/components/feedback";
-import { useQueryDelete } from "@/hooks/react-query/useQueryDelete";
+import { useQueryDelete } from "@/hooks/api/useQueryDelete";
 import { useToast } from "@/hooks/helpers/useToast";
 
 const DealSlug: NextPage = () => {
@@ -94,9 +94,9 @@ const DealSlug: NextPage = () => {
               )}
             </Title>
 
-            <DisplayChip title="Price" data={deal?.price.toString()} />
+            <DisplayChip title="Price" data={deal?.price} />
 
-            {deal && <DealStatusTag status={deal?.status} />}
+            {deal && <DealStatusTag status={deal?.status.label} />}
             <Actions>
               <IconButton
                 onClick={() => setEditModalOpen(true)}
@@ -153,19 +153,19 @@ const DealContainer = styled("section", {
 });
 
 const CustomerDetails = styled("a", {
-  all: "unset",
-  height: "fit-content",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
+  "all": "unset",
+  "height": "fit-content",
+  "display": "flex",
+  "alignItems": "center",
+  "justifyContent": "space-between",
 
-  padding: "1rem",
+  "padding": "1rem",
 
-  _border: "All",
-  borderColor: theme.colors.background3,
-  borderRadius: theme.radii.md,
+  "_border": "All",
+  "borderColor": theme.colors.background3,
+  "borderRadius": theme.radii.md,
 
-  cursor: "pointer",
+  "cursor": "pointer",
 
   "&:hover": {
     backgroundColor: theme.colors.background2,

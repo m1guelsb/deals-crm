@@ -2,20 +2,25 @@ import type { Dispatch, SetStateAction } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Input } from "@/components/form";
+import { Button, ComboBox, Input, Select } from "@/components/form";
 import { customerFormSchema } from "@/utils/validations/yup";
-import type { CustomerForm } from "@/types";
-import { phoneMask } from "@/utils/masks/phoneMask";
-import { useCreateCustomer } from "@/hooks/api/customer";
 import { Spinner } from "@/components/feedback";
+import { useToast } from "@/hooks/helpers/useToast";
+import { useQueryPost } from "@/hooks/api/useQueryPost";
+import { useQueryClient } from "@tanstack/react-query";
+import type { CustomerForm } from "@/types";
+import { currencyMask } from "@/utils/masks/currencyMask";
+import { phoneMask } from "@/utils/masks/phoneMask";
 
 interface NewCustomerFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
-  const { createCustomer, isLoading } = useCreateCustomer({
-    onCustomerCreated: () => setIsOpen(false),
+  const { newToast } = useToast();
+  const { post: postCustomer, isLoading } = useQueryPost<CustomerForm>({
+    url: "/customers",
   });
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -37,7 +42,16 @@ export const NewCustomerForm = ({ setIsOpen }: NewCustomerFormProps) => {
       phone,
     };
 
-    createCustomer(customerPayload);
+    postCustomer(customerPayload, {
+      onSuccess() {
+        newToast({ styleType: "success", title: "Customer created!" });
+        setIsOpen(false);
+        queryClient.invalidateQueries(["customers"]);
+      },
+      onError() {
+        newToast({ styleType: "error", title: "Unexpected error, try again." });
+      },
+    });
   };
 
   return (

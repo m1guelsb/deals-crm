@@ -6,7 +6,7 @@ import {
 } from "@/components/overlay/dialogs/BaseDialog";
 import { styled } from "@/styles/stitches.config";
 import { EditDealForm } from "@/components/form-groups";
-import { useQueryGet } from "@/hooks/react-query/useQueryGet";
+import { useQueryGet } from "@/hooks/api/useQueryGet";
 import type { Deal } from "@/types";
 import { Skeleton } from "@/components/feedback";
 
