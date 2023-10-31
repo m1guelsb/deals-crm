@@ -152,7 +152,7 @@ const DealContainer = styled("section", {
   gridGap: "1rem",
 });
 
-const CustomerDetails = styled("a", {
+const CustomerDetails = styled("span", {
   all: "unset",
   height: "fit-content",
   display: "flex",

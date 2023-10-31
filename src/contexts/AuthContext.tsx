@@ -65,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             );
           },
           onError(error) {
-            if (error?.response?.status === 401) {
+            if (error?.response?.status === 403) {
               newToast({
                 styleType: "error",
                 title: "Wrong credentials!",

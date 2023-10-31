@@ -31,15 +31,13 @@ export const RecentDeals = ({
         {dealsData?.map(
           ({ id, description, price, status, title, customerId }) => (
             <Link href={`/app/deals/${id}`} key={id}>
-              <a style={{ color: "unset", textDecoration: "none" }}>
-                <DealChip
-                  title={title}
-                  description={description}
-                  status={status}
-                  price={price}
-                  customerId={customerId}
-                />
-              </a>
+              <DealChip
+                title={title}
+                description={description}
+                status={status}
+                price={price}
+                customerId={customerId}
+              />
             </Link>
           )
         )}

@@ -140,7 +140,7 @@ const ButtonCell = styled("button", {
   },
   "&[disabled]": { opacity: "0.3" },
 });
-const LinkCell = styled("a", {
+const LinkCell = styled("span", {
   all: "unset",
 
   width: "100%",

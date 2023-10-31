@@ -9,12 +9,12 @@ import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Deal } from "@/types";
 import Link from "next/link";
 
-interface customerDealsProps {
+interface CustomerDealsProps {
   customerId: string;
   css?: CSS;
 }
 
-export const CustomerDeals = ({ customerId, css }: customerDealsProps) => {
+export const CustomerDeals = ({ customerId, css }: CustomerDealsProps) => {
   const { data: dealsData, isLoading: dealsLoad } = useQueryGet<Deal[]>({
     queryKeys: ["customer-deals", customerId],
     url: `/customers/${customerId}/deals`,
@@ -39,15 +39,13 @@ export const CustomerDeals = ({ customerId, css }: customerDealsProps) => {
               ({ id, title, description, price, status, customerId }) => {
                 return (
                   <Link href={`/app/deals/${id}`} key={id}>
-                    <a style={{ color: "unset", textDecoration: "none" }}>
-                      <DealChip
-                        title={title}
-                        description={description}
-                        price={price}
-                        status={status}
-                        customerId={customerId}
-                      />
-                    </a>
+                    <DealChip
+                      title={title}
+                      description={description}
+                      price={price}
+                      status={status}
+                      customerId={customerId}
+                    />
                   </Link>
                 );
               }

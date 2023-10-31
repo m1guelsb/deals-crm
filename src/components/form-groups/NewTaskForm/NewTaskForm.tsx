@@ -34,7 +34,7 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
   const handlePostNewTask = ({ title, due_date }: TaskForm) => {
     const taskPayload = {
       title,
-      due_date,
+      dueDate: due_date,
     };
 
     createTask(dealId, taskPayload);
