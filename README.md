@@ -29,7 +29,7 @@ Customer Relationship Management platform where you can manage customers, earnin
 
 ---
 ## How to run 🏃
-1. Rename `.env.local.example` to `.env.local` change the value to your api url. The current is a json server api used for educational purposes.
+1. Rename `.env.local.example` to `.env.local` and change the value to your api url. The current is a json-server api used for demonstrational purposes.
 
 2. Run the following in the terminal:
 ```
