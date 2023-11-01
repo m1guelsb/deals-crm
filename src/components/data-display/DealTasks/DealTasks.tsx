@@ -40,7 +40,7 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
       />
       <TasksContainer css={css}>
         <Header>
-          <Heading sType={"4"}>Deal Tasks</Heading>
+          <Heading sType={"4"}>Tasks</Heading>
 
           <NewTaskDialog dealId={dealId}>
             <IconButton title="Add task" iconSrc={plus.src} sSize={"small"} />

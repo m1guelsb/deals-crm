@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { LinkButton } from "@/components/form";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
@@ -41,7 +40,7 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
         </Header>
 
         <Content>
-          {tasksData && tasksData?.length > 0
+          {tasksData?.length
             ? tasksData?.map(({ id, title, due_date, completed }) => {
                 return (
                   <button

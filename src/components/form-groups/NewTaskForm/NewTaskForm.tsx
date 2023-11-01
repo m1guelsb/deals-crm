@@ -2,11 +2,10 @@ import { Dispatch, SetStateAction } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Input } from "@/components/form";
+import { Button, Input, DatePicker } from "@/components/form";
 import { taskFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import type { TaskForm } from "@/types";
-import { DatePicker } from "@/components/form";
 import { useCreateTask } from "@/hooks/api/tasks";
 
 interface NewTaskFormProps {
@@ -34,7 +33,7 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
   const handlePostNewTask = ({ title, due_date }: TaskForm) => {
     const taskPayload = {
       title,
-      dueDate: due_date,
+      due_date,
     };
 
     createTask(dealId, taskPayload);
@@ -87,11 +86,11 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
 const Form = styled("form", {
   display: "flex",
   flexDirection: "column",
-  gap: "1rem",
+  gap: "2rem",
 });
 const InputsGrid = styled("div", {
   display: "grid",
-  gridTemplateColumns: "1fr 1fr",
+  gridTemplateColumns: "14.5rem 14.5rem",
   gap: "1rem",
 });
 

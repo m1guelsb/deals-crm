@@ -1,6 +1,5 @@
 import { styled, theme } from "@/styles/stitches.config";
 import { Avatar } from "@/components/data-display";
-import type { Customer } from "@/types";
 
 interface CostumerChipProps {
   name: string;
@@ -28,6 +27,8 @@ const ChipContainer = styled("span", {
   display: "flex",
   alignItems: "center",
   gap: "1rem",
+
+  cursor: "pointer",
 
   borderRadius: theme.radii.md,
 

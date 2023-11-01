@@ -33,6 +33,7 @@ export const useCreateDeal = ({ onDealCreated }: useCreateDealProps) => {
         onSuccess() {
           newToast({ styleType: "success", title: "Deal created!" });
           queryClient.invalidateQueries(["deals"]);
+          queryClient.invalidateQueries(["customer-deals"]);
           onDealCreated();
         },
         onError() {

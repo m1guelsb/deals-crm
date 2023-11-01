@@ -20,6 +20,7 @@ import { useState } from "react";
 import { Skeleton } from "@/components/feedback";
 import { useQueryDelete } from "@/hooks/react-query/useQueryDelete";
 import { useToast } from "@/hooks/helpers/useToast";
+import { currencyMask } from "@/utils/masks/currencyMask";
 
 const DealSlug: NextPage = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -35,7 +36,7 @@ const DealSlug: NextPage = () => {
     },
   });
 
-  const { data: customer, isLoading: customerLoad } = useQueryGet<Customer>({
+  const { data: customer } = useQueryGet<Customer>({
     url: `/customers/${deal?.customerId}`,
     queryKeys: ["customer", deal?.customerId ?? ""],
     queryConfigs: {
@@ -94,7 +95,10 @@ const DealSlug: NextPage = () => {
               )}
             </Title>
 
-            <DisplayChip title="Price" data={deal?.price.toString()} />
+            <DisplayChip
+              title="Price"
+              data={currencyMask(String(deal?.price))}
+            />
 
             {deal && <DealStatusTag status={deal?.status} />}
             <Actions>

@@ -27,15 +27,14 @@ const SignIn: NextPage = () => {
     register,
     handleSubmit,
     formState: { errors: inputError },
-    reset,
   } = useForm<SignInFormInputs>({
     mode: "onSubmit",
     reValidateMode: "onChange",
     shouldUseNativeValidation: false,
     resolver: yupResolver(signInFormSchema),
     defaultValues: {
-      email: "test@test.com",
-      password: "123",
+      email: "mb@gmail.com",
+      password: "1dois3",
     },
   });
 
@@ -44,7 +43,6 @@ const SignIn: NextPage = () => {
     password,
   }) => {
     signIn({ email, password });
-    reset();
   };
 
   return (
@@ -57,7 +55,7 @@ const SignIn: NextPage = () => {
         <SignInBox>
           <LogoBox>
             <Logo>
-              <Image src={LogoIMG} alt="logo" />
+              <Image src={LogoIMG} height={124} width={124} alt="logo" />
             </Logo>
             <Heading>Deals CRM</Heading>
           </LogoBox>
@@ -68,14 +66,14 @@ const SignIn: NextPage = () => {
             </Heading>
 
             <Input
-              placeholder="Insert email"
+              placeholder="Email"
               errorMessage={inputError.email?.message}
               rightIcon={<Icon src={userIcon.src} />}
               disabled={loginLoading}
               {...register("email")}
             />
             <Input
-              placeholder="Insert password"
+              placeholder="Password"
               type={"password"}
               errorMessage={inputError.password?.message}
               rightIcon={<Icon src={lock.src} />}
