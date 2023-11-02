@@ -1,5 +1,5 @@
-import { CustomerForm, DealForm, TaskForm } from "@/types";
-import { boolean, number, object, SchemaOf, string } from "yup";
+import { CustomerForm, TaskForm } from "@/types";
+import { boolean, object, SchemaOf, string } from "yup";
 
 export const signInFormSchema = object().shape({
   email: string().email("Invalid email").required("email required"),
@@ -25,6 +25,6 @@ export const customerFormSchema: SchemaOf<CustomerForm> = object({
 
 export const taskFormSchema: SchemaOf<TaskForm> = object({
   title: string().required("Field required"),
-  due_date: string().required("Chose a due date"),
-  completed: boolean(),
+  dueDate: string().required("Chose a due date"),
+  isCompleted: boolean(),
 });

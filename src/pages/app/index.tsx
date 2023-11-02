@@ -22,7 +22,7 @@ const Dashboard: NextPage = () => {
     url: `/tasks`,
     params: {
       _page: 1,
-      _sort: "due_date",
+      _sort: "dueDate",
     },
   });
 

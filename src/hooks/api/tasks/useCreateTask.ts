@@ -4,13 +4,13 @@ import { useQueryClient } from "@tanstack/react-query";
 
 interface TaskPayload {
   title: string;
-  due_date: string;
+  dueDate: string;
 }
 
-interface useCreateTaskProps {
+interface CreateTaskProps {
   onTaskCreated: () => void;
 }
-export const useCreateTask = ({ onTaskCreated }: useCreateTaskProps) => {
+export const useCreateTask = ({ onTaskCreated }: CreateTaskProps) => {
   const { newToast } = useToast();
   const queryClient = useQueryClient();
 
@@ -31,7 +31,7 @@ export const useCreateTask = ({ onTaskCreated }: useCreateTaskProps) => {
       {
         onSuccess() {
           newToast({ styleType: "success", title: "Task created!" });
-          queryClient.invalidateQueries(["tasks"]);
+          queryClient.invalidateQueries(["deal-tasks"]);
           onTaskCreated();
         },
         onError() {

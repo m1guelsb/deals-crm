@@ -66,7 +66,7 @@ export const ComboBox = ({
     items: options,
     defaultSelectedItem: value,
     itemToString(item) {
-      return item?.label || "";
+      return item?.label ?? "";
     },
     onSelectedItemChange({ selectedItem }) {
       onChange?.(selectedItem);
@@ -84,11 +84,9 @@ export const ComboBox = ({
           label={label}
           placeholder={placeholder}
           errorMessage={`${
-            !hasResults && !loading
-              ? "No results founded"
-              : errorMessage
-              ? errorMessage
-              : ""
+            !hasResults
+              ? "No results found, add a Customer first"
+              : errorMessage ?? ""
           }`}
           rightIcon={
             loading ? (
@@ -158,13 +156,13 @@ const Content = styled("ul", {
 });
 
 const Item = styled("li", {
-  "minHeight": "3rem",
-  "display": "flex",
-  "alignItems": "center",
+  minHeight: "3rem",
+  display: "flex",
+  alignItems: "center",
 
-  "_paddingX": "1rem",
+  _paddingX: "1rem",
 
-  "cursor": "pointer",
+  cursor: "pointer",
 
   "&:hover": {
     backgroundColor: theme.colors.background2,

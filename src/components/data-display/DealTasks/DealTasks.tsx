@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { IconButton, LinkButton } from "@/components/form";
+import { IconButton } from "@/components/form";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Task as TaskItem } from "@/components/data-display";
@@ -49,19 +48,14 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
 
         <Content>
           {tasksData && tasksData?.length > 0
-            ? tasksData?.map(({ id, title, due_date, completed }) => {
+            ? tasksData?.map((props) => {
                 return (
                   <button
-                    key={id}
+                    key={props.id}
                     style={{ all: "unset" }}
-                    onClick={() => handleEdit(id)}
+                    onClick={() => handleEdit(props.id)}
                   >
-                    <TaskItem
-                      css={{ cursor: "pointer" }}
-                      title={title}
-                      due_date={due_date}
-                      completed={completed}
-                    />
+                    <TaskItem css={{ cursor: "pointer" }} {...props} />
                   </button>
                 );
               })

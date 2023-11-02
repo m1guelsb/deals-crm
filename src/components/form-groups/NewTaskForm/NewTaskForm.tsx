@@ -30,14 +30,8 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
     resolver: yupResolver(taskFormSchema),
   });
 
-  const handlePostNewTask = ({ title, due_date }: TaskForm) => {
-    const taskPayload = {
-      title,
-      due_date,
-    };
-
-    createTask(dealId, taskPayload);
-  };
+  const handlePostNewTask = ({ title, dueDate }: TaskForm) =>
+    createTask(dealId, { title, dueDate });
 
   return (
     <Form onSubmit={handleSubmit(handlePostNewTask)}>
@@ -50,13 +44,13 @@ export const NewTaskForm = ({ setIsOpen, dealId }: NewTaskFormProps) => {
         />
 
         <Controller
-          name="due_date"
+          name="dueDate"
           control={control}
           render={({ field: { value, onChange } }) => (
             <DatePicker
               value={value}
               onChange={(value) => onChange(value)}
-              errorMessage={errors.due_date?.message}
+              errorMessage={errors.dueDate?.message}
             />
           )}
         />

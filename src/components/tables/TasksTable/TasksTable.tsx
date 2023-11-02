@@ -6,7 +6,7 @@ import { BaseTable } from "@/components/tables";
 import type { Task } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";
 import { Icon } from "@/components/media";
-import { EditCustomerDialog, EditTaskDialog } from "@/components/overlay";
+import { EditTaskDialog } from "@/components/overlay";
 import { completed, edit, notCompleted, tasks, warning } from "@/assets/icons";
 import { format, isToday, isTomorrow, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -27,12 +27,12 @@ export const TasksTable = () => {
 
   const columnHelper = createColumnHelper<Task>();
   const columns = [
-    columnHelper.accessor("completed", {
+    columnHelper.accessor("isCompleted", {
       header: "Status",
       cell: ({ row, getValue }) => {
         const isCompleted = getValue();
 
-        const dueDate = row.getValue<string>("due_date");
+        const dueDate = row.getValue<string>("dueDate");
 
         const isClose =
           isTomorrow(parseISO(dueDate)) || isToday(parseISO(dueDate));
@@ -56,7 +56,7 @@ export const TasksTable = () => {
         );
       },
     }),
-    columnHelper.accessor("due_date", {
+    columnHelper.accessor("dueDate", {
       header: "Due date",
       cell: ({ row, getValue }) => {
         const dueDate = format(parseISO(getValue()), "dd/MM/yyyy", {

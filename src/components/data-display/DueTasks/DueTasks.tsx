@@ -41,20 +41,13 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
 
         <Content>
           {tasksData?.length
-            ? tasksData?.map(({ id, title, due_date, completed }) => {
+            ? tasksData?.map((task) => {
                 return (
-                  <button
-                    key={id}
-                    style={{ all: "unset" }}
-                    onClick={() => handleEdit(id)}
-                  >
-                    <TaskItem
-                      css={{ cursor: "pointer" }}
-                      title={title}
-                      due_date={due_date}
-                      completed={completed}
-                    />
-                  </button>
+                  <TaskItem
+                    key={task.id}
+                    onClick={() => handleEdit(task.id)}
+                    {...task}
+                  />
                 );
               })
             : !isLoading && (
@@ -64,7 +57,7 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
           {isLoading && !tasksData
             ? Array.from(
                 {
-                  length: 12,
+                  length: 4,
                 },
                 (_, index) => <Skeleton height="4rem" key={index} />
               )

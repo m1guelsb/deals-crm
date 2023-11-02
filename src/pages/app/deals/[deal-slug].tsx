@@ -181,6 +181,7 @@ const DealHeader = styled("header", {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
+  gap: "1rem",
 
   padding: "1rem",
   borderRadius: theme.radii.md,
@@ -198,5 +199,5 @@ const Description = styled("span", {
 const Actions = styled("div", {
   display: "flex",
   alignItems: "center",
-  gap: "1rem",
+  gap: "0.5rem",
 });

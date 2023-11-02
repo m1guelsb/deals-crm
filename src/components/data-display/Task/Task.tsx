@@ -1,27 +1,31 @@
 import { completed, notCompleted, warning } from "@/assets/icons";
 import { Icon } from "@/components/media";
-import { CSS, styled, theme } from "@/styles/stitches.config";
+import { styled, theme } from "@/styles/stitches.config";
 import { isToday, isTomorrow, format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import type { Task as TaskType } from "@/types";
+import { ComponentProps } from "react";
 
-interface TaskProps extends Omit<TaskType, "id"> {
-  css?: CSS;
+interface TaskProps
+  extends ComponentProps<typeof TaskContainer>,
+    Omit<TaskType, "id"> {
+  title: string;
 }
 
 export const Task = ({
   title,
-  due_date,
-  completed: isCompleted,
+  dueDate,
+  isCompleted,
   css,
+  ...props
 }: TaskProps) => {
-  const dueDate = format(parseISO(due_date), "dd/MM/yyyy", { locale: ptBR });
+  const due = format(parseISO(dueDate), "dd/MM/yyyy", { locale: ptBR });
 
-  const isClose = isTomorrow(parseISO(due_date)) || isToday(parseISO(due_date));
+  const isClose = isTomorrow(parseISO(due)) || isToday(parseISO(due));
 
   return (
-    <TaskContainer css={css}>
-      <DueDate dueDate={isClose ? "close" : "far"}>{dueDate}</DueDate>
+    <TaskContainer css={css} {...props}>
+      <DueDate dueDate={isClose ? "close" : "far"}>{due}</DueDate>
 
       <Title title={title}>{title}</Title>
 
@@ -53,24 +57,25 @@ export const Task = ({
   );
 };
 
-const TaskContainer = styled("span", {
-  "height": "2.5rem",
-  "display": "flex",
-  "alignItems": "center",
-  "gap": "0.5rem",
-
-  "_paddingX": "1rem",
-
-  "borderRadius": theme.radii.sm,
-
+const TaskContainer = styled("button", {
+  height: "2.5rem",
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  gap: "2rem",
+  _paddingX: "1rem",
+  borderRadius: theme.radii.sm,
+  cursor: "pointer",
+  backgroundColor: "$background1",
+  color: "$text1",
+  outline: "none",
+  border: "none",
   "&:hover": {
     backgroundColor: theme.colors.background3,
   },
 });
 
 const DueDate = styled("span", {
-  minWidth: "6.5rem",
-
   variants: {
     dueDate: {
       far: {
