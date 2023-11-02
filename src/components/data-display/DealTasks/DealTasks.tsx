@@ -47,16 +47,16 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
         </Header>
 
         <Content>
-          {tasksData && tasksData?.length > 0
-            ? tasksData?.map((props) => {
+          {tasksData?.length
+            ? tasksData?.map(({ id, title, dueDate, isCompleted }) => {
                 return (
-                  <button
-                    key={props.id}
-                    style={{ all: "unset" }}
-                    onClick={() => handleEdit(props.id)}
-                  >
-                    <TaskItem css={{ cursor: "pointer" }} {...props} />
-                  </button>
+                  <TaskItem
+                    key={id}
+                    onClick={() => handleEdit(id)}
+                    title={title}
+                    dueDate={dueDate}
+                    isCompleted={isCompleted}
+                  />
                 );
               })
             : !tasksLoad && (

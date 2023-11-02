@@ -38,19 +38,24 @@ export const TasksTable = () => {
           isTomorrow(parseISO(dueDate)) || isToday(parseISO(dueDate));
         return (
           <StatusBox>
-            {isClose && !isCompleted && (
-              <Icon
-                src={warning.src}
-                css={{ _iconColor: { fill: theme.colors.error } }}
-              />
-            )}
             {isCompleted ? (
               <Icon
+                title="Completed"
                 src={completed.src}
                 css={{ _iconColor: { fill: theme.colors.success } }}
               />
+            ) : !isCompleted && isClose ? (
+              <Icon
+                title="Due date is close"
+                src={warning.src}
+                css={{ _iconColor: { fill: theme.colors.error } }}
+              />
             ) : (
-              <Icon src={notCompleted.src} />
+              <Icon
+                title="Uncompleted"
+                src={notCompleted.src}
+                css={{ _iconColor: { fill: theme.colors.text2 } }}
+              />
             )}
           </StatusBox>
         );
@@ -58,6 +63,7 @@ export const TasksTable = () => {
     }),
     columnHelper.accessor("dueDate", {
       header: "Due date",
+
       cell: ({ row, getValue }) => {
         const dueDate = format(parseISO(getValue()), "dd/MM/yyyy", {
           locale: ptBR,
@@ -161,6 +167,7 @@ const DueDate = styled("span", {
 });
 
 const StatusBox = styled("span", {
+  width: "1rem",
   display: "flex",
   alignItems: "center",
   gap: "0.5rem",

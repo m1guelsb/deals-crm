@@ -23,7 +23,7 @@ export const DatePicker = ({
   };
 
   return (
-    <DatePickerContainer>
+    <DatePickerContainer aria-label="date-picker">
       <Picker
         value={dateValue}
         onChange={(value: string) => onDatePick(value)}

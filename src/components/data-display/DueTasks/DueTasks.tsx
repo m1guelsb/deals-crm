@@ -41,12 +41,14 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
 
         <Content>
           {tasksData?.length
-            ? tasksData?.map((task) => {
+            ? tasksData?.map(({ id, title, dueDate, isCompleted }) => {
                 return (
                   <TaskItem
-                    key={task.id}
-                    onClick={() => handleEdit(task.id)}
-                    {...task}
+                    key={id}
+                    onClick={() => handleEdit(id)}
+                    title={title}
+                    dueDate={dueDate}
+                    isCompleted={isCompleted}
                   />
                 );
               })

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,6 +26,8 @@ export const EditTaskForm = ({ taskData, setIsOpen }: EditTaskFormProps) => {
     register,
     handleSubmit,
     control,
+    watch,
+    getValues,
     formState: { errors },
   } = useForm<TaskForm>({
     mode: "onChange",
@@ -39,6 +41,14 @@ export const EditTaskForm = ({ taskData, setIsOpen }: EditTaskFormProps) => {
       isCompleted: taskData?.isCompleted,
     },
   });
+
+  const currentValues = {
+    title: taskData?.title,
+    dueDate: taskData?.dueDate,
+    isCompleted: taskData?.isCompleted,
+  };
+
+  const hasChanges = JSON.stringify(currentValues) !== JSON.stringify(watch());
 
   const handlePatchTask = (payload: TaskForm) => {
     patchTask(payload, {
@@ -99,7 +109,7 @@ export const EditTaskForm = ({ taskData, setIsOpen }: EditTaskFormProps) => {
         </Button>
         <Button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || !hasChanges}
           rightIcon={isLoading && <Spinner />}
         >
           Save

@@ -28,7 +28,7 @@ export function Picker(props) {
   }, [props.value]);
 
   return (
-    <DatePickerContainer>
+    <DatePickerContainer aria-label="picker">
       <Label {...labelProps}>Due Date</Label>
       <DateInputsContainer {...groupProps} ref={ref}>
         <BasePopover

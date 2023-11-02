@@ -14,6 +14,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
+    // @ts-ignore
     jwtVerify(jwt, secret)
       .then(({ payload, protectedHeader }) => {
         return NextResponse.next();

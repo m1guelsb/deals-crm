@@ -21,22 +21,13 @@ export const Task = ({
 }: TaskProps) => {
   const due = format(parseISO(dueDate), "dd/MM/yyyy", { locale: ptBR });
 
-  const isClose = isTomorrow(parseISO(due)) || isToday(parseISO(due));
+  const isClose = isTomorrow(parseISO(dueDate)) || isToday(parseISO(dueDate));
 
   return (
     <TaskContainer css={css} {...props}>
       <DueDate dueDate={isClose ? "close" : "far"}>{due}</DueDate>
 
       <Title title={title}>{title}</Title>
-
-      {isClose && !isCompleted && (
-        <DueStatus title="Task date is close">
-          <Icon
-            src={warning.src}
-            css={{ _iconColor: { fill: theme.colors.error } }}
-          />
-        </DueStatus>
-      )}
 
       {isCompleted ? (
         <DueStatus title="Task completed">
@@ -45,8 +36,15 @@ export const Task = ({
             css={{ _iconColor: { fill: theme.colors.success } }}
           />
         </DueStatus>
+      ) : !isCompleted && isClose ? (
+        <DueStatus title="Task date is close">
+          <Icon
+            src={warning.src}
+            css={{ _iconColor: { fill: theme.colors.error } }}
+          />
+        </DueStatus>
       ) : (
-        <DueStatus title="Task incompleted">
+        <DueStatus title="Task uncompleted">
           <Icon
             src={notCompleted.src}
             css={{ _iconColor: { fill: theme.colors.text2 } }}
@@ -76,6 +74,7 @@ const TaskContainer = styled("button", {
 });
 
 const DueDate = styled("span", {
+  width: "4rem",
   variants: {
     dueDate: {
       far: {

@@ -15,7 +15,7 @@ export function CalendarGrid({ state, ...props }) {
       <thead {...headerProps}>
         <tr>
           {weekDays.map((day, index) => (
-            <th style={{ textAlign: "center" }} key={index}>
+            <th style={{ textAlign: "center" }} key={`${index}-${day}`}>
               {day}
             </th>
           ))}
@@ -28,9 +28,13 @@ export function CalendarGrid({ state, ...props }) {
               .getDatesInWeek(weekIndex)
               .map((date, i) =>
                 date ? (
-                  <CalendarCell key={i} state={state} date={date} />
+                  <CalendarCell
+                    key={`${i}-${date}`}
+                    state={state}
+                    date={date}
+                  />
                 ) : (
-                  <td key={i} />
+                  <td key={`${i}-${date}`} />
                 )
               )}
           </tr>

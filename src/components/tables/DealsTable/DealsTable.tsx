@@ -11,6 +11,7 @@ import { deals, edit } from "@/assets/icons";
 import { DealStatusTag } from "@/components/data-display";
 import Link from "next/link";
 import { Button } from "@/components/form";
+import { currencyMask } from "@/utils/masks/currencyMask";
 
 export const DealsTable = () => {
   const { data, isLoading: dealsLoad } = useQueryGet<Deal[]>({
@@ -59,6 +60,15 @@ export const DealsTable = () => {
     }),
     columnHelper.accessor("price", {
       header: "Price",
+      cell: ({ getValue }) => {
+        const price = getValue();
+
+        return price ? (
+          <span>{currencyMask(price.toString())}</span>
+        ) : (
+          <Skeleton />
+        );
+      },
     }),
     columnHelper.accessor("status", {
       header: "Status",

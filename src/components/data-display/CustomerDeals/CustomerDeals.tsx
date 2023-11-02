@@ -68,6 +68,7 @@ export const CustomerDeals = ({ customerId, css }: CustomerDealsProps) => {
 };
 const DealsContainer = styled("div", {
   height: "100%",
+  width: "30rem",
   display: "flex",
   flexDirection: "column",
   gap: "0.5rem",
