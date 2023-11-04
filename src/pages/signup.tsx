@@ -4,41 +4,38 @@ import Head from "next/head";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { GetServerSideProps, NextPage } from "next";
-import { AuthContext } from "@/contexts/AuthContext";
+import { AuthContext, SignUpCredentials } from "@/contexts/AuthContext";
 import { Logo as LogoIMG } from "@/assets/images";
 import { Button, Input, LinkButton } from "@/components/form";
 import { Heading } from "@/components/typography";
-import { signInFormSchema } from "@/utils/validations/yup";
+import { signUpFormSchema } from "@/utils/validations/yup";
 import { styled, theme } from "@/styles/stitches.config";
 import { Icon } from "@/components/media";
-import { lock } from "@/icons";
+import { user as userIcon, lock } from "@/icons";
 import { destroyCookie, parseCookies } from "nookies";
 import { jwtVerify } from "jose";
 import { Spinner } from "@/components/feedback";
 
-interface SignInFormInputs {
-  email: string;
-  password: string;
-}
-const SignIn: NextPage = () => {
-  const { signIn, signinLoading } = useContext(AuthContext);
+const SignUp: NextPage = () => {
+  const { signUp, signupLoading } = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
     formState: { errors: inputError },
-  } = useForm<SignInFormInputs>({
+  } = useForm<SignUpCredentials>({
     mode: "onSubmit",
     reValidateMode: "onChange",
     shouldUseNativeValidation: false,
-    resolver: yupResolver(signInFormSchema),
+    resolver: yupResolver(signUpFormSchema),
   });
 
-  const handleSignIn: SubmitHandler<SignInFormInputs> = async ({
+  const handleSignUp: SubmitHandler<SignUpCredentials> = async ({
+    name,
     email,
     password,
   }) => {
-    signIn({ email, password });
+    signUp({ name, email, password });
   };
 
   return (
@@ -48,7 +45,7 @@ const SignIn: NextPage = () => {
       </Head>
 
       <Container>
-        <SignInBox>
+        <SignUpBox>
           <LogoBox>
             <Logo>
               <Image src={LogoIMG} height={124} width={124} alt="logo" />
@@ -56,11 +53,17 @@ const SignIn: NextPage = () => {
             <Heading>Deals CRM</Heading>
           </LogoBox>
 
-          <SignInForm onSubmit={handleSubmit(handleSignIn)}>
+          <SignUpForm onSubmit={handleSubmit(handleSignUp)}>
             <Heading as={"h2"} sType={"2"}>
-              Login
+              Sign Up
             </Heading>
-
+            <Input
+              placeholder="Name"
+              errorMessage={inputError.name?.message}
+              rightIcon={<Icon src={userIcon.src} />}
+              disabled={signupLoading}
+              {...register("name")}
+            />
             <Input
               placeholder="Email"
               errorMessage={inputError.email?.message}
@@ -69,7 +72,7 @@ const SignIn: NextPage = () => {
                   @
                 </span>
               }
-              disabled={signinLoading}
+              disabled={signupLoading}
               {...register("email")}
             />
             <Input
@@ -77,29 +80,29 @@ const SignIn: NextPage = () => {
               type={"password"}
               errorMessage={inputError.password?.message}
               rightIcon={<Icon src={lock.src} />}
-              disabled={signinLoading}
+              disabled={signupLoading}
               {...register("password")}
             />
 
             <Actions>
               <Button
                 type={"submit"}
-                rightIcon={signinLoading && <Spinner sType={"secondary"} />}
-                disabled={signinLoading}
+                rightIcon={signupLoading && <Spinner sType={"secondary"} />}
+                disabled={signupLoading}
                 css={{ width: "100%" }}
               >
-                Login
+                Create account
               </Button>
-              <LinkButton href="/signup" label="Create account" />
+              <LinkButton href="/" label="Login" />
             </Actions>
-          </SignInForm>
-        </SignInBox>
+          </SignUpForm>
+        </SignUpBox>
       </Container>
     </>
   );
 };
 
-export default SignIn;
+export default SignUp;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { "deals.access_token": access_token } = parseCookies(ctx);
@@ -136,7 +139,7 @@ const Container = styled("div", {
   backgroundColor: theme.colors.background1,
 });
 
-const SignInBox = styled("div", {
+const SignUpBox = styled("div", {
   width: "60rem",
   height: "fit-content",
 
@@ -145,7 +148,6 @@ const SignInBox = styled("div", {
 
 const LogoBox = styled("section", {
   flex: 1,
-
   display: "flex",
   justifyContent: "center",
   flexDirection: "column",
@@ -158,12 +160,11 @@ const Logo = styled("div", {
   width: "8rem",
 });
 
-const SignInForm = styled("form", {
+const SignUpForm = styled("form", {
   flex: 1,
-
   display: "flex",
   flexDirection: "column",
-  gap: "2rem",
+  gap: "1.5rem",
 
   padding: "2rem",
   borderRadius: theme.radii.md,
