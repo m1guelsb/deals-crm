@@ -34,6 +34,8 @@ const Dashboard: NextPage = () => {
     },
   });
 
+  const totalEarnings = dealsData?.reduce((acc, deal) => acc + deal.price, 0);
+
   return (
     <>
       <Head>
@@ -45,7 +47,7 @@ const Dashboard: NextPage = () => {
           <CardsWrapper css={{ gridArea: "cards" }}>
             <Card
               title="Earnings"
-              value={currencyMask(String(5))}
+              value={currencyMask(String(totalEarnings))}
               iconSrc={dollar.src}
             />
             <Card
