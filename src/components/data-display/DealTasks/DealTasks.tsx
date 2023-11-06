@@ -1,11 +1,10 @@
-import Link from "next/link";
-import { IconButton, LinkButton } from "@/components/form";
+import { IconButton } from "@/components/form";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Task as TaskItem } from "@/components/data-display";
 import type { Task } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { plus, tasks } from "@/assets/icons";
 import { EditTaskDialog, NewTaskDialog } from "@/components/overlay";
 import { useState } from "react";
@@ -40,7 +39,7 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
       />
       <TasksContainer css={css}>
         <Header>
-          <Heading sType={"4"}>Deal Tasks</Heading>
+          <Heading sType={"4"}>Tasks</Heading>
 
           <NewTaskDialog dealId={dealId}>
             <IconButton title="Add task" iconSrc={plus.src} sSize={"small"} />
@@ -48,21 +47,16 @@ export const DealTasks = ({ dealId, css }: DealTasksProps) => {
         </Header>
 
         <Content>
-          {tasksData && tasksData?.length > 0
-            ? tasksData?.map(({ id, title, due_date, completed }) => {
+          {tasksData?.length
+            ? tasksData?.map(({ id, title, dueDate, isCompleted }) => {
                 return (
-                  <button
+                  <TaskItem
                     key={id}
-                    style={{ all: "unset" }}
                     onClick={() => handleEdit(id)}
-                  >
-                    <TaskItem
-                      css={{ cursor: "pointer" }}
-                      title={title}
-                      due_date={due_date}
-                      completed={completed}
-                    />
-                  </button>
+                    title={title}
+                    dueDate={dueDate}
+                    isCompleted={isCompleted}
+                  />
                 );
               })
             : !tasksLoad && (

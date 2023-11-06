@@ -1,6 +1,7 @@
 import { styled, theme } from "@/styles/stitches.config";
 import type { Deal } from "@/types";
 import { DealStatusTag } from "../DealStatusTag/DealStatusTag";
+import { currencyMask } from "@/utils/masks/currencyMask";
 
 interface DealChipProps extends Omit<Deal, "id" | "customer"> {}
 
@@ -17,8 +18,8 @@ export const DealChip = ({
         <Description>{description}</Description>
       </TextBox>
       <RightBox>
-        <Price>{price}</Price>
-        <DealStatusTag status={status.label} />
+        <Price>{currencyMask(price.toString())}</Price>
+        <DealStatusTag status={status} />
       </RightBox>
     </ChipContainer>
   );
@@ -30,6 +31,8 @@ const ChipContainer = styled("span", {
   alignItems: "center",
   justifyContent: "space-between",
   gap: "1rem",
+
+  cursor: "pointer",
 
   borderRadius: theme.radii.md,
   backgroundColor: theme.colors.background2,
@@ -49,7 +52,9 @@ const TextBox = styled("span", {
 });
 const RightBox = styled("span", {
   display: "flex",
+  width: "13rem",
   textAlign: "right",
+  alignItems: "end",
   flexDirection: "column",
   gap: "0.5rem",
   _truncate: true,
@@ -59,6 +64,8 @@ const Title = styled("h4", {
 });
 const Price = styled("span", {});
 const Description = styled("span", {
+  width: "100%",
+  _truncate: true,
   fontSize: theme.fontSizes.md,
   color: theme.colors.text2,
 });

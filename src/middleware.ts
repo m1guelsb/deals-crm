@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 import type { NextRequest } from "next/server";
+import { destroyCookie } from "nookies";
 
 export function middleware(request: NextRequest) {
   const jwt = request.cookies.get("deals.access_token");
-  const secret = "123456789";
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   const url = request.nextUrl.clone();
 
   if (request.url.includes("/app")) {
@@ -13,13 +14,17 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    try {
-      jwtVerify(jwt, new TextEncoder().encode(secret));
-      return NextResponse.next();
-    } catch (err) {
-      url.pathname = "/";
-      return NextResponse.redirect(url);
-    }
+    // @ts-ignore
+    jwtVerify(jwt, secret)
+      .then(({ payload, protectedHeader }) => {
+        return NextResponse.next();
+      })
+      .catch((reason) => {
+        url.pathname = "/";
+
+        destroyCookie(undefined, "deals.access_token", { path: "/" });
+        return NextResponse.redirect(url);
+      });
   }
 
   return NextResponse.next();

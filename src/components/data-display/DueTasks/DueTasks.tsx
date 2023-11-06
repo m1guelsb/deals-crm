@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { LinkButton } from "@/components/form";
 import { Heading } from "@/components/typography";
 import { CSS, styled, theme } from "@/styles/stitches.config";
@@ -41,21 +40,16 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
         </Header>
 
         <Content>
-          {tasksData && tasksData?.length > 0
-            ? tasksData?.map(({ id, title, due_date, completed }) => {
+          {tasksData?.length
+            ? tasksData?.map(({ id, title, dueDate, isCompleted }) => {
                 return (
-                  <button
+                  <TaskItem
                     key={id}
-                    style={{ all: "unset" }}
                     onClick={() => handleEdit(id)}
-                  >
-                    <TaskItem
-                      css={{ cursor: "pointer" }}
-                      title={title}
-                      due_date={due_date}
-                      completed={completed}
-                    />
-                  </button>
+                    title={title}
+                    dueDate={dueDate}
+                    isCompleted={isCompleted}
+                  />
                 );
               })
             : !isLoading && (
@@ -65,7 +59,7 @@ export const DueTasks = ({ tasksData, isLoading, css }: DueTasksProps) => {
           {isLoading && !tasksData
             ? Array.from(
                 {
-                  length: 12,
+                  length: 4,
                 },
                 (_, index) => <Skeleton height="4rem" key={index} />
               )

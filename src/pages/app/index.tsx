@@ -3,12 +3,11 @@ import { NextPage } from "next";
 import { AppLayout } from "@/components/layout";
 import { styled } from "@/styles/stitches.config";
 import { costumers, deals, dollar } from "@/assets/icons";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { Card, DueTasks, RecentCustomers } from "@/components/data-display";
 import { RecentDeals } from "@/components/data-display/RecentDeals/RecentDeals";
 import type { Customer, Task, Deal } from "@/types";
 import { currencyMask } from "@/utils/masks/currencyMask";
-import { currencyFormatter } from "@/utils/functions/currencyFormatter";
 
 const Dashboard: NextPage = () => {
   const { data: costumersData, isLoading: costumersload } = useQueryGet<
@@ -23,7 +22,7 @@ const Dashboard: NextPage = () => {
     url: `/tasks`,
     params: {
       _page: 1,
-      _sort: "due_date",
+      _sort: "dueDate",
     },
   });
 
@@ -34,11 +33,6 @@ const Dashboard: NextPage = () => {
       _sort: "title",
     },
   });
-
-  const monthEarningsTotal = dealsData
-    ?.slice(0, 4)
-    ?.map((deal) => Number(deal.price.replace(/\D/g, "")))
-    .reduce((prev, cur) => prev + cur, 0);
 
   return (
     <>
@@ -51,7 +45,7 @@ const Dashboard: NextPage = () => {
           <CardsWrapper css={{ gridArea: "cards" }}>
             <Card
               title="Earnings"
-              value={currencyFormatter(monthEarningsTotal) ?? ""}
+              value={currencyMask(String(5))}
               iconSrc={dollar.src}
             />
             <Card

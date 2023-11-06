@@ -9,7 +9,8 @@ import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Deal, DealForm } from "@/types";
 import { currencyMask } from "@/utils/masks/currencyMask";
-import { useQueryPatch } from "@/hooks/api/useQueryPatch";
+import { useQueryPatch } from "@/hooks/react-query/useQueryPatch";
+import { clearDealPrice } from "@/utils/functions/clearDealPrice";
 
 interface EditDealFormProps {
   dealData: Deal | undefined;
@@ -40,7 +41,7 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
       title: dealData?.title,
       description: dealData?.description,
       price: dealData?.price,
-      status: { label: dealData?.status.label, value: dealData?.status.value },
+      status: dealData?.status,
       customerId: dealData?.customerId,
     },
   });
@@ -55,7 +56,7 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
     const dealPayload = {
       title,
       description,
-      price,
+      price: clearDealPrice(price),
       status,
       customerId,
     };
@@ -92,7 +93,6 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
         <Controller
           name="price"
           control={control}
-          defaultValue=""
           render={({ field: { value, onChange } }) => (
             <Input
               value={value}
@@ -112,10 +112,10 @@ export const EditDealForm = ({ dealData, setIsOpen }: EditDealFormProps) => {
           render={({ field: { value, onChange } }) => (
             <Select
               label="Status"
-              errorMessage={errors.status?.value?.message}
+              errorMessage={errors.status?.message}
               options={[
-                { label: "Closed", value: "1" },
-                { label: "In Progress", value: "2" },
+                { label: "Closed", value: "CLOSED" },
+                { label: "In Progress", value: "IN_PROGRESS" },
               ]}
               value={value}
               onChange={(selected) => onChange(selected)}

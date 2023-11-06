@@ -2,9 +2,9 @@ export interface Deal {
   id: string;
   title: string;
   description: string;
-  price: string;
+  price: number;
   customerId: string;
-  status: { label: "Closed" | "In Progress"; value: "1" | "2" };
+  status?: "CLOSED" | "IN_PROGRESS";
 }
 
 export interface DealForm extends Omit<Deal, "id"> {}

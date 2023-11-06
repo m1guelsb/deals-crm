@@ -28,7 +28,7 @@ export function Picker(props) {
   }, [props.value]);
 
   return (
-    <DatePickerContainer>
+    <DatePickerContainer aria-label="picker">
       <Label {...labelProps}>Due Date</Label>
       <DateInputsContainer {...groupProps} ref={ref}>
         <BasePopover
@@ -99,17 +99,17 @@ const DateInputsContainer = styled("div", {
 });
 
 export const Content = styled(PopoverContent, {
-  "height": "fit-content",
+  height: "fit-content",
 
-  "display": "flex",
-  "flexDirection": "column",
-  "alignItems": "stretch",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "stretch",
 
-  "backgroundColor": theme.colors.background1,
+  backgroundColor: theme.colors.background1,
 
-  "borderRadius": theme.radii.md,
-  "_border": "All",
-  "borderColor": theme.colors.primary,
+  borderRadius: theme.radii.md,
+  _border: "All",
+  borderColor: theme.colors.primary,
 
   "@media (prefers-reduced-motion: no-preference)": {
     animationDuration: "400ms",

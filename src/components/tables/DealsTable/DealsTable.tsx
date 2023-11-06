@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { styled, theme } from "@/styles/stitches.config";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { BaseTable } from "@/components/tables";
 import type { Deal } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";
@@ -11,6 +11,7 @@ import { deals, edit } from "@/assets/icons";
 import { DealStatusTag } from "@/components/data-display";
 import Link from "next/link";
 import { Button } from "@/components/form";
+import { currencyMask } from "@/utils/masks/currencyMask";
 
 export const DealsTable = () => {
   const { data, isLoading: dealsLoad } = useQueryGet<Deal[]>({
@@ -59,13 +60,22 @@ export const DealsTable = () => {
     }),
     columnHelper.accessor("price", {
       header: "Price",
+      cell: ({ getValue }) => {
+        const price = getValue();
+
+        return price ? (
+          <span>{currencyMask(price.toString())}</span>
+        ) : (
+          <Skeleton />
+        );
+      },
     }),
     columnHelper.accessor("status", {
       header: "Status",
       cell: ({ getValue }) => {
         const status = getValue();
 
-        return status ? <DealStatusTag status={status.label} /> : <Skeleton />;
+        return status ? <DealStatusTag status={status} /> : <Skeleton />;
       },
     }),
     columnHelper.accessor("id", {
@@ -116,15 +126,15 @@ export const DealsTable = () => {
 };
 
 const ButtonCell = styled("button", {
-  "border": "unset",
-  "backgroundColor": "transparent",
-  "width": "100%",
-  "height": "3rem",
-  "display": "flex",
-  "alignItems": "center",
+  border: "unset",
+  backgroundColor: "transparent",
+  width: "100%",
+  height: "3rem",
+  display: "flex",
+  alignItems: "center",
 
-  "cursor": "pointer",
-  "opacity": "0.3",
+  cursor: "pointer",
+  opacity: "0.3",
 
   "&:hover": {
     opacity: "1",

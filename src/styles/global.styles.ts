@@ -73,4 +73,7 @@ export const stitchesGlobalStyles = globalCss({
     backgroundColor: theme.colors.background1,
     color: theme.colors.text1,
   },
+  a: {
+    all: "unset",
+  },
 });

@@ -3,18 +3,18 @@ import { NoData, Skeleton } from "@/components/feedback";
 import { IconButton } from "@/components/form";
 import { NewDealDialog } from "@/components/overlay";
 import { Heading } from "@/components/typography";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { DealChip } from "@/components/data-display";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { CSS, styled, theme } from "@/styles/stitches.config";
 import { Deal } from "@/types";
 import Link from "next/link";
-import { DealChip } from "../DealChip/DealChip";
 
-interface customerDealsProps {
+interface CustomerDealsProps {
   customerId: string;
   css?: CSS;
 }
 
-export const CustomerDeals = ({ customerId, css }: customerDealsProps) => {
+export const CustomerDeals = ({ customerId, css }: CustomerDealsProps) => {
   const { data: dealsData, isLoading: dealsLoad } = useQueryGet<Deal[]>({
     queryKeys: ["customer-deals", customerId],
     url: `/customers/${customerId}/deals`,
@@ -39,15 +39,13 @@ export const CustomerDeals = ({ customerId, css }: customerDealsProps) => {
               ({ id, title, description, price, status, customerId }) => {
                 return (
                   <Link href={`/app/deals/${id}`} key={id}>
-                    <a style={{ color: "unset", textDecoration: "none" }}>
-                      <DealChip
-                        title={title}
-                        description={description}
-                        price={price}
-                        status={status}
-                        customerId={customerId}
-                      />
-                    </a>
+                    <DealChip
+                      title={title}
+                      description={description}
+                      price={price}
+                      status={status}
+                      customerId={customerId}
+                    />
                   </Link>
                 );
               }
@@ -69,7 +67,7 @@ export const CustomerDeals = ({ customerId, css }: customerDealsProps) => {
   );
 };
 const DealsContainer = styled("div", {
-  height: "100%",
+  flex: 1,
   display: "flex",
   flexDirection: "column",
   gap: "0.5rem",

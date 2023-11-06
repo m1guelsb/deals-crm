@@ -3,18 +3,18 @@ import { styled, theme, VariantProps } from "@/styles/stitches.config";
 export type ButtonVariants = VariantProps<typeof Button>;
 
 export const Button = styled("button", {
-  "width": "fit-content",
+  width: "fit-content",
 
-  "color": theme.colors.text1,
+  color: theme.colors.text1,
 
-  "_alignCenter": true,
+  _alignCenter: true,
 
-  "border": "none",
+  border: "none",
 
-  "cursor": "pointer",
-  "userSelect": "none",
+  cursor: "pointer",
+  userSelect: "none",
 
-  "transition": "ease .15s",
+  transition: "all ease .15s",
 
   "&:hover": {
     filter: "brightness(1.3)",
@@ -28,7 +28,7 @@ export const Button = styled("button", {
     pointerEvents: "none",
   },
 
-  "variants": {
+  variants: {
     sType: {
       primary: {
         backgroundColor: theme.colors.primary,
@@ -39,8 +39,8 @@ export const Button = styled("button", {
       },
 
       tertiary: {
-        "backgroundColor": "transparent",
-        "color": theme.colors.error,
+        backgroundColor: "transparent",
+        color: theme.colors.error,
 
         "&:hover": {
           backgroundColor: theme.colors.background2,
@@ -63,7 +63,7 @@ export const Button = styled("button", {
     },
   },
 
-  "defaultVariants": {
+  defaultVariants: {
     sType: "primary",
     sSize: "medium",
     sRadius: "medium",

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { styled, theme } from "@/styles/stitches.config";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { BaseTable } from "@/components/tables";
 import type { Task } from "@/types";
 import { NoData, Skeleton } from "@/components/feedback";
 import { Icon } from "@/components/media";
-import { EditCustomerDialog, EditTaskDialog } from "@/components/overlay";
+import { EditTaskDialog } from "@/components/overlay";
 import { completed, edit, notCompleted, tasks, warning } from "@/assets/icons";
 import { format, isToday, isTomorrow, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -27,37 +27,43 @@ export const TasksTable = () => {
 
   const columnHelper = createColumnHelper<Task>();
   const columns = [
-    columnHelper.accessor("completed", {
+    columnHelper.accessor("isCompleted", {
       header: "Status",
       cell: ({ row, getValue }) => {
         const isCompleted = getValue();
 
-        const dueDate = row.getValue<string>("due_date");
+        const dueDate = row.getValue<string>("dueDate");
 
         const isClose =
           isTomorrow(parseISO(dueDate)) || isToday(parseISO(dueDate));
         return (
           <StatusBox>
-            {isClose && !isCompleted && (
-              <Icon
-                src={warning.src}
-                css={{ _iconColor: { fill: theme.colors.error } }}
-              />
-            )}
             {isCompleted ? (
               <Icon
+                title="Completed"
                 src={completed.src}
                 css={{ _iconColor: { fill: theme.colors.success } }}
               />
+            ) : !isCompleted && isClose ? (
+              <Icon
+                title="Due date is close"
+                src={warning.src}
+                css={{ _iconColor: { fill: theme.colors.error } }}
+              />
             ) : (
-              <Icon src={notCompleted.src} />
+              <Icon
+                title="Uncompleted"
+                src={notCompleted.src}
+                css={{ _iconColor: { fill: theme.colors.text2 } }}
+              />
             )}
           </StatusBox>
         );
       },
     }),
-    columnHelper.accessor("due_date", {
+    columnHelper.accessor("dueDate", {
       header: "Due date",
+
       cell: ({ row, getValue }) => {
         const dueDate = format(parseISO(getValue()), "dd/MM/yyyy", {
           locale: ptBR,
@@ -122,15 +128,15 @@ export const TasksTable = () => {
 };
 
 const ButtonCell = styled("button", {
-  "border": "unset",
-  "backgroundColor": "transparent",
-  "width": "100%",
-  "height": "3rem",
-  "display": "flex",
-  "alignItems": "center",
+  border: "unset",
+  backgroundColor: "transparent",
+  width: "100%",
+  height: "3rem",
+  display: "flex",
+  alignItems: "center",
 
-  "cursor": "pointer",
-  "opacity": "0.3",
+  cursor: "pointer",
+  opacity: "0.3",
 
   "&:hover": {
     opacity: "1",
@@ -161,6 +167,7 @@ const DueDate = styled("span", {
 });
 
 const StatusBox = styled("span", {
+  width: "1rem",
   display: "flex",
   alignItems: "center",
   gap: "0.5rem",

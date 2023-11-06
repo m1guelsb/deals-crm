@@ -30,9 +30,7 @@ export const RecentCustomers = ({
       <Content>
         {costumersData?.map(({ id, name, email, image }) => (
           <Link href={`/app/customers/${id}`} key={id}>
-            <a style={{ color: "unset", textDecoration: "none" }}>
-              <CustomerChip name={name} email={email} image={image} />
-            </a>
+            <CustomerChip name={name} email={email} image={image} />
           </Link>
         ))}
 

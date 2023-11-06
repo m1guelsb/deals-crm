@@ -1,12 +1,12 @@
 import { styled, theme } from "@/styles/stitches.config";
 
 interface DealStatusTagProps {
-  status: "Closed" | "In Progress";
+  status: "CLOSED" | "IN_PROGRESS" | undefined;
 }
-export const DealStatusTag = ({ status }: DealStatusTagProps) => {
+export const DealStatusTag = (props: DealStatusTagProps) => {
   return (
-    <StatusTag status={status === "Closed" ? "closed" : "inProgress"}>
-      {status?.toUpperCase()}
+    <StatusTag status={props.status ?? "CLOSED"}>
+      {props?.status === "CLOSED" ? "Closed" : "In Progress"}
     </StatusTag>
   );
 };
@@ -23,11 +23,11 @@ const StatusTag = styled("span", {
 
   variants: {
     status: {
-      inProgress: {
+      IN_PROGRESS: {
         color: theme.colors.text1,
         backgroundColor: theme.colors.primary,
       },
-      closed: {
+      CLOSED: {
         color: theme.colors.text2,
         backgroundColor: theme.colors.background3,
       },

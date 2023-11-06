@@ -31,22 +31,22 @@ export const dialogContentShow = keyframes({
 });
 
 export const DialogContent = styled(D.Content, {
-  "display": "flex",
-  "flexDirection": "column",
-  "gap": "1rem",
+  display: "flex",
+  flexDirection: "column",
+  gap: "2rem",
 
-  "backgroundColor": theme.colors.background1,
-  "_border": "All",
-  "borderColor": theme.colors.primary,
+  backgroundColor: theme.colors.background1,
+  _border: "All",
+  borderColor: theme.colors.primary,
 
-  "padding": "1rem",
+  padding: "1rem",
 
-  "borderRadius": theme.radii.md,
+  borderRadius: theme.radii.md,
 
-  "position": "fixed",
-  "top": "50%",
-  "left": "50%",
-  "transform": "translate(-50%, -50%)",
+  position: "fixed",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
 
   "@media (prefers-reduced-motion: no-preference)": {
     animation: `${dialogContentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
@@ -67,9 +67,9 @@ const overlayShow = keyframes({
   "100%": { opacity: 1 },
 });
 const Overlay = styled(D.Overlay, {
-  "backgroundColor": "rgba(0,0,0,0.5)",
-  "position": "fixed",
-  "inset": 0,
+  backgroundColor: "rgba(0,0,0,0.5)",
+  position: "fixed",
+  inset: 0,
   "@media (prefers-reduced-motion: no-preference)": {
     animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
   },

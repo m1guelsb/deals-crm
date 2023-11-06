@@ -1,15 +1,14 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { styled } from "@/styles/stitches.config";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Input, Checkbox } from "@/components/form";
+import { Button, Input, Checkbox, DatePicker } from "@/components/form";
 import { taskFormSchema } from "@/utils/validations/yup";
 import { Spinner } from "@/components/feedback";
 import { useToast } from "@/hooks/helpers/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Task, TaskForm } from "@/types";
-import { useQueryPatch } from "@/hooks/api/useQueryPatch";
-import { DatePicker } from "@/components/form";
+import { useQueryPatch } from "@/hooks/react-query/useQueryPatch";
 import { parseDate } from "@internationalized/date";
 
 interface EditTaskFormProps {
@@ -27,6 +26,8 @@ export const EditTaskForm = ({ taskData, setIsOpen }: EditTaskFormProps) => {
     register,
     handleSubmit,
     control,
+    watch,
+    getValues,
     formState: { errors },
   } = useForm<TaskForm>({
     mode: "onChange",
@@ -36,19 +37,21 @@ export const EditTaskForm = ({ taskData, setIsOpen }: EditTaskFormProps) => {
     resolver: yupResolver(taskFormSchema),
     defaultValues: {
       title: taskData?.title,
-      due_date: taskData?.due_date,
-      completed: taskData?.completed,
+      dueDate: taskData?.dueDate,
+      isCompleted: taskData?.isCompleted,
     },
   });
 
-  const handlePatchTask = ({ title, due_date, completed }: TaskForm) => {
-    const taskPayload = {
-      title,
-      due_date,
-      completed,
-    };
+  const currentValues = {
+    title: taskData?.title,
+    dueDate: taskData?.dueDate,
+    isCompleted: taskData?.isCompleted,
+  };
 
-    patchTask(taskPayload, {
+  const hasChanges = JSON.stringify(currentValues) !== JSON.stringify(watch());
+
+  const handlePatchTask = (payload: TaskForm) => {
+    patchTask(payload, {
       onSuccess() {
         newToast({ styleType: "success", title: "Task edited!" });
         setIsOpen(false);
@@ -73,19 +76,19 @@ export const EditTaskForm = ({ taskData, setIsOpen }: EditTaskFormProps) => {
         />
 
         <Controller
-          name="due_date"
+          name="dueDate"
           control={control}
           render={({ field: { value, onChange } }) => (
             <DatePicker
-              value={value === taskData?.due_date ? parseDate(value) : value}
+              value={value === taskData?.dueDate ? parseDate(value) : value}
               onChange={(value) => onChange(value)}
-              errorMessage={errors.due_date?.message}
+              errorMessage={errors.dueDate?.message}
             />
           )}
         />
 
         <Controller
-          name="completed"
+          name="isCompleted"
           control={control}
           render={({ field: { value, onChange } }) => (
             <CheckboxWrapper>
@@ -106,7 +109,7 @@ export const EditTaskForm = ({ taskData, setIsOpen }: EditTaskFormProps) => {
         </Button>
         <Button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || !hasChanges}
           rightIcon={isLoading && <Spinner />}
         >
           Save

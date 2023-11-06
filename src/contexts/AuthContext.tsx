@@ -1,29 +1,32 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useCallback, useEffect } from "react";
 import Router from "next/router";
 import { AxiosError } from "axios";
-import { destroyCookie, parseCookies, setCookie } from "nookies";
-import { api } from "@/services/axios";
-import { useQueryPost } from "@/hooks/api/useQueryPost";
+import { parseCookies, setCookie } from "nookies";
 import { useToast } from "@/hooks/helpers/useToast";
 import { signOut } from "@/utils/functions";
 import type { User } from "@/types";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
+import { useQueryPost } from "@/hooks/react-query";
 
-type SignInCredentials = {
-  username: string;
+export type SignInCredentials = {
+  email: string;
+  password: string;
+};
+
+export type SignUpCredentials = {
+  name: string;
+  email: string;
   password: string;
 };
 
 interface AuthContextType {
   signIn(credentials: SignInCredentials): void;
-  loading: boolean;
-  error: AxiosError<unknown, any> | null;
+  signinLoading: boolean;
+  signinError: AxiosError<unknown, any> | null;
+  signUp(credentials: SignUpCredentials): void;
+  signupLoading: boolean;
+  signupError: AxiosError<unknown, any> | null;
+
   user?: User;
 }
 interface AuthProviderProps {
@@ -36,24 +39,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { newToast } = useToast();
 
   const {
-    post: postCredentials,
-    isLoading,
-    error,
+    post: signinPost,
+    isLoading: signinLoading,
+    error: signinError,
   } = useQueryPost<SignInCredentials, { access_token: string }>({
-    url: "/auth/login",
+    url: "/auth/signin",
+  });
+
+  const {
+    post: signupPost,
+    isLoading: signupLoading,
+    error: signupError,
+  } = useQueryPost<SignUpCredentials, { access_token: string }>({
+    url: "/auth/signup",
   });
 
   const { data: user, refetch: getUser } = useQueryGet<User>({
-    url: "/user",
+    url: "/users/me",
     queryKeys: ["user-data"],
     queryConfigs: { enabled: false },
   });
 
   //signin fn
   const signIn = useCallback(
-    ({ username, password }: SignInCredentials) => {
-      postCredentials(
-        { password, username },
+    ({ email, password }: SignInCredentials) => {
+      signinPost(
+        { data: { email, password } },
         {
           onSuccess({ data: { access_token } }) {
             setCookie(undefined, "deals.access_token", access_token, {
@@ -72,7 +83,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             );
           },
           onError(error) {
-            if (error?.response?.status === 401) {
+            if (error?.response?.status === 403) {
               newToast({
                 styleType: "error",
                 title: "Wrong credentials!",
@@ -88,7 +99,50 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
       );
     },
-    [getUser, newToast, postCredentials]
+    [getUser, newToast, signinPost]
+  );
+
+  //signup fn
+  const signUp = useCallback(
+    ({ name, email, password }: SignUpCredentials) => {
+      signupPost(
+        { data: { name, email, password } },
+        {
+          onSuccess({ data: { access_token } }) {
+            setCookie(undefined, "deals.access_token", access_token, {
+              maxAge: 60 * 60 * 24 * 30, //30 days
+              path: "/",
+            });
+
+            Router.push("/app");
+
+            getUser().catch(() =>
+              newToast({
+                styleType: "error",
+                title: "Error on retrieving user account",
+                duration: 3000,
+              })
+            );
+          },
+          onError(error) {
+            if (error?.response?.status === 403) {
+              newToast({
+                styleType: "error",
+                title: "Email already registered",
+                duration: 3000,
+              });
+            }
+
+            newToast({
+              styleType: "error",
+              title: "Unexpected error, try again.",
+              duration: 3000,
+            });
+          },
+        }
+      );
+    },
+    [getUser, newToast, signupPost]
   );
 
   //handle get user
@@ -104,8 +158,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         signIn,
-        loading: isLoading,
-        error: error,
+        signinLoading,
+        signinError,
+        signUp,
+        signupLoading,
+        signupError,
         user,
       }}
     >

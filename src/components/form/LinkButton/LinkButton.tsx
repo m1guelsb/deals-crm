@@ -13,18 +13,22 @@ export const LinkButton = ({ label, href }: LinkButtonProps) => {
   );
 };
 
-const S_LinkButton = styled("a", {
-  "height": "2.5rem",
+const S_LinkButton = styled("button", {
+  height: "2.5rem",
 
-  "_alignCenter": true,
+  _alignCenter: true,
 
-  "_paddingX": "1rem",
+  _paddingX: "1rem",
 
-  "color": theme.colors.text2,
-  "cursor": "pointer",
-  "textDecoration": "underline",
+  backgroundColor: "transparent",
+  transition: "0.2s ease",
+  border: "none",
 
-  "borderRadius": theme.radii.md,
+  color: theme.colors.text2,
+  cursor: "pointer",
+  textDecoration: "underline",
+
+  borderRadius: theme.radii.md,
 
   "&:hover": {
     backgroundColor: theme.colors.background3,

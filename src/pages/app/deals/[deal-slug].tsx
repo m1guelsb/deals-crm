@@ -2,7 +2,7 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { AppLayout } from "@/components/layout";
 import { styled, theme } from "@/styles/stitches.config";
-import { useQueryGet } from "@/hooks/api/useQueryGet";
+import { useQueryGet } from "@/hooks/react-query/useQueryGet";
 import { Customer, Deal } from "@/types";
 import Router, { useRouter } from "next/router";
 import {
@@ -18,8 +18,9 @@ import { edit, trash } from "@/assets/icons";
 import { AlertDialog, EditDealDialog } from "@/components/overlay";
 import { useState } from "react";
 import { Skeleton } from "@/components/feedback";
-import { useQueryDelete } from "@/hooks/api/useQueryDelete";
+import { useQueryDelete } from "@/hooks/react-query/useQueryDelete";
 import { useToast } from "@/hooks/helpers/useToast";
+import { currencyMask } from "@/utils/masks/currencyMask";
 
 const DealSlug: NextPage = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -35,7 +36,7 @@ const DealSlug: NextPage = () => {
     },
   });
 
-  const { data: customer, isLoading: customerLoad } = useQueryGet<Customer>({
+  const { data: customer } = useQueryGet<Customer>({
     url: `/customers/${deal?.customerId}`,
     queryKeys: ["customer", deal?.customerId ?? ""],
     queryConfigs: {
@@ -94,9 +95,12 @@ const DealSlug: NextPage = () => {
               )}
             </Title>
 
-            <DisplayChip title="Price" data={deal?.price} />
+            <DisplayChip
+              title="Price"
+              data={currencyMask(String(deal?.price))}
+            />
 
-            {deal && <DealStatusTag status={deal?.status.label} />}
+            {deal && <DealStatusTag status={deal?.status} />}
             <Actions>
               <IconButton
                 onClick={() => setEditModalOpen(true)}
@@ -152,20 +156,20 @@ const DealContainer = styled("section", {
   gridGap: "1rem",
 });
 
-const CustomerDetails = styled("a", {
-  "all": "unset",
-  "height": "fit-content",
-  "display": "flex",
-  "alignItems": "center",
-  "justifyContent": "space-between",
+const CustomerDetails = styled("span", {
+  all: "unset",
+  height: "fit-content",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
 
-  "padding": "1rem",
+  padding: "1rem",
 
-  "_border": "All",
-  "borderColor": theme.colors.background3,
-  "borderRadius": theme.radii.md,
+  _border: "All",
+  borderColor: theme.colors.background3,
+  borderRadius: theme.radii.md,
 
-  "cursor": "pointer",
+  cursor: "pointer",
 
   "&:hover": {
     backgroundColor: theme.colors.background2,
@@ -177,6 +181,7 @@ const DealHeader = styled("header", {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
+  gap: "1rem",
 
   padding: "1rem",
   borderRadius: theme.radii.md,
@@ -194,5 +199,5 @@ const Description = styled("span", {
 const Actions = styled("div", {
   display: "flex",
   alignItems: "center",
-  gap: "1rem",
+  gap: "0.5rem",
 });
