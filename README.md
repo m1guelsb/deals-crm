@@ -19,7 +19,7 @@ Customer Relationship Management platform where you can manage customers, earnin
 ---
 ## Tech Stack 🔧
 - Typescript
-- Nextjs 12
+- Nextjs pages router
 - Reactjs 18
 - Stitches
 - Radix ui
